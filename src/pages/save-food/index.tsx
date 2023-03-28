@@ -1,9 +1,9 @@
 import PageContainer from "@/ui/PageContainer";
 
-export default function Home() {
+export default function SaveFood() {
   return (
     <PageContainer>
-      <h1>Main Page</h1>
+      <h1>Save Food</h1>
     </PageContainer>
   );
 }
