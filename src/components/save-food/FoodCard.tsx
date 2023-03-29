@@ -18,7 +18,7 @@ export default function FoodCard({ food }: { food: FoodItem }) {
       <CardInfo>
         <CardTitle>{food.title}</CardTitle>
         <IconWithText
-          icon="/icons/search.svg"
+          icon="/icons/user.svg"
           iconWidth={25}
           iconHeight={25}
           fontSize={14}
@@ -26,7 +26,7 @@ export default function FoodCard({ food }: { food: FoodItem }) {
           {food.author}
         </IconWithText>
         <IconWithText
-          icon="/icons/search.svg"
+          icon="/icons/clock.svg"
           iconWidth={25}
           iconHeight={25}
           fontSize={14}
@@ -34,7 +34,7 @@ export default function FoodCard({ food }: { food: FoodItem }) {
           {food.timeToTake}
         </IconWithText>
         <IconWithText
-          icon="/icons/search.svg"
+          icon="/icons/location.svg"
           iconWidth={25}
           iconHeight={25}
           fontSize={14}

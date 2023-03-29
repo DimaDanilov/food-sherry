@@ -1,3 +1,4 @@
+import Paginator from "@/components/common/paginator/Paginator";
 import FoodCard from "@/components/save-food/FoodCard";
 import { FoodItem } from "@/models/FoodItem";
 import { Container } from "@/ui/Container";
@@ -54,6 +55,54 @@ export default function SaveFood() {
       location: "ул. Ревягина, д. 25",
       imageSrc: "/images/landing_background.jpg",
     },
+    {
+      id: "7",
+      title: "Хлеб",
+      author: "Дмитрий Джаваскриптович",
+      timeToTake: "Суббота 14:00 - 18:00",
+      location: "ул. Пушкина, д. 7",
+      imageSrc: "/images/landing_background.jpg",
+    },
+    {
+      id: "8",
+      title: "Tomatoes",
+      author: "Дмитрий Джаваскриптович",
+      timeToTake: "Пятница 15:00 - 19:00",
+      location: "ул. Кукушкина, д. 10",
+      imageSrc: "/images/landing_background.jpg",
+    },
+    {
+      id: "9",
+      title: "Йогурт",
+      author: "Дмитрий Джаваскриптович",
+      timeToTake: "Вторник 8:00 - 18:00",
+      location: "ул. Таганская, д. 15",
+      imageSrc: "/images/landing_background.jpg",
+    },
+    {
+      id: "10",
+      title: "Шоколад",
+      author: "Дмитрий Джаваскриптович",
+      timeToTake: "Воскресенье 10:00 - 20:00",
+      location: "ул. Тверская, д. 28",
+      imageSrc: "/images/landing_background.jpg",
+    },
+    {
+      id: "11",
+      title: "Бананы",
+      author: "Дмитрий Джаваскриптович",
+      timeToTake: "Суббота 16:00 - 18:00",
+      location: "ул. Поповича, д. 5",
+      imageSrc: "/images/landing_background.jpg",
+    },
+    {
+      id: "12",
+      title: "Печеньки",
+      author: "Дмитрий Джаваскриптович",
+      timeToTake: "Понедельник 9:00 - 18:00",
+      location: "ул. Ревягина, д. 25",
+      imageSrc: "/images/landing_background.jpg",
+    },
   ];
 
   const foodCards = foodItems.map((f) => {
@@ -65,6 +114,7 @@ export default function SaveFood() {
       <Container>
         <FoodSearch type="text" name="food_search" id="food_search" />
         <CardsContainer>{foodCards}</CardsContainer>
+        <Paginator totalItems={100} currentPage={1} />
       </Container>
     </PageTemplate>
   );
@@ -89,5 +139,5 @@ const CardsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   margin: 3% 0;
-  gap: 10vh 5vh;
+  gap: 10vh 6vh;
 `;
