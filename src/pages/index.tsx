@@ -1,6 +1,6 @@
 import { lato } from "@/styles/fonts";
 import Button from "@/ui/Button";
-import PageContainer from "@/ui/PageContainer";
+import PageTemplate from "@/ui/PageTemplate";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
@@ -10,7 +10,7 @@ export default function Home() {
   const handleClick = () => router.push("/profile");
 
   return (
-    <PageContainer>
+    <PageTemplate>
       <Background />
       <PageContent>
         <FoodSharingInfoContainer>
@@ -19,12 +19,17 @@ export default function Home() {
             Спасайте еду вместе с нами. Заботимся об окружающей среде и помогаем
             людям
           </Description>
-          <Button fontSize={20} width="70%" onClick={handleClick}>
+          <Button
+            fontSize={20}
+            padding="20px"
+            width="70%"
+            onClick={handleClick}
+          >
             Присоединиться
           </Button>
         </FoodSharingInfoContainer>
       </PageContent>
-    </PageContainer>
+    </PageTemplate>
   );
 }
 

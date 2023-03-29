@@ -1,4 +1,4 @@
-import PageContainer from "@/ui/PageContainer";
+import PageContainer from "@/ui/PageTemplate";
 
 export default function GiveFood() {
   return (
