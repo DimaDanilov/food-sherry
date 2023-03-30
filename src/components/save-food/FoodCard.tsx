@@ -3,9 +3,14 @@ import { lato } from "@/styles/fonts";
 import Button from "@/ui/Button";
 import { IconWithText } from "@/ui/IconWithText";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 
 export default function FoodCard({ food }: { food: FoodItem }) {
+  const router = useRouter();
+
+  const handleClick = () => router.push("/product");
+
   return (
     <Card>
       <CardImage
@@ -14,6 +19,7 @@ export default function FoodCard({ food }: { food: FoodItem }) {
         width={150}
         height={150}
         style={{ width: "100%", height: "auto" }}
+        onClick={handleClick}
       />
       <CardInfo>
         <CardTitle>{food.title}</CardTitle>
@@ -41,7 +47,12 @@ export default function FoodCard({ food }: { food: FoodItem }) {
         >
           {food.location}
         </IconWithText>
-        <Button fontSize={14} margin="10px auto" padding="10px">
+        <Button
+          fontSize={14}
+          margin="10px auto"
+          padding="10px"
+          onClick={handleClick}
+        >
           Посмотреть
         </Button>
       </CardInfo>
@@ -61,6 +72,7 @@ const CardInfo = styled.div`
 
 const CardImage = styled(Image)`
   border-radius: 15px 15px 0 0;
+  cursor: pointer;
 `;
 
 const CardTitle = styled.h2`

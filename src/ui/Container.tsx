@@ -6,7 +6,7 @@ export const Container = ({ children, ...props }: IChildrenProps) => {
 };
 
 const StyledContainer = styled.div`
-  width: 95%;
+  width: 90%;
   margin: 0 auto;
   padding: 5vh 0;
 `;
