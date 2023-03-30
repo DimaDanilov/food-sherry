@@ -2,8 +2,13 @@ import { lato } from "@/styles/fonts";
 import Button from "@/ui/Button";
 import { Container } from "@/ui/Container";
 import { InputIcon } from "@/ui/InputIcon";
+import { LoginSwitch } from "@/ui/LoginSwitch";
 import PageTemplate from "@/ui/PageTemplate";
 import styled from "styled-components";
+
+const onFormSubmit = () => (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+};
 
 export default function Login() {
   return (
@@ -11,9 +16,12 @@ export default function Login() {
       <Container>
         <LoginFormContainer>
           <Title>Вход</Title>
-          <Title>SWITCH</Title>
-
-          <Form action="">
+          <LoginSwitch
+            activeBtn="left"
+            leftText="Вход"
+            rightText="Регистрация"
+          />
+          <Form action="" onSubmit={onFormSubmit()}>
             <InputIcon
               type="email"
               name="email"
