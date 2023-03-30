@@ -1,6 +1,7 @@
 import Paginator from "@/components/common/paginator/Paginator";
 import FoodCard from "@/components/save-food/FoodCard";
 import { FoodItem } from "@/models/FoodItem";
+import { colors } from "@/styles/globalStyles";
 import { Container } from "@/ui/Container";
 import PageTemplate from "@/ui/PageTemplate";
 import styled from "styled-components";
@@ -196,14 +197,14 @@ const FoodSearch = styled.input`
   width: 100%;
   padding: 10px 40px;
   border-radius: 20px;
-  border: 2px solid #bdbdbd;
+  border: 2px solid ${colors.lightgray};
 
   background: url("/icons/search.svg") no-repeat left;
   background-position: 15px 50%;
   background-size: 20px;
   :focus {
     outline: none;
-    border-color: #7d7d7d;
+    border-color: ${colors.gray};
   }
 `;
 

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
-import { lato } from "@/styles/fonts";
+import { colors, lato } from "@/styles/globalStyles";
 
 export default function Header() {
   return (
@@ -44,7 +44,7 @@ const Container = styled.header`
   position: sticky;
   width: 100%;
   top: 0;
-  background-color: #289672;
+  background-color: ${colors.mainColor};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -73,7 +73,7 @@ const NavLi = styled.li`
   align-items: center;
 `;
 const NavLink = styled(Link)`
-  color: white;
+  color: ${colors.white};
   overflow: hidden;
   white-space: nowrap;
   font-family: ${lato.style.fontFamily};

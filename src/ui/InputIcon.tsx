@@ -1,4 +1,4 @@
-import { lato } from "@/styles/fonts";
+import { colors, lato } from "@/styles/globalStyles";
 import styled from "styled-components";
 
 interface IInputIcon {
@@ -53,27 +53,27 @@ const Icon = styled.i<IFormField>`
 const Input = styled.input`
   background: transparent;
   border: none;
-  color: white;
+  color: ${colors.white};
   width: 100%;
   padding: 10px 40px;
   font-family: ${lato.style.fontFamily};
   font-size: 20px;
   font-weight: 400;
   border: 0;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid ${colors.white};
   outline: 0;
-  caret-color: white; // Typing cursor
+  caret-color: ${colors.white}; // Typing cursor
 
   &:-webkit-autofill,
   &:-webkit-autofill:hover,
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active {
-    -webkit-text-fill-color: white; // Text color when input autofilled
+    -webkit-text-fill-color: ${colors.white}; // Text color when input autofilled
     -webkit-background-clip: text;
     background-clip: text;
   }
 
   &::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+    color: ${colors.placeholder};
   }
 `;

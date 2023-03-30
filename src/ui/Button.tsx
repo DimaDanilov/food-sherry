@@ -1,4 +1,4 @@
-import { lato } from "@/styles/fonts";
+import { colors, lato } from "@/styles/globalStyles";
 import React from "react";
 import styled from "styled-components";
 
@@ -33,8 +33,8 @@ export default function Button({
       padding={padding}
       fontWeight={fontWeight || 400}
       fontSize={fontSize + "px"}
-      bgColor={styleType === "primary" ? "#289672" : "white"}
-      color={styleType === "primary" ? "white" : "#289672"}
+      bgColor={styleType === "primary" ? colors.mainColor : colors.white}
+      color={styleType === "primary" ? colors.white : colors.mainColor}
       {...props}
     >
       {children}

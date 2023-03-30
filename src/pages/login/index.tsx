@@ -1,4 +1,4 @@
-import { lato } from "@/styles/fonts";
+import { colors, lato } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import { Container } from "@/ui/Container";
 import { InputIcon } from "@/ui/InputIcon";
@@ -58,7 +58,7 @@ const LoginFormContainer = styled.div`
   width: 40%;
   margin: 0 auto;
   padding: 40px;
-  background-color: #289672;
+  background-color: ${colors.mainColor};
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -68,7 +68,7 @@ const LoginFormContainer = styled.div`
 const Title = styled.h1`
   text-align: center;
   margin: 0;
-  color: white;
+  color: ${colors.white};
   font-family: ${lato.style.fontFamily};
   font-size: 32px;
   font-weight: 400;

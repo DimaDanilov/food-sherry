@@ -1,5 +1,5 @@
 import { FoodItem } from "@/models/FoodItem";
-import { lato } from "@/styles/fonts";
+import { colors, lato } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import { IconWithText } from "@/ui/IconWithText";
 import Image from "next/image";
@@ -63,9 +63,9 @@ export default function FoodCard({ food }: { food: FoodItem }) {
 
 const Card = styled.div`
   border-radius: 15px;
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.35);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.35);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.35);
+  -webkit-box-shadow: 0px 0px 4px 0px ${colors.shadow};
+  -moz-box-shadow: 0px 0px 4px 0px ${colors.shadow};
+  box-shadow: 0px 0px 4px 0px ${colors.shadow};
 `;
 const CardInfo = styled.div`
   margin: 20px;

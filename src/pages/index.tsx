@@ -1,4 +1,4 @@
-import { lato } from "@/styles/fonts";
+import { colors, lato } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import PageTemplate from "@/ui/PageTemplate";
 import { useRouter } from "next/router";
@@ -41,7 +41,7 @@ const Background = styled.div`
   width: 100%;
   height: 100%;
   background-image: url("/images/landing_background.jpg");
-  box-shadow: inset 0 0 0 2000px rgba(26, 58, 23, 0.3);
+  box-shadow: inset 0 0 0 2000px ${colors.shadowLanding};
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -66,7 +66,7 @@ const FoodSharingInfoContainer = styled.div`
   align-items: center;
   gap: 30px;
   text-align: center;
-  color: white;
+  color: ${colors.white};
 `;
 const Title = styled.h1`
   font-family: ${lato.style.fontFamily};

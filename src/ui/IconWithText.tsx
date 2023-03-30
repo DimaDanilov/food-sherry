@@ -1,4 +1,4 @@
-import { lato } from "@/styles/fonts";
+import { lato } from "@/styles/globalStyles";
 import Image from "next/image";
 import styled from "styled-components";
 

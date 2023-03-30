@@ -1,4 +1,4 @@
-import { lato } from "@/styles/fonts";
+import { colors, lato } from "@/styles/globalStyles";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -20,8 +20,10 @@ export function FormSwitch({
   rightText,
   link,
 }: ILoginSwitchProps) {
-  let leftMainColor: string = activeBtn == "left" ? "white" : "#289672";
-  let rightMainColor: string = activeBtn == "left" ? "#289672" : "white";
+  let leftMainColor: string =
+    activeBtn == "left" ? colors.white : colors.mainColor;
+  let rightMainColor: string =
+    activeBtn == "left" ? colors.mainColor : colors.white;
 
   return (
     <ContainerLink href={link}>
@@ -42,7 +44,7 @@ const ContainerLink = styled(Link)`
 `;
 
 const SwitchElement = styled.div<ISwitchElementProps>`
-  border: 2px solid white;
+  border: 2px solid ${colors.white};
   width: 100%;
   display: flex;
   justify-content: center;

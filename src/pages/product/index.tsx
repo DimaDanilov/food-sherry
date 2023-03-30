@@ -1,5 +1,5 @@
 import { FoodItem } from "@/models/FoodItem";
-import { lato } from "@/styles/fonts";
+import { colors, lato } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import { Container } from "@/ui/Container";
 import { IconWithText } from "@/ui/IconWithText";
@@ -38,7 +38,9 @@ export default function Product() {
         </FlexItem>
         <FlexItem>
           <Title>{foodItem.title}</Title>
-          <RegularText fontColor="#848484">{foodItem.timeCreated}</RegularText>
+          <RegularText fontColor={colors.gray}>
+            {foodItem.timeCreated}
+          </RegularText>
           <IconWithText
             icon="/icons/user.svg"
             iconWidth={25}
