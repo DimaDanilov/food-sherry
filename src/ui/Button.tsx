@@ -1,4 +1,4 @@
-import { colors, lato } from "@/styles/globalStyles";
+import { COLORS } from "@/styles/globalStyles";
 import React from "react";
 import styled from "styled-components";
 
@@ -8,7 +8,7 @@ type TButton = {
   padding?: string;
 
   fontWeight?: string | number;
-  fontSize: number;
+  fontSize: string;
 
   styleType: "primary" | "secondary";
 
@@ -32,9 +32,9 @@ export default function Button({
       margin={margin || "0 auto"}
       padding={padding}
       fontWeight={fontWeight || 400}
-      fontSize={fontSize + "px"}
-      bgColor={styleType === "primary" ? colors.mainColor : colors.white}
-      color={styleType === "primary" ? colors.white : colors.mainColor}
+      fontSize={fontSize}
+      bgColor={styleType === "primary" ? COLORS.mainColor : COLORS.white}
+      color={styleType === "primary" ? COLORS.white : COLORS.mainColor}
       {...props}
     >
       {children}
@@ -61,7 +61,6 @@ const StyledButton = styled.button<IStyledBtnProps>`
   padding: ${(props) => props.padding};
   border-radius: 10px;
   cursor: pointer;
-  font-family: ${lato.style.fontFamily};
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.fontWeight};
 `;

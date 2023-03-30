@@ -1,4 +1,4 @@
-import { colors, lato } from "@/styles/globalStyles";
+import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -21,9 +21,9 @@ export function FormSwitch({
   link,
 }: ILoginSwitchProps) {
   let leftMainColor: string =
-    activeBtn == "left" ? colors.white : colors.mainColor;
+    activeBtn == "left" ? COLORS.white : COLORS.mainColor;
   let rightMainColor: string =
-    activeBtn == "left" ? colors.mainColor : colors.white;
+    activeBtn == "left" ? COLORS.mainColor : COLORS.white;
 
   return (
     <ContainerLink href={link}>
@@ -44,7 +44,7 @@ const ContainerLink = styled(Link)`
 `;
 
 const SwitchElement = styled.div<ISwitchElementProps>`
-  border: 2px solid ${colors.white};
+  border: 2px solid ${COLORS.white};
   width: 100%;
   display: flex;
   justify-content: center;
@@ -55,7 +55,5 @@ const SwitchElement = styled.div<ISwitchElementProps>`
 const Text = styled.span<{ textColor: string }>`
   margin: auto;
   color: ${(props) => props.textColor};
-  font-family: ${lato.style.fontFamily};
-  font-size: 20px;
-  font-weight: 400;
+  font-size: ${FONT_SIZE.p};
 `;

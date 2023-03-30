@@ -1,4 +1,4 @@
-import { colors, lato } from "@/styles/globalStyles";
+import { COLORS, FONT_WEIGHT } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import PageTemplate from "@/ui/PageTemplate";
 import { useRouter } from "next/router";
@@ -20,7 +20,7 @@ export default function Home() {
             людям
           </Description>
           <Button
-            fontSize={20}
+            fontSize="20px"
             padding="20px"
             width="70%"
             styleType="primary"
@@ -41,7 +41,7 @@ const Background = styled.div`
   width: 100%;
   height: 100%;
   background-image: url("/images/landing_background.jpg");
-  box-shadow: inset 0 0 0 2000px ${colors.shadowLanding};
+  box-shadow: inset 0 0 0 2000px ${COLORS.shadowLanding};
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -66,15 +66,13 @@ const FoodSharingInfoContainer = styled.div`
   align-items: center;
   gap: 30px;
   text-align: center;
-  color: ${colors.white};
+  color: ${COLORS.white};
 `;
 const Title = styled.h1`
-  font-family: ${lato.style.fontFamily};
   font-size: 60px;
-  font-weight: 400;
+  font-weight: ${FONT_WEIGHT.h1};
 `;
 const Description = styled.h2`
-  font-family: ${lato.style.fontFamily};
   font-size: 28px;
-  font-weight: 400;
+  font-weight: ${FONT_WEIGHT.h2};
 `;

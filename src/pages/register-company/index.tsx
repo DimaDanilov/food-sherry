@@ -1,4 +1,4 @@
-import { colors, lato } from "@/styles/globalStyles";
+import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import { Container } from "@/ui/Container";
 import { InputIcon } from "@/ui/InputIcon";
@@ -66,7 +66,7 @@ export default function RegisterCompany() {
             />
             <Button
               type="submit"
-              fontSize={18}
+              fontSize={FONT_SIZE.p}
               fontWeight="bold"
               padding="10px"
               styleType="secondary"
@@ -85,7 +85,7 @@ const LoginFormContainer = styled.div`
   width: 40%;
   margin: 0 auto;
   padding: 40px;
-  background-color: ${colors.mainColor};
+  background-color: ${COLORS.mainColor};
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -95,10 +95,9 @@ const LoginFormContainer = styled.div`
 const Title = styled.h1`
   text-align: center;
   margin: 0;
-  color: ${colors.white};
-  font-family: ${lato.style.fontFamily};
-  font-size: 32px;
-  font-weight: 400;
+  color: ${COLORS.white};
+  font-size: ${FONT_SIZE.h1};
+  font-weight: ${FONT_WEIGHT.h1};
 `;
 
 const Form = styled.form`

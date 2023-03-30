@@ -1,5 +1,5 @@
 import { FoodItem } from "@/models/FoodItem";
-import { colors, lato } from "@/styles/globalStyles";
+import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import { IconWithText } from "@/ui/IconWithText";
 import Image from "next/image";
@@ -27,7 +27,7 @@ export default function FoodCard({ food }: { food: FoodItem }) {
           icon="/icons/user.svg"
           iconWidth={25}
           iconHeight={25}
-          fontSize={14}
+          fontSize={FONT_SIZE.p}
         >
           {food.author}
         </IconWithText>
@@ -35,7 +35,7 @@ export default function FoodCard({ food }: { food: FoodItem }) {
           icon="/icons/clock.svg"
           iconWidth={25}
           iconHeight={25}
-          fontSize={14}
+          fontSize={FONT_SIZE.p}
         >
           {food.timeToTake}
         </IconWithText>
@@ -43,12 +43,12 @@ export default function FoodCard({ food }: { food: FoodItem }) {
           icon="/icons/location.svg"
           iconWidth={25}
           iconHeight={25}
-          fontSize={14}
+          fontSize={FONT_SIZE.p}
         >
           {food.location}
         </IconWithText>
         <Button
-          fontSize={14}
+          fontSize={FONT_SIZE.p}
           margin="10px auto"
           padding="10px"
           styleType="primary"
@@ -63,9 +63,9 @@ export default function FoodCard({ food }: { food: FoodItem }) {
 
 const Card = styled.div`
   border-radius: 15px;
-  -webkit-box-shadow: 0px 0px 4px 0px ${colors.shadow};
-  -moz-box-shadow: 0px 0px 4px 0px ${colors.shadow};
-  box-shadow: 0px 0px 4px 0px ${colors.shadow};
+  -webkit-box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
+  -moz-box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
+  box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
 `;
 const CardInfo = styled.div`
   margin: 20px;
@@ -78,7 +78,6 @@ const CardImage = styled(Image)`
 
 const CardTitle = styled.h2`
   margin: 15px auto;
-  font-family: ${lato.style.fontFamily};
-  font-size: 24;
-  font-weight: 400;
+  font-size: ${FONT_SIZE.h2};
+  font-weight: ${FONT_WEIGHT.h1};
 `;

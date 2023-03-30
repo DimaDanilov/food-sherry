@@ -1,4 +1,3 @@
-import { lato } from "@/styles/globalStyles";
 import Image from "next/image";
 import styled from "styled-components";
 
@@ -6,7 +5,7 @@ type TIconWithText = {
   icon: string;
   iconWidth: number;
   iconHeight: number;
-  fontSize: number;
+  fontSize: string;
   children: React.ReactNode;
 };
 
@@ -24,7 +23,7 @@ export function IconWithText({
   return (
     <Container>
       <Image src={icon} alt="" width={iconWidth} height={iconHeight} />
-      <Text fontSize={fontSize + "px"}>{children}</Text>
+      <Text fontSize={fontSize}>{children}</Text>
     </Container>
   );
 }
@@ -36,7 +35,5 @@ const Container = styled.div`
   margin: 5px auto;
 `;
 const Text = styled.p<TText>`
-  font-family: ${lato.style.fontFamily};
   font-size: ${(props) => props.fontSize};
-  font-weight: 400;
 `;

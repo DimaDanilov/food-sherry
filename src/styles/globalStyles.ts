@@ -5,7 +5,19 @@ export const lato = Lato({
   weight: "400",
 });
 
-export const colors = {
+export const FONT_SIZE = {
+  h1: "32px",
+  h2: "24px",
+  input: "18px",
+  p: "16px",
+};
+
+export const FONT_WEIGHT = {
+  h1: "400",
+  h2: "300",
+};
+
+export const COLORS = {
   mainColor: "#289672",
   white: "#fff",
   lightgray: "#bdbdbd",
