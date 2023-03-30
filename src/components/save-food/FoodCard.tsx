@@ -51,6 +51,7 @@ export default function FoodCard({ food }: { food: FoodItem }) {
           fontSize={14}
           margin="10px auto"
           padding="10px"
+          styleType="primary"
           onClick={handleClick}
         >
           Посмотреть

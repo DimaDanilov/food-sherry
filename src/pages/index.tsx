@@ -7,7 +7,7 @@ import styled from "styled-components";
 export default function Home() {
   const router = useRouter();
 
-  const handleClick = () => router.push("/profile");
+  const handleClick = () => router.push("/login");
 
   return (
     <PageTemplate>
@@ -23,6 +23,7 @@ export default function Home() {
             fontSize={20}
             padding="20px"
             width="70%"
+            styleType="primary"
             onClick={handleClick}
           >
             Присоединиться

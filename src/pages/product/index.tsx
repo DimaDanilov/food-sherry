@@ -92,6 +92,7 @@ export default function Product() {
             fontSize={14}
             margin="10px auto"
             padding="10px"
+            styleType="primary"
             onClick={handleClick}
           >
             Забрать

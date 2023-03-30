@@ -6,8 +6,13 @@ type TButton = {
   width?: string;
   margin?: string;
   padding?: string;
-  children: string;
+
+  fontWeight?: string | number;
   fontSize: number;
+
+  styleType: "primary" | "secondary";
+
+  children: string;
   [x: string]: any;
 };
 
@@ -15,7 +20,9 @@ export default function Button({
   width,
   margin,
   padding,
+  fontWeight,
   fontSize,
+  styleType,
   children,
   ...props
 }: TButton) {
@@ -23,8 +30,11 @@ export default function Button({
     <StyledButton
       width={width || "100%"}
       margin={margin || "0 auto"}
-      padding={padding || "0"}
+      padding={padding}
+      fontWeight={fontWeight || 400}
       fontSize={fontSize + "px"}
+      bgColor={styleType === "primary" ? "#289672" : "white"}
+      color={styleType === "primary" ? "white" : "#289672"}
       {...props}
     >
       {children}
@@ -35,13 +45,16 @@ export default function Button({
 interface IStyledBtnProps {
   width: string;
   margin: string;
-  padding: string;
+  padding?: string;
+  fontWeight: string | number;
   fontSize: string;
+  bgColor: string;
+  color: string;
 }
 
 const StyledButton = styled.button<IStyledBtnProps>`
-  background-color: #289672;
-  color: white;
+  background-color: ${(props) => props.bgColor};
+  color: ${(props) => props.color};
   border: none;
   width: ${(props) => props.width};
   margin: ${(props) => props.margin};
@@ -50,5 +63,5 @@ const StyledButton = styled.button<IStyledBtnProps>`
   cursor: pointer;
   font-family: ${lato.style.fontFamily};
   font-size: ${(props) => props.fontSize};
-  font-weight: 400;
+  font-weight: ${(props) => props.fontWeight};
 `;

@@ -28,7 +28,7 @@ export default function Header() {
         </Nav>
       </LeftContainer>
 
-      <NavLink href="/profile">
+      <NavLink href="/login">
         <Image
           src="/icons/profile_placeholder.svg"
           alt="profile"
