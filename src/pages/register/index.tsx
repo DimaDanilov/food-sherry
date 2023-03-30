@@ -10,19 +10,41 @@ const onFormSubmit = () => (event: React.FormEvent<HTMLFormElement>) => {
   event.preventDefault();
 };
 
-export default function Login() {
+export default function Register() {
   return (
     <PageTemplate>
       <Container>
         <LoginFormContainer>
-          <Title>Вход</Title>
+          <Title>Регистрация</Title>
           <FormSwitch
-            activeBtn="left"
+            activeBtn="right"
             leftText="Вход"
             rightText="Регистрация"
-            link="/register"
+            link="/login"
+          />
+          <FormSwitch
+            activeBtn="left"
+            leftText="Человек"
+            rightText="Компания"
+            link="/register-company"
           />
           <Form action="" onSubmit={onFormSubmit()}>
+            <Flex>
+              <InputIcon
+                type="text"
+                name="fname"
+                placeholder="Имя"
+                icon="/icons/user.svg"
+                required
+              />
+              <InputIcon
+                type="text"
+                name="lname"
+                placeholder="Фамилия"
+                icon="/icons/user.svg"
+                required
+              />
+            </Flex>
             <InputIcon
               type="email"
               name="email"
@@ -31,9 +53,23 @@ export default function Login() {
               required
             />
             <InputIcon
+              type="tel"
+              name="tel"
+              placeholder="Телефон"
+              icon="/icons/phone.svg"
+              required
+            />
+            <InputIcon
               type="password"
               name="password"
               placeholder="Пароль"
+              icon="/icons/password.svg"
+              required
+            />
+            <InputIcon
+              type="password"
+              name="confirm_password"
+              placeholder="Подтвердите пароль"
               icon="/icons/password.svg"
               required
             />
@@ -78,4 +114,9 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 30px;
+`;
+
+const Flex = styled.div`
+  display: flex;
+  gap: 20px;
 `;

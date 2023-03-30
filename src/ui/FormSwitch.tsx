@@ -1,10 +1,12 @@
 import { lato } from "@/styles/fonts";
+import Link from "next/link";
 import styled from "styled-components";
 
 interface ILoginSwitchProps {
   activeBtn: "left" | "right";
   leftText: string;
   rightText: string;
+  link: string;
 }
 
 interface ISwitchElementProps {
@@ -12,29 +14,31 @@ interface ISwitchElementProps {
   borderRadius: string;
 }
 
-export function LoginSwitch({
+export function FormSwitch({
   activeBtn,
   leftText,
   rightText,
+  link,
 }: ILoginSwitchProps) {
   let leftMainColor: string = activeBtn == "left" ? "white" : "#289672";
   let rightMainColor: string = activeBtn == "left" ? "#289672" : "white";
 
   return (
-    <Container>
+    <ContainerLink href={link}>
       <SwitchElement bgColor={leftMainColor} borderRadius="10px 0 0 10px">
         <Text textColor={rightMainColor}>{leftText}</Text>
       </SwitchElement>
       <SwitchElement bgColor={rightMainColor} borderRadius="0 10px 10px 0">
         <Text textColor={leftMainColor}>{rightText}</Text>
       </SwitchElement>
-    </Container>
+    </ContainerLink>
   );
 }
 
-const Container = styled.div`
+const ContainerLink = styled(Link)`
   height: 50px;
   display: flex;
+  text-decoration: none;
 `;
 
 const SwitchElement = styled.div<ISwitchElementProps>`

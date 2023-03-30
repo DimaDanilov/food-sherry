@@ -10,19 +10,32 @@ const onFormSubmit = () => (event: React.FormEvent<HTMLFormElement>) => {
   event.preventDefault();
 };
 
-export default function Login() {
+export default function RegisterCompany() {
   return (
     <PageTemplate>
       <Container>
         <LoginFormContainer>
-          <Title>Вход</Title>
+          <Title>Регистрация</Title>
           <FormSwitch
-            activeBtn="left"
+            activeBtn="right"
             leftText="Вход"
             rightText="Регистрация"
+            link="/login"
+          />
+          <FormSwitch
+            activeBtn="right"
+            leftText="Человек"
+            rightText="Компания"
             link="/register"
           />
           <Form action="" onSubmit={onFormSubmit()}>
+            <InputIcon
+              type="text"
+              name="company"
+              placeholder="Название компании"
+              icon="/icons/company.svg"
+              required
+            />
             <InputIcon
               type="email"
               name="email"
@@ -31,9 +44,23 @@ export default function Login() {
               required
             />
             <InputIcon
+              type="tel"
+              name="tel"
+              placeholder="Телефон"
+              icon="/icons/phone.svg"
+              required
+            />
+            <InputIcon
               type="password"
               name="password"
               placeholder="Пароль"
+              icon="/icons/password.svg"
+              required
+            />
+            <InputIcon
+              type="password"
+              name="confirm_password"
+              placeholder="Подтвердите пароль"
               icon="/icons/password.svg"
               required
             />
