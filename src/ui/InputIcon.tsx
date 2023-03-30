@@ -51,12 +51,7 @@ const Icon = styled.i<IFormField>`
 `;
 
 const Input = styled.input`
-  background: linear-gradient(#000, #000), linear-gradient(#000, #000),
-    linear-gradient(#000, #000);
-  background-size: 1px 20%, 100% 1px, 1px 20%;
-  background-position: bottom left, bottom center, bottom right;
-  background-repeat: no-repeat;
-
+  background: transparent;
   border: none;
   color: white;
   width: 100%;
@@ -67,6 +62,7 @@ const Input = styled.input`
   border: 0;
   border-bottom: 2px solid white;
   outline: 0;
+  caret-color: white; // Typing cursor
 
   &:-webkit-autofill,
   &:-webkit-autofill:hover,
