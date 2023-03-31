@@ -1,16 +1,19 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/globalStyles";
-import Button from "@/ui/Button";
+import { AuthForm } from "@/ui/AuthForm";
 import { Container } from "@/ui/Container";
-import { InputIcon } from "@/ui/InputIcon";
+import { FormInput } from "@/ui/FormInput";
 import { FormSwitch } from "@/ui/FormSwitch";
 import PageTemplate from "@/ui/PageTemplate";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 
-const onFormSubmit = () => (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-};
-
 export default function Register() {
+  const router = useRouter();
+
+  const onFormSubmit = () => (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    router.push("/login");
+  };
   return (
     <PageTemplate>
       <Container>
@@ -28,16 +31,20 @@ export default function Register() {
             rightText="Компания"
             link="/register-company"
           />
-          <Form action="" onSubmit={onFormSubmit()}>
+          <AuthForm
+            action=""
+            onSubmit={onFormSubmit()}
+            btnText="Зарегистрироваться"
+          >
             <Flex>
-              <InputIcon
+              <FormInput
                 type="text"
                 name="fname"
                 placeholder="Имя"
                 icon="/icons/user.svg"
                 required
               />
-              <InputIcon
+              <FormInput
                 type="text"
                 name="lname"
                 placeholder="Фамилия"
@@ -45,45 +52,35 @@ export default function Register() {
                 required
               />
             </Flex>
-            <InputIcon
+            <FormInput
               type="email"
               name="email"
               placeholder="Почта"
               icon="/icons/mail.svg"
               required
             />
-            <InputIcon
+            <FormInput
               type="tel"
               name="tel"
               placeholder="Телефон"
               icon="/icons/phone.svg"
               required
             />
-            <InputIcon
+            <FormInput
               type="password"
               name="password"
               placeholder="Пароль"
               icon="/icons/password.svg"
               required
             />
-            <InputIcon
+            <FormInput
               type="password"
               name="confirm_password"
               placeholder="Подтвердите пароль"
               icon="/icons/password.svg"
               required
             />
-            <Button
-              type="submit"
-              fontSize={FONT_SIZE.p}
-              fontWeight="bold"
-              padding="10px"
-              styleType="secondary"
-              value="Subscribe!"
-            >
-              Войти
-            </Button>
-          </Form>
+          </AuthForm>
         </LoginFormContainer>
       </Container>
     </PageTemplate>
@@ -107,12 +104,6 @@ const Title = styled.h1`
   color: ${COLORS.white};
   font-size: ${FONT_SIZE.h1};
   font-weight: ${FONT_WEIGHT.h1};
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
 `;
 
 const Flex = styled.div`

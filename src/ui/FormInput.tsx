@@ -13,7 +13,7 @@ interface IFormField {
   icon: string;
 }
 
-export function InputIcon({
+export function FormInput({
   type,
   name,
   placeholder,

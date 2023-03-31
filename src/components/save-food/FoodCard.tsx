@@ -79,5 +79,5 @@ const CardImage = styled(Image)`
 const CardTitle = styled.h2`
   margin: 15px auto;
   font-size: ${FONT_SIZE.h2};
-  font-weight: ${FONT_WEIGHT.h1};
+  font-weight: ${FONT_WEIGHT.h2};
 `;

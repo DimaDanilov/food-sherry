@@ -15,7 +15,6 @@ export default function Header() {
             height={40}
           />
         </NavLink>
-
         <Nav>
           <NavUl>
             <NavLi>

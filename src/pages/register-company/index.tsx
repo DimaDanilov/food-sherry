@@ -1,16 +1,19 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/globalStyles";
-import Button from "@/ui/Button";
+import { AuthForm } from "@/ui/AuthForm";
 import { Container } from "@/ui/Container";
-import { InputIcon } from "@/ui/InputIcon";
+import { FormInput } from "@/ui/FormInput";
 import { FormSwitch } from "@/ui/FormSwitch";
 import PageTemplate from "@/ui/PageTemplate";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 
-const onFormSubmit = () => (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-};
-
 export default function RegisterCompany() {
+  const router = useRouter();
+
+  const onFormSubmit = () => (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    router.push("/login");
+  };
   return (
     <PageTemplate>
       <Container>
@@ -28,53 +31,47 @@ export default function RegisterCompany() {
             rightText="Компания"
             link="/register"
           />
-          <Form action="" onSubmit={onFormSubmit()}>
-            <InputIcon
+          <AuthForm
+            action=""
+            onSubmit={onFormSubmit()}
+            btnText="Зарегистрироваться"
+          >
+            <FormInput
               type="text"
               name="company"
               placeholder="Название компании"
               icon="/icons/company.svg"
               required
             />
-            <InputIcon
+            <FormInput
               type="email"
               name="email"
               placeholder="Почта"
               icon="/icons/mail.svg"
               required
             />
-            <InputIcon
+            <FormInput
               type="tel"
               name="tel"
               placeholder="Телефон"
               icon="/icons/phone.svg"
               required
             />
-            <InputIcon
+            <FormInput
               type="password"
               name="password"
               placeholder="Пароль"
               icon="/icons/password.svg"
               required
             />
-            <InputIcon
+            <FormInput
               type="password"
               name="confirm_password"
               placeholder="Подтвердите пароль"
               icon="/icons/password.svg"
               required
             />
-            <Button
-              type="submit"
-              fontSize={FONT_SIZE.p}
-              fontWeight="bold"
-              padding="10px"
-              styleType="secondary"
-              value="Subscribe!"
-            >
-              Войти
-            </Button>
-          </Form>
+          </AuthForm>
         </LoginFormContainer>
       </Container>
     </PageTemplate>
@@ -98,10 +95,4 @@ const Title = styled.h1`
   color: ${COLORS.white};
   font-size: ${FONT_SIZE.h1};
   font-weight: ${FONT_WEIGHT.h1};
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
 `;
