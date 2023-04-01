@@ -6,6 +6,12 @@ import { FormSwitch } from "@/ui/FormSwitch";
 import PageTemplate from "@/ui/PageTemplate";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import {
+  HiOutlineBuildingOffice2,
+  HiOutlineEnvelope,
+  HiOutlinePhone,
+  HiOutlineKey,
+} from "react-icons/hi2";
 
 export default function RegisterCompany() {
   const router = useRouter();
@@ -40,35 +46,40 @@ export default function RegisterCompany() {
               type="text"
               name="company"
               placeholder="Название компании"
-              icon="/icons/company.svg"
+              icon={<HiOutlineBuildingOffice2 color={COLORS.white} />}
+              iconScale={1.5}
               required
             />
             <FormInput
               type="email"
               name="email"
               placeholder="Почта"
-              icon="/icons/mail.svg"
+              icon={<HiOutlineEnvelope color={COLORS.white} />}
+              iconScale={1.5}
               required
             />
             <FormInput
               type="tel"
               name="tel"
               placeholder="Телефон"
-              icon="/icons/phone.svg"
+              icon={<HiOutlinePhone color={COLORS.white} />}
+              iconScale={1.5}
               required
             />
             <FormInput
               type="password"
               name="password"
               placeholder="Пароль"
-              icon="/icons/password.svg"
+              icon={<HiOutlineKey color={COLORS.white} />}
+              iconScale={1.5}
               required
             />
             <FormInput
               type="password"
               name="confirm_password"
               placeholder="Подтвердите пароль"
-              icon="/icons/password.svg"
+              icon={<HiOutlineKey color={COLORS.white} />}
+              iconScale={1.5}
               required
             />
           </AuthForm>

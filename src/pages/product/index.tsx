@@ -6,6 +6,14 @@ import { Container } from "@/ui/Container";
 import { IconWithText } from "@/ui/IconWithText";
 import PageTemplate from "@/ui/PageTemplate";
 import Image from "next/image";
+import {
+  HiOutlineUser,
+  HiOutlineCake,
+  HiOutlineSquares2X2,
+  HiOutlineClock,
+  HiOutlineMapPin,
+  HiOutlinePhone,
+} from "react-icons/hi2";
 import styled from "styled-components";
 
 export default function Product() {
@@ -30,50 +38,44 @@ export default function Product() {
             {foodItem.timeCreated}
           </RegularText>
           <IconWithText
-            icon="/icons/user.svg"
-            iconWidth={25}
-            iconHeight={25}
+            icon={<HiOutlineUser />}
+            iconScale={1.3}
             fontSize={FONT_SIZE.p}
           >
             {foodItem.author}
           </IconWithText>
           <IconWithText
-            icon="/icons/food.svg"
-            iconWidth={25}
-            iconHeight={25}
+            icon={<HiOutlineCake />}
+            iconScale={1.3}
             fontSize={FONT_SIZE.p}
           >
             {foodItem.category}
           </IconWithText>
           <RegularText>{foodItem.description}</RegularText>
           <IconWithText
-            icon="/icons/shop.svg"
-            iconWidth={25}
-            iconHeight={25}
+            icon={<HiOutlineSquares2X2 />}
+            iconScale={1.3}
             fontSize={FONT_SIZE.p}
           >
             {foodItem.amount}
           </IconWithText>
           <IconWithText
-            icon="/icons/clock.svg"
-            iconWidth={25}
-            iconHeight={25}
+            icon={<HiOutlineClock />}
+            iconScale={1.3}
             fontSize={FONT_SIZE.p}
           >
             {foodItem.timeToTake}
           </IconWithText>
           <IconWithText
-            icon="/icons/location.svg"
-            iconWidth={25}
-            iconHeight={25}
+            icon={<HiOutlineMapPin />}
+            iconScale={1.3}
             fontSize={FONT_SIZE.p}
           >
             {foodItem.location}
           </IconWithText>
           <IconWithText
-            icon="/icons/phone.svg"
-            iconWidth={25}
-            iconHeight={25}
+            icon={<HiOutlinePhone />}
+            iconScale={1.3}
             fontSize={FONT_SIZE.p}
           >
             {foodItem.phone}

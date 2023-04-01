@@ -1,16 +1,14 @@
 import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
 import styled from "styled-components";
+import { Icon } from "./Icon";
 
 interface IInputIcon {
   type: string;
   name: string;
   placeholder?: string;
-  icon: string;
+  icon: JSX.Element;
+  iconScale?: number;
   required?: boolean;
-}
-
-interface IFormField {
-  icon: string;
 }
 
 export function FormInput({
@@ -18,11 +16,13 @@ export function FormInput({
   name,
   placeholder,
   icon,
+  iconScale,
   required,
 }: IInputIcon) {
+  console.log(icon);
   return (
     <Container>
-      <Icon icon={icon} />
+      <StyledIcon icon={icon} iconScale={iconScale} />
       <Input
         type={type}
         name={name}
@@ -38,15 +38,12 @@ const Container = styled.div`
   position: relative;
 `;
 
-const Icon = styled.i<IFormField>`
+const StyledIcon = styled(Icon)`
   position: absolute;
-  width: 100%;
+  width: 40px;
   height: 100%;
   top: 0;
   left: 0;
-  background: url(${(props) => props.icon}) no-repeat left;
-  background-position: 5px 50%;
-  background-size: 25px;
   pointer-events: none;
 `;
 

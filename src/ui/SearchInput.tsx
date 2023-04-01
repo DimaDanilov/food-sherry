@@ -1,16 +1,14 @@
 import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
 import styled from "styled-components";
+import { Icon } from "./Icon";
 
 interface IInputIcon {
   type: string;
   name: string;
   placeholder?: string;
-  icon: string;
+  icon: JSX.Element;
+  iconScale?: number;
   required?: boolean;
-}
-
-interface IFormField {
-  icon: string;
 }
 
 export default function SearchInput({
@@ -18,29 +16,41 @@ export default function SearchInput({
   name,
   placeholder,
   icon,
+  iconScale,
   required,
 }: IInputIcon) {
   return (
-    <Input
-      type={type}
-      name={name}
-      id={name}
-      placeholder={placeholder}
-      required={required}
-      icon={icon}
-    />
+    <Container>
+      <StyledIcon icon={icon} iconScale={iconScale} />
+      <Input
+        type={type}
+        name={name}
+        id={name}
+        placeholder={placeholder}
+        required={required}
+      />
+    </Container>
   );
 }
 
-const Input = styled.input<IFormField>`
+const Container = styled.div`
+  position: relative;
+`;
+
+const StyledIcon = styled(Icon)`
+  position: absolute;
+  width: 40px;
+  height: 100%;
+  top: 0;
+  left: 5px;
+  pointer-events: none;
+`;
+
+const Input = styled.input`
   width: 100%;
   padding: 10px 45px;
   border-radius: 20px;
   border: 2px solid ${COLORS.lightgray};
-
-  background: url(${(props) => props.icon}) no-repeat left;
-  background-position: 15px 50%;
-  background-size: 20px;
   font-size: ${FONT_SIZE.input};
   :focus {
     outline: none;

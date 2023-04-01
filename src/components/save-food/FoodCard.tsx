@@ -4,6 +4,11 @@ import Button from "@/ui/Button";
 import { IconWithText } from "@/ui/IconWithText";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import {
+  HiOutlineUser,
+  HiOutlineClock,
+  HiOutlineMapPin,
+} from "react-icons/hi2";
 import styled from "styled-components";
 
 export default function FoodCard({ food }: { food: FoodItem }) {
@@ -24,25 +29,22 @@ export default function FoodCard({ food }: { food: FoodItem }) {
       <CardInfo>
         <CardTitle>{food.title}</CardTitle>
         <IconWithText
-          icon="/icons/user.svg"
-          iconWidth={25}
-          iconHeight={25}
+          icon={<HiOutlineUser />}
+          iconScale={1.3}
           fontSize={FONT_SIZE.p}
         >
           {food.author}
         </IconWithText>
         <IconWithText
-          icon="/icons/clock.svg"
-          iconWidth={25}
-          iconHeight={25}
+          icon={<HiOutlineClock />}
+          iconScale={1.3}
           fontSize={FONT_SIZE.p}
         >
           {food.timeToTake}
         </IconWithText>
         <IconWithText
-          icon="/icons/location.svg"
-          iconWidth={25}
-          iconHeight={25}
+          icon={<HiOutlineMapPin />}
+          iconScale={1.3}
           fontSize={FONT_SIZE.p}
         >
           {food.location}

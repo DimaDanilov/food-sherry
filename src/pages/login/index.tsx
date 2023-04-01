@@ -6,6 +6,7 @@ import { FormSwitch } from "@/ui/FormSwitch";
 import PageTemplate from "@/ui/PageTemplate";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import { HiOutlineEnvelope, HiOutlineKey } from "react-icons/hi2";
 
 export default function Login() {
   const router = useRouter();
@@ -31,14 +32,16 @@ export default function Login() {
               type="email"
               name="email"
               placeholder="Почта"
-              icon="/icons/mail.svg"
+              icon={<HiOutlineEnvelope color={COLORS.white} />}
+              iconScale={1.5}
               required
             />
             <FormInput
               type="password"
               name="password"
               placeholder="Пароль"
-              icon="/icons/password.svg"
+              icon={<HiOutlineKey color={COLORS.white} />}
+              iconScale={1.5}
               required
             />
           </AuthForm>

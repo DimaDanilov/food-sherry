@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
 import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
+import { Icon } from "@/ui/Icon";
+import { HiUserCircle } from "react-icons/hi2";
 
 export default function Header() {
   return (
@@ -28,12 +30,7 @@ export default function Header() {
       </LeftContainer>
 
       <NavLink href="/login">
-        <Image
-          src="/icons/profile_placeholder.svg"
-          alt="profile"
-          width={40}
-          height={40}
-        />
+        <Icon icon={<HiUserCircle />} iconScale={2.5} />
       </NavLink>
     </Container>
   );
@@ -73,7 +70,6 @@ const NavLi = styled.li`
 `;
 const NavLink = styled(Link)`
   color: ${COLORS.white};
-  overflow: hidden;
   white-space: nowrap;
   font-size: ${FONT_SIZE.p};
   text-decoration: none;

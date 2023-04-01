@@ -1,28 +1,22 @@
-import Image from "next/image";
 import styled from "styled-components";
+import { Icon } from "./Icon";
 
 type TIconWithText = {
-  icon: string;
-  iconWidth: number;
-  iconHeight: number;
+  icon: JSX.Element;
+  iconScale?: number;
   fontSize: string;
   children: React.ReactNode;
 };
 
-type TText = {
-  fontSize: string;
-};
-
 export function IconWithText({
   icon,
-  iconWidth,
-  iconHeight,
+  iconScale,
   fontSize,
   children,
 }: TIconWithText) {
   return (
     <Container>
-      <Image src={icon} alt="" width={iconWidth} height={iconHeight} />
+      <Icon icon={icon} iconScale={iconScale} />
       <Text fontSize={fontSize}>{children}</Text>
     </Container>
   );
@@ -32,8 +26,8 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 5px auto;
+  margin: 10px auto;
 `;
-const Text = styled.p<TText>`
+const Text = styled.p<{ fontSize: string }>`
   font-size: ${(props) => props.fontSize};
 `;
