@@ -6,21 +6,29 @@ import { useRouter } from "next/router";
 import { HiUserCircle } from "react-icons/hi2";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import FoodCard from "../../common/FoodCard";
+import { foodFakeArray } from "@/fake-data/foodArray";
+import { FoodItem } from "@/models/FoodItem";
 
 export default function ProfileScreen() {
   const router = useRouter();
   const userData: IUserData = userFakeData;
-  const [productsToShow, setProductsToShow] = useState<string | undefined>(
+  const [productsFilter, setProductsFilter] = useState<string | undefined>(
     undefined
   );
+
+  const productsData: Array<FoodItem> = foodFakeArray;
+  const productsItems = productsData.map((product) => (
+    <FoodCard key={product.id} food={product} titleFontSize={FONT_SIZE.h3} />
+  ));
 
   useEffect(() => {
     if (!router.isReady) return;
     const ads = router.query.ads;
     if (ads === "given" || ads === "taken") {
-      setProductsToShow(ads);
+      setProductsFilter(ads);
     } else {
-      setProductsToShow("open");
+      setProductsFilter("open");
     }
   }, [router.isReady, router.query]);
 
@@ -40,9 +48,9 @@ export default function ProfileScreen() {
       <ProfileInfo>
         <ProfileBriefData>
           <HiUserCircle fontSize={200} width="10px" color={COLORS.mainColor} />
-          <h1>
+          <Title>
             {userData.name} {userData.surname}
-          </h1>
+          </Title>
         </ProfileBriefData>
         <InfoDetails>Помогает с {userData.registrationDate}</InfoDetails>
         <InfoDetails>Создал объявлений: {userData.adsCreated}</InfoDetails>
@@ -50,27 +58,27 @@ export default function ProfileScreen() {
       </ProfileInfo>
 
       <ProductsTable>
-        <ProductsHeader>
+        <ProductsHeader activeItem={productsFilter}>
           <HeaderEl
-            active={productsToShow === "open"}
+            active={productsFilter === "open"}
             onClick={() => handleClick("")}
           >
             Текущие объявления
           </HeaderEl>
           <HeaderEl
-            active={productsToShow === "given"}
+            active={productsFilter === "given"}
             onClick={() => handleClick("given")}
           >
             Отдано
           </HeaderEl>
           <HeaderEl
-            active={productsToShow === "taken"}
+            active={productsFilter === "taken"}
             onClick={() => handleClick("taken")}
           >
             Забрано
           </HeaderEl>
         </ProductsHeader>
-        <ProductsContainer></ProductsContainer>
+        <ProductsContainer>{productsItems}</ProductsContainer>
       </ProductsTable>
     </ProfileContainer>
   );
@@ -89,6 +97,9 @@ const ProfileBriefData = styled.div`
   margin: 0 auto 20px;
   text-align: center;
 `;
+const Title = styled.h1`
+  font-size: ${FONT_SIZE.h1};
+`;
 const ProductsTable = styled.div`
   width: 60%;
 `;
@@ -97,18 +108,22 @@ const InfoDetails = styled.h3`
   font-weight: ${FONT_WEIGHT.h3};
 `;
 
-const ProductsHeader = styled.div`
+const ProductsHeader = styled.div<{ activeItem?: string | undefined }>`
   display: flex;
   align-items: end;
   div:nth-child(1) {
-    border-radius: 11px 0 0 0;
+    border-radius: ${(props) =>
+      props.activeItem === "open" ? "11px 11px 0 0" : "11px 0 0 0"};
   }
   div:nth-child(2) {
+    border-radius: ${(props) =>
+      props.activeItem === "given" && "11px 11px 0 0"};
     border-left-style: none;
     border-right-style: none;
   }
   div:nth-last-child(1) {
-    border-radius: 0 11px 0 0;
+    border-radius: ${(props) =>
+      props.activeItem === "taken" ? "11px 11px 0 0" : "0 11px 0 0"};
   }
 `;
 const HeaderEl = styled.div<{ active?: boolean }>`
@@ -127,4 +142,8 @@ const ProductsContainer = styled.div`
   border: 2px solid ${COLORS.mainColor};
   border-radius: 0 0 11px 11px;
   min-height: 150px;
+  padding: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
 `;

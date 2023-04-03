@@ -1,18 +1,18 @@
 import Paginator from "./paginator/Paginator";
 import { foodFakeArray } from "@/fake-data/foodArray";
 import { FoodItem } from "@/models/FoodItem";
-import { COLORS } from "@/styles/globalStyles";
+import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
 import { Container } from "@/ui/Container";
 import SearchInput from "@/ui/SearchInput";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import styled from "styled-components";
-import FoodCard from "./card/FoodCard";
+import FoodCard from "../../common/FoodCard";
 
 export default function SaveFoodScreen() {
   const foodItems: FoodItem[] = foodFakeArray;
 
   const foodCards = foodItems.map((f) => {
-    return <FoodCard key={f.id} food={f} />;
+    return <FoodCard key={f.id} food={f} titleFontSize={FONT_SIZE.h2} />;
   });
 
   return (

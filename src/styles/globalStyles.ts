@@ -8,7 +8,7 @@ export const lato = Lato({
 export const FONT_SIZE = {
   h1: "32px",
   h2: "24px",
-  h3: "20px",
+  h3: "22px",
   input: "18px",
   p: "16px",
 };

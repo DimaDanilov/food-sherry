@@ -11,7 +11,13 @@ import {
 } from "react-icons/hi2";
 import styled from "styled-components";
 
-export default function FoodCard({ food }: { food: FoodItem }) {
+export default function FoodCard({
+  food,
+  titleFontSize,
+}: {
+  food: FoodItem;
+  titleFontSize: string;
+}) {
   const router = useRouter();
 
   const handleClick = () => router.push("/product");
@@ -27,7 +33,7 @@ export default function FoodCard({ food }: { food: FoodItem }) {
         onClick={handleClick}
       />
       <CardInfo>
-        <CardTitle>{food.title}</CardTitle>
+        <CardTitle fontSize={titleFontSize}>{food.title}</CardTitle>
         <IconWithText
           icon={<HiOutlineUser />}
           iconScale={1.3}
@@ -70,7 +76,7 @@ const Card = styled.div`
   box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
 `;
 const CardInfo = styled.div`
-  margin: 20px;
+  margin: 10px 20px;
 `;
 
 const CardImage = styled(Image)`
@@ -78,8 +84,8 @@ const CardImage = styled(Image)`
   cursor: pointer;
 `;
 
-const CardTitle = styled.h2`
+const CardTitle = styled.h2<{ fontSize: string }>`
   margin: 15px auto;
-  font-size: ${FONT_SIZE.h2};
+  font-size: ${(props) => props.fontSize};
   font-weight: ${FONT_WEIGHT.h2};
 `;
