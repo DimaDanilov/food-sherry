@@ -14,7 +14,7 @@ body {
 /* Works on Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #289672 auto;
+  scrollbar-color: #289672 transparent;
 }
 
 /* Works on Chrome, Edge, and Safari */
