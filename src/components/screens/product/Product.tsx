@@ -1,4 +1,4 @@
-import { productData } from "@/fake-data/productData";
+import { productFakeData } from "@/fake-data/productData";
 import { FoodItem } from "@/models/FoodItem";
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
@@ -16,7 +16,7 @@ import {
 import styled from "styled-components";
 
 export default function ProductScreen() {
-  const foodItem: FoodItem = productData;
+  const foodItem: FoodItem = productFakeData;
 
   const handleClick = () => console.log("click");
 

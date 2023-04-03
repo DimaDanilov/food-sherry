@@ -10,4 +10,5 @@ export interface FoodItem {
   location: string;
   phone: string;
   imageSrc: string;
+  status: "open" | "reserved" | "closed";
 }

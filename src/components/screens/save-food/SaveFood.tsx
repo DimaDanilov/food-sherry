@@ -1,5 +1,5 @@
 import Paginator from "./paginator/Paginator";
-import { foodArray } from "@/fake-data/foodArray";
+import { foodFakeArray } from "@/fake-data/foodArray";
 import { FoodItem } from "@/models/FoodItem";
 import { COLORS } from "@/styles/globalStyles";
 import { Container } from "@/ui/Container";
@@ -9,7 +9,7 @@ import styled from "styled-components";
 import FoodCard from "./card/FoodCard";
 
 export default function SaveFoodScreen() {
-  const foodItems: FoodItem[] = foodArray;
+  const foodItems: FoodItem[] = foodFakeArray;
 
   const foodCards = foodItems.map((f) => {
     return <FoodCard key={f.id} food={f} />;

@@ -8,6 +8,7 @@ export const lato = Lato({
 export const FONT_SIZE = {
   h1: "32px",
   h2: "24px",
+  h3: "20px",
   input: "18px",
   p: "16px",
 };
@@ -15,6 +16,7 @@ export const FONT_SIZE = {
 export const FONT_WEIGHT = {
   h1: "400",
   h2: "300",
+  h3: "200",
 };
 
 export const COLORS = {

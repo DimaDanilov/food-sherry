@@ -1,6 +1,6 @@
 import { FoodItem } from "@/models/FoodItem";
 
-export const foodArray: FoodItem[] = [
+export const foodFakeArray: FoodItem[] = [
   {
     id: "1",
     title: "Хлеб",
@@ -14,6 +14,7 @@ export const foodArray: FoodItem[] = [
     location: "ул. Пушкина, д. 7",
     phone: "+79031112233",
     imageSrc: "/images/landing_background.jpg",
+    status: "open",
   },
   {
     id: "2",
@@ -28,6 +29,7 @@ export const foodArray: FoodItem[] = [
     location: "ул. Кукушкина, д. 10",
     phone: "+79031112233",
     imageSrc: "/images/landing_background.jpg",
+    status: "open",
   },
   {
     id: "3",
@@ -42,6 +44,7 @@ export const foodArray: FoodItem[] = [
     location: "ул. Таганская, д. 15",
     phone: "+79031112233",
     imageSrc: "/images/landing_background.jpg",
+    status: "open",
   },
   {
     id: "4",
@@ -56,6 +59,7 @@ export const foodArray: FoodItem[] = [
     location: "ул. Тверская, д. 28",
     phone: "+79031112233",
     imageSrc: "/images/landing_background.jpg",
+    status: "open",
   },
   {
     id: "5",
@@ -70,6 +74,7 @@ export const foodArray: FoodItem[] = [
     location: "ул. Поповича, д. 5",
     phone: "+79031112233",
     imageSrc: "/images/landing_background.jpg",
+    status: "open",
   },
   {
     id: "6",
@@ -84,6 +89,7 @@ export const foodArray: FoodItem[] = [
     location: "ул. Ревягина, д. 25",
     phone: "+79031112233",
     imageSrc: "/images/landing_background.jpg",
+    status: "open",
   },
   {
     id: "7",
@@ -98,6 +104,7 @@ export const foodArray: FoodItem[] = [
     location: "ул. Пушкина, д. 7",
     phone: "+79031112233",
     imageSrc: "/images/landing_background.jpg",
+    status: "closed",
   },
   {
     id: "8",
@@ -112,6 +119,7 @@ export const foodArray: FoodItem[] = [
     location: "ул. Кукушкина, д. 10",
     phone: "+79031112233",
     imageSrc: "/images/landing_background.jpg",
+    status: "open",
   },
   {
     id: "9",
@@ -126,6 +134,7 @@ export const foodArray: FoodItem[] = [
     location: "ул. Таганская, д. 15",
     phone: "+79031112233",
     imageSrc: "/images/landing_background.jpg",
+    status: "reserved",
   },
   {
     id: "10",
@@ -140,6 +149,7 @@ export const foodArray: FoodItem[] = [
     location: "ул. Тверская, д. 28",
     phone: "+79031112233",
     imageSrc: "/images/landing_background.jpg",
+    status: "closed",
   },
   {
     id: "11",
@@ -154,6 +164,7 @@ export const foodArray: FoodItem[] = [
     location: "ул. Поповича, д. 5",
     phone: "+79031112233",
     imageSrc: "/images/landing_background.jpg",
+    status: "open",
   },
   {
     id: "12",
@@ -168,5 +179,6 @@ export const foodArray: FoodItem[] = [
     location: "ул. Ревягина, д. 25",
     phone: "+79031112233",
     imageSrc: "/images/landing_background.jpg",
+    status: "reserved",
   },
 ];

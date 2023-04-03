@@ -1,6 +1,6 @@
 import { FoodItem } from "@/models/FoodItem";
 
-export const productData: FoodItem = {
+export const productFakeData: FoodItem = {
   id: "1",
   title: "Хлеб",
   author: "Дмитрий Джаваскриптович",
@@ -13,4 +13,5 @@ export const productData: FoodItem = {
   location: "ул. Пушкина, д. 7",
   phone: "+79031112233",
   imageSrc: "/images/landing_background.jpg",
+  status: "open",
 };
