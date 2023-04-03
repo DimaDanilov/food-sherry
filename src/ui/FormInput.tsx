@@ -19,7 +19,6 @@ export function FormInput({
   iconScale,
   required,
 }: IInputIcon) {
-  console.log(icon);
   return (
     <Container>
       <StyledIcon icon={icon} iconScale={iconScale} />

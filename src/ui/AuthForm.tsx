@@ -1,16 +1,22 @@
 import styled from "styled-components";
 import Button from "./Button";
 import { FONT_SIZE } from "@/styles/globalStyles";
-import { IChildrenProps } from "@/models/ChildrenProps";
+import { PropsWithChildren } from "react";
 
-interface IAuthForm extends IChildrenProps {
+interface IAuthForm {
   action: string;
   btnText: string;
+  onFormSubmit: (arg0: any) => void;
 }
 
-export function AuthForm({ action, btnText, children, ...props }: IAuthForm) {
+export function AuthForm({
+  action,
+  btnText,
+  children,
+  onFormSubmit,
+}: PropsWithChildren<IAuthForm>) {
   return (
-    <Form action={action} {...props}>
+    <Form action={action} onSubmit={onFormSubmit}>
       {children}
       <Button
         type="submit"

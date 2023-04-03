@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { IChildrenProps } from "../models/ChildrenProps";
+import { PropsWithChildren } from "react";
 
-export const Container = ({ children, ...props }: IChildrenProps) => {
+export const Container = ({ children, ...props }: PropsWithChildren) => {
   return <StyledContainer {...props}>{children}</StyledContainer>;
 };
 

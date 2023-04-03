@@ -1,15 +1,14 @@
-import Paginator from "@/components/common/paginator/Paginator";
-import FoodCard from "@/components/save-food/FoodCard";
+import Paginator from "./paginator/Paginator";
 import { foodArray } from "@/fake-data/foodArray";
 import { FoodItem } from "@/models/FoodItem";
 import { COLORS } from "@/styles/globalStyles";
 import { Container } from "@/ui/Container";
-import PageTemplate from "@/ui/PageTemplate";
 import SearchInput from "@/ui/SearchInput";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import styled from "styled-components";
+import FoodCard from "./card/FoodCard";
 
-export default function SaveFood() {
+export default function SaveFoodScreen() {
   const foodItems: FoodItem[] = foodArray;
 
   const foodCards = foodItems.map((f) => {
@@ -17,18 +16,16 @@ export default function SaveFood() {
   });
 
   return (
-    <PageTemplate>
-      <Container>
-        <SearchInput
-          type="text"
-          name="food_search"
-          icon={<HiOutlineMagnifyingGlass color={COLORS.gray} />}
-          iconScale={1.3}
-        />
-        <CardsContainer>{foodCards}</CardsContainer>
-        <Paginator totalItems={100} currentPage={1} />
-      </Container>
-    </PageTemplate>
+    <Container>
+      <SearchInput
+        type="text"
+        name="food_search"
+        icon={<HiOutlineMagnifyingGlass color={COLORS.gray} />}
+        iconScale={1.3}
+      />
+      <CardsContainer>{foodCards}</CardsContainer>
+      <Paginator totalItems={100} currentPage={1} />
+    </Container>
   );
 }
 

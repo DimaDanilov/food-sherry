@@ -1,5 +1,9 @@
-import { IMeta } from "@/models/Meta";
 import Head from "next/head";
+
+interface IMeta {
+  title: string;
+  description?: string;
+}
 
 export function Meta({ title, description }: IMeta) {
   return (
