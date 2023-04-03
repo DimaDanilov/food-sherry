@@ -6,33 +6,35 @@ import { PropsWithChildren } from "react";
 interface IAuthForm {
   action: string;
   btnText: string;
+  styleType: "secondary" | "primary";
   onFormSubmit: (arg0: any) => void;
 }
 
-export function AuthForm({
+export function Form({
   action,
   btnText,
+  styleType,
   children,
   onFormSubmit,
 }: PropsWithChildren<IAuthForm>) {
   return (
-    <Form action={action} onSubmit={onFormSubmit}>
+    <CustomForm action={action} onSubmit={onFormSubmit}>
       {children}
       <Button
         type="submit"
         fontSize={FONT_SIZE.p}
         fontWeight="bold"
         padding="10px"
-        styleType="secondary"
+        styleType={styleType}
         value="Submit"
       >
         {btnText}
       </Button>
-    </Form>
+    </CustomForm>
   );
 }
 
-const Form = styled.form`
+const CustomForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 30px;

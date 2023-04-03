@@ -5,7 +5,7 @@ import { ProfileInfo } from "./profile-sections/ProfileInfo";
 
 export default function ProfileScreen() {
   return (
-    <ProfileContainer>
+    <PageContainer>
       <ProfileInfoContainer>
         <ProfileInfo />
       </ProfileInfoContainer>
@@ -13,11 +13,11 @@ export default function ProfileScreen() {
       <ProfileProductsContainer>
         <ProfileProducts />
       </ProfileProductsContainer>
-    </ProfileContainer>
+    </PageContainer>
   );
 }
 
-const ProfileContainer = styled(Container)`
+const PageContainer = styled(Container)`
   display: flex;
   justify-content: space-between;
 `;

@@ -1,5 +1,5 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/globalStyles";
-import { AuthForm } from "@/ui/AuthForm";
+import { Form } from "@/ui/Form";
 import { Container } from "@/ui/Container";
 import { FormInput } from "@/ui/FormInput";
 import { FormSwitch } from "@/ui/FormSwitch";
@@ -35,10 +35,11 @@ export default function RegisterCompanyScreen() {
           rightText="Компания"
           link="/register"
         />
-        <AuthForm
+        <Form
           action=""
           onFormSubmit={onFormSubmit()}
           btnText="Зарегистрироваться"
+          styleType="secondary"
         >
           <FormInput
             type="text"
@@ -46,6 +47,7 @@ export default function RegisterCompanyScreen() {
             placeholder="Название компании"
             icon={<HiOutlineBuildingOffice2 color={COLORS.white} />}
             iconScale={1.5}
+            styleType="secondary"
             required
           />
           <FormInput
@@ -54,6 +56,7 @@ export default function RegisterCompanyScreen() {
             placeholder="Почта"
             icon={<HiOutlineEnvelope color={COLORS.white} />}
             iconScale={1.5}
+            styleType="secondary"
             required
           />
           <FormInput
@@ -62,6 +65,7 @@ export default function RegisterCompanyScreen() {
             placeholder="Телефон"
             icon={<HiOutlinePhone color={COLORS.white} />}
             iconScale={1.5}
+            styleType="secondary"
             required
           />
           <FormInput
@@ -70,6 +74,7 @@ export default function RegisterCompanyScreen() {
             placeholder="Пароль"
             icon={<HiOutlineKey color={COLORS.white} />}
             iconScale={1.5}
+            styleType="secondary"
             required
           />
           <FormInput
@@ -78,9 +83,10 @@ export default function RegisterCompanyScreen() {
             placeholder="Подтвердите пароль"
             icon={<HiOutlineKey color={COLORS.white} />}
             iconScale={1.5}
+            styleType="secondary"
             required
           />
-        </AuthForm>
+        </Form>
       </LoginFormContainer>
     </Container>
   );

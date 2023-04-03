@@ -1,5 +1,5 @@
 import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/globalStyles";
-import { AuthForm } from "@/ui/AuthForm";
+import { Form } from "@/ui/Form";
 import { Container } from "@/ui/Container";
 import { FormInput } from "@/ui/FormInput";
 import { FormSwitch } from "@/ui/FormSwitch";
@@ -35,10 +35,11 @@ export default function RegisterScreen() {
           rightText="Компания"
           link="/register-company"
         />
-        <AuthForm
+        <Form
           action=""
           onFormSubmit={onFormSubmit()}
           btnText="Зарегистрироваться"
+          styleType="secondary"
         >
           <Flex>
             <FormInput
@@ -47,6 +48,7 @@ export default function RegisterScreen() {
               placeholder="Имя"
               icon={<HiOutlineUser color={COLORS.white} />}
               iconScale={1.5}
+              styleType="secondary"
               required
             />
             <FormInput
@@ -55,6 +57,7 @@ export default function RegisterScreen() {
               placeholder="Фамилия"
               icon={<HiOutlineUser color={COLORS.white} />}
               iconScale={1.5}
+              styleType="secondary"
               required
             />
           </Flex>
@@ -64,6 +67,7 @@ export default function RegisterScreen() {
             placeholder="Почта"
             icon={<HiOutlineEnvelope color={COLORS.white} />}
             iconScale={1.5}
+            styleType="secondary"
             required
           />
           <FormInput
@@ -72,6 +76,7 @@ export default function RegisterScreen() {
             placeholder="Телефон"
             icon={<HiOutlinePhone color={COLORS.white} />}
             iconScale={1.5}
+            styleType="secondary"
             required
           />
           <FormInput
@@ -80,6 +85,7 @@ export default function RegisterScreen() {
             placeholder="Пароль"
             icon={<HiOutlineKey color={COLORS.white} />}
             iconScale={1.5}
+            styleType="secondary"
             required
           />
           <FormInput
@@ -88,9 +94,10 @@ export default function RegisterScreen() {
             placeholder="Подтвердите пароль"
             icon={<HiOutlineKey color={COLORS.white} />}
             iconScale={1.5}
+            styleType="secondary"
             required
           />
-        </AuthForm>
+        </Form>
       </LoginFormContainer>
     </Container>
   );

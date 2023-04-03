@@ -8,6 +8,7 @@ interface IInputIcon {
   placeholder?: string;
   icon: JSX.Element;
   iconScale?: number;
+  styleType: "primary" | "secondary";
   required?: boolean;
 }
 
@@ -17,6 +18,7 @@ export function FormInput({
   placeholder,
   icon,
   iconScale,
+  styleType,
   required,
 }: IInputIcon) {
   return (
@@ -27,6 +29,12 @@ export function FormInput({
         name={name}
         id={name}
         placeholder={placeholder}
+        mainColor={styleType === "primary" ? COLORS.mainColor : COLORS.white}
+        placeholderColor={
+          styleType === "primary"
+            ? COLORS.placeholderMain
+            : COLORS.placeholderWhite
+        }
         required={required}
       />
     </Container>
@@ -46,28 +54,29 @@ const StyledIcon = styled(Icon)`
   pointer-events: none;
 `;
 
-const Input = styled.input`
+const Input = styled.input<{ mainColor: string; placeholderColor: string }>`
   background: transparent;
   border: none;
-  color: ${COLORS.white};
+  color: ${(props) => props.mainColor};
   width: 100%;
   padding: 10px 40px;
   font-size: ${FONT_SIZE.input};
   border: 0;
-  border-bottom: 2px solid ${COLORS.white};
+  border-bottom: 2px solid ${(props) => props.mainColor};
   outline: 0;
-  caret-color: ${COLORS.white}; // Typing cursor
+  caret-color: ${(props) => props.mainColor}; // Typing cursor
 
   &:-webkit-autofill,
   &:-webkit-autofill:hover,
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active {
-    -webkit-text-fill-color: ${COLORS.white}; // Text color when input autofilled
+    -webkit-text-fill-color: ${(props) =>
+      props.mainColor}; // Text color when input autofilled
     -webkit-background-clip: text;
     background-clip: text;
   }
 
   &::placeholder {
-    color: ${COLORS.placeholder};
+    color: ${(props) => props.placeholderColor};
   }
 `;
