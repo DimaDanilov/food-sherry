@@ -27,8 +27,9 @@ export function FormSelect({
             : COLORS.placeholderWhite
         }
         required={required}
+        defaultValue="default"
       >
-        <option value="" disabled selected hidden>
+        <option key={-1} value="default" disabled hidden>
           Категория
         </option>
         {children}

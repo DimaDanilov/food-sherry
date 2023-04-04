@@ -11,8 +11,10 @@ import { FormSelect } from "@/ui/FormSelect";
 import { categoriesList } from "@/fake-data/categoriesList";
 
 export const GiveFoodForm = () => {
-  const categoriesOptions = categoriesList.map((category) => (
-    <option value={category}>{category}</option>
+  const categoriesOptions = categoriesList.map((category, index) => (
+    <option key={index} value={category}>
+      {category}
+    </option>
   ));
 
   const onFormSubmit = () => (event: React.FormEvent<HTMLFormElement>) => {

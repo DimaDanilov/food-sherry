@@ -1,6 +1,7 @@
 import { Container } from "@/ui/Container";
 import styled from "styled-components";
 import { GiveFoodForm } from "./give-food-sections/GiveFoodForm";
+import AddPhotoBlock from "./give-food-sections/AddPhotoBlock";
 
 export default function GiveFoodScreen() {
   return (
@@ -10,7 +11,7 @@ export default function GiveFoodScreen() {
       </FormContainer>
 
       <PhotosContainer>
-        <h1>Photos block</h1>
+        <AddPhotoBlock />
       </PhotosContainer>
     </PageContainer>
   );
