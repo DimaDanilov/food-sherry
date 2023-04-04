@@ -26,7 +26,7 @@ export const GiveFoodForm = () => {
       onFormSubmit={onFormSubmit()}
       styleType="primary"
     >
-      <FormSelect name="select" styleType="primary">
+      <FormSelect name="select" styleType="primary" required>
         {categoriesOptions}
       </FormSelect>
       <FormInput

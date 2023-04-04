@@ -10,6 +10,7 @@ export const FONT_SIZE = {
   h2: "24px",
   h3: "22px",
   input: "18px",
+  select: "18px",
   p: "16px",
 };
 
