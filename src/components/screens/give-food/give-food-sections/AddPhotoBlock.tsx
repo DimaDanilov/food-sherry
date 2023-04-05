@@ -1,23 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 export default function AddPhotoBlock() {
   const [photoArray, setPhotoArray] = useState<Array<File>>([]);
-  let photosElements;
-
-  useEffect(() => {
-    photosElements = photoArray.map((photo) => {
-      console.log(photo);
-      return (
-        <img
-          alt={photo.name}
-          width={"250px"}
-          height={"250px"}
-          src={URL.createObjectURL(photo)}
-        />
-      );
-    });
-  }, [photoArray.length]);
 
   return (
     <div>
@@ -26,36 +11,42 @@ export default function AddPhotoBlock() {
         name="addImage"
         accept="image/png, image/gif, image/jpeg"
         multiple
+        disabled={photoArray.length >= 10}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           if (event.target.files) {
-            let newPhotos: Array<File> = [];
-            for (let i = 0; i < event.target.files.length; i++) {
-              newPhotos.push(event.target.files[i]);
+            if (event.target.files.length > 10 - photoArray.length) {
+              alert(`Only ${10 - photoArray.length} files accepted.`);
+              event.preventDefault();
+            } else {
+              let newPhotos: Array<File> = [];
+              for (let i = 0; i < event.target.files.length; i++) {
+                newPhotos.push(event.target.files[i]);
+              }
+              setPhotoArray([...photoArray, ...newPhotos]);
             }
-            setPhotoArray([...photoArray, ...newPhotos]);
           }
         }}
       />
-      <PhotosContainer>{photosElements}</PhotosContainer>
+      <PhotosContainer>
+        {photoArray.map((photo) => (
+          <Photo
+            key={photo.name}
+            alt={photo.name}
+            src={URL.createObjectURL(photo)}
+          />
+        ))}
+      </PhotosContainer>
     </div>
   );
 }
 
-{
-  /* {selectedImage && (
-  <div>
-    <img
-      alt="not found"
-      width={"250px"}
-      src={URL.createObjectURL(selectedImage[selectedImage.length - 1])}
-    />
-    <br />
-    <button onClick={() => setSelectedImage([])}>Remove</button>
-  </div>
-)} */
-}
-
 const PhotosContainer = styled.div`
+  border: 1px solid blue;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+`;
+
+const Photo = styled.img`
+  width: 100%;
 `;
