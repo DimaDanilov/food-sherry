@@ -70,5 +70,4 @@ const Title = styled.h1`
   text-align: center;
   margin: 0;
   color: ${COLORS.white};
-  font-size: ${FONT_SIZE.h1};
 `;

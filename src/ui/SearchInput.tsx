@@ -51,7 +51,6 @@ const Input = styled.input`
   padding: 10px 45px;
   border-radius: 20px;
   border: 2px solid ${COLORS.lightgray};
-  font-size: ${FONT_SIZE.input};
   :focus {
     outline: none;
     border-color: ${COLORS.gray};

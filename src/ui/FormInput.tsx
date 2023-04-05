@@ -60,7 +60,6 @@ const Input = styled.input<{ mainColor: string; placeholderColor: string }>`
   color: ${(props) => props.mainColor};
   width: 100%;
   padding: 10px 40px;
-  font-size: ${FONT_SIZE.input};
   border: 0;
   border-bottom: 2px solid ${(props) => props.mainColor};
   outline: 0;

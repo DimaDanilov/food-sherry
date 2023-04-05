@@ -20,7 +20,6 @@ export default function NotFound() {
           <Title>404</Title>
           <p>Looks like you missed a page!</p>
           <Button
-            fontSize={FONT_SIZE.p}
             padding="10px"
             styleType="primary"
             value="Go_home"

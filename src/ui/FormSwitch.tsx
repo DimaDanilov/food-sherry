@@ -52,8 +52,7 @@ const SwitchElement = styled.div<ISwitchElementProps>`
   background-color: ${(props) => props.bgColor};
   border-radius: ${(props) => props.borderRadius};
 `;
-const Text = styled.span<{ textColor: string }>`
+const Text = styled.p<{ textColor: string }>`
   margin: auto;
   color: ${(props) => props.textColor};
-  font-size: ${FONT_SIZE.p};
 `;

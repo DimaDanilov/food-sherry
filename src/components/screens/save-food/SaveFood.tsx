@@ -12,7 +12,7 @@ export default function SaveFoodScreen() {
   const foodItems: FoodItem[] = foodFakeArray;
 
   const foodCards = foodItems.map((f) => {
-    return <FoodCard key={f.id} food={f} titleFontSize={FONT_SIZE.h2} />;
+    return <FoodCard key={f.id} food={f} />;
   });
 
   return (

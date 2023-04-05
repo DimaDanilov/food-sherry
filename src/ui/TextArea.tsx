@@ -30,7 +30,6 @@ const CustomTextArea = styled.textarea<{
 }>`
   resize: vertical;
   padding: 15px;
-  font-size: ${FONT_SIZE.input};
   color: ${(props) => props.mainColor};
   border: 2px solid ${(props) => props.mainColor};
   border-radius: 15px;

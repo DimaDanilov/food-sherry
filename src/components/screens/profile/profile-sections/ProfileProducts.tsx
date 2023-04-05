@@ -14,7 +14,7 @@ export const ProfileProducts = () => {
 
   const productsData: Array<FoodItem> = foodFakeArray;
   const productsItems = productsData.map((product) => (
-    <FoodCard key={product.id} food={product} titleFontSize={FONT_SIZE.h3} />
+    <FoodCard key={product.id} food={product} />
   ));
 
   useEffect(() => {

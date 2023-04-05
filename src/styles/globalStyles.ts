@@ -1,4 +1,4 @@
-import { Lato, Montserrat } from "next/font/google";
+import { Montserrat } from "next/font/google";
 
 export const montserrat = Montserrat({
   subsets: ["latin"],
@@ -9,18 +9,23 @@ export const FONT_SIZE = {
   h1: "32px",
   h2: "24px",
   h3: "22px",
-  input: "18px",
-  select: "18px",
   p: "16px",
+  link: "16px",
+  input: "18px",
+  button: "18px",
+  select: "18px",
 };
 
 export const FONT_WEIGHT = {
-  default: "400",
-  h1: "400",
-  h2: "400",
-  h3: "400",
-  p: "300",
+  default: "500",
+  h1: "500",
+  h2: "500",
+  h3: "500",
+  p: "400",
+  link: "400",
+  input: "400",
   button: "400",
+  select: "400",
 };
 
 export const COLORS = {

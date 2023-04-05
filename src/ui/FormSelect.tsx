@@ -52,7 +52,6 @@ const CustomFormSelect = styled.select<{
   border: none;
   border-radius: 10px;
   outline: 0;
-  font-size: ${FONT_SIZE.select};
   & > option:enabled {
     color: ${(props) => props.mainColor};
   }

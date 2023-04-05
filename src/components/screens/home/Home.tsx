@@ -19,7 +19,6 @@ export default function HomeScreen() {
             людям
           </Description>
           <Button
-            fontSize="20px"
             padding="20px"
             width="70%"
             styleType="primary"

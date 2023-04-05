@@ -71,6 +71,5 @@ const NavLi = styled.li`
 const NavLink = styled(Link)`
   color: ${COLORS.white};
   white-space: nowrap;
-  font-size: ${FONT_SIZE.p};
   text-decoration: none;
 `;

@@ -20,13 +20,7 @@ export function Form({
   return (
     <CustomForm action={action} onSubmit={onFormSubmit}>
       {children}
-      <Button
-        type="submit"
-        fontSize={FONT_SIZE.p}
-        padding="10px"
-        styleType={styleType}
-        value="Submit"
-      >
+      <Button type="submit" padding="10px" styleType={styleType} value="Submit">
         {btnText}
       </Button>
     </CustomForm>

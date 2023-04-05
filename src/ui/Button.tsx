@@ -7,8 +7,6 @@ type TButton = {
   margin?: string;
   padding?: string;
 
-  fontSize: string;
-
   styleType: "primary" | "secondary";
 
   children: string;
@@ -19,7 +17,6 @@ export default function Button({
   width,
   margin,
   padding,
-  fontSize,
   styleType,
   children,
   ...props
@@ -29,7 +26,6 @@ export default function Button({
       width={width || "100%"}
       margin={margin || "0 auto"}
       padding={padding}
-      fontSize={fontSize}
       bgColor={styleType === "primary" ? COLORS.mainColor : COLORS.white}
       color={styleType === "primary" ? COLORS.white : COLORS.mainColor}
       {...props}
@@ -43,7 +39,6 @@ interface IStyledBtnProps {
   width: string;
   margin: string;
   padding?: string;
-  fontSize: string;
   bgColor: string;
   color: string;
 }
@@ -57,5 +52,4 @@ const StyledButton = styled.button<IStyledBtnProps>`
   padding: ${(props) => props.padding};
   border-radius: 10px;
   cursor: pointer;
-  font-size: ${(props) => props.fontSize};
 `;

@@ -28,10 +28,8 @@ const ProfileBriefData = styled.div`
   text-align: center;
 `;
 const Title = styled.h1`
-  font-size: ${FONT_SIZE.h1};
   color: ${COLORS.mainColor};
 `;
 const InfoDetails = styled.h3`
-  font-size: ${FONT_SIZE.h3};
   color: ${COLORS.mainColor};
 `;

@@ -26,55 +26,30 @@ export default function ProductScreen() {
         <ProductImage alt="" src={foodItem.imageSrc} width={550} height={550} />
       </FlexItem>
       <FlexItem>
-        <Title>{foodItem.title}</Title>
+        <h1>{foodItem.title}</h1>
         <RegularText fontColor={COLORS.gray}>
           {foodItem.timeCreated}
         </RegularText>
-        <IconWithText
-          icon={<HiOutlineUser />}
-          iconScale={1.3}
-          fontSize={FONT_SIZE.p}
-        >
+        <IconWithText icon={<HiOutlineUser />} iconScale={1.3}>
           {foodItem.author}
         </IconWithText>
-        <IconWithText
-          icon={<HiOutlineCake />}
-          iconScale={1.3}
-          fontSize={FONT_SIZE.p}
-        >
+        <IconWithText icon={<HiOutlineCake />} iconScale={1.3}>
           {foodItem.category}
         </IconWithText>
         <RegularText>{foodItem.description}</RegularText>
-        <IconWithText
-          icon={<HiOutlineSquares2X2 />}
-          iconScale={1.3}
-          fontSize={FONT_SIZE.p}
-        >
+        <IconWithText icon={<HiOutlineSquares2X2 />} iconScale={1.3}>
           {foodItem.amount}
         </IconWithText>
-        <IconWithText
-          icon={<HiOutlineClock />}
-          iconScale={1.3}
-          fontSize={FONT_SIZE.p}
-        >
+        <IconWithText icon={<HiOutlineClock />} iconScale={1.3}>
           {foodItem.timeToTake}
         </IconWithText>
-        <IconWithText
-          icon={<HiOutlineMapPin />}
-          iconScale={1.3}
-          fontSize={FONT_SIZE.p}
-        >
+        <IconWithText icon={<HiOutlineMapPin />} iconScale={1.3}>
           {foodItem.location}
         </IconWithText>
-        <IconWithText
-          icon={<HiOutlinePhone />}
-          iconScale={1.3}
-          fontSize={FONT_SIZE.p}
-        >
+        <IconWithText icon={<HiOutlinePhone />} iconScale={1.3}>
           {foodItem.phone}
         </IconWithText>
         <Button
-          fontSize={FONT_SIZE.p}
           margin="10px auto"
           padding="10px"
           styleType="primary"
@@ -103,11 +78,7 @@ const ProductImage = styled(Image)`
   height: 100%;
 `;
 
-const Title = styled.h1`
-  font-size: ${FONT_SIZE.h1};
-`;
 const RegularText = styled.p<IRegularTextProps>`
-  font-size: ${FONT_SIZE.p};
   margin: 10px auto;
   color: ${(props) => props.fontColor};
 `;

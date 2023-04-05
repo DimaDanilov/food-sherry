@@ -11,13 +11,7 @@ import {
 } from "react-icons/hi2";
 import styled from "styled-components";
 
-export default function FoodCard({
-  food,
-  titleFontSize,
-}: {
-  food: FoodItem;
-  titleFontSize: string;
-}) {
+export default function FoodCard({ food }: { food: FoodItem }) {
   const router = useRouter();
 
   const handleClick = () => router.push("/product");
@@ -33,30 +27,17 @@ export default function FoodCard({
         onClick={handleClick}
       />
       <CardInfo>
-        <CardTitle fontSize={titleFontSize}>{food.title}</CardTitle>
-        <IconWithText
-          icon={<HiOutlineUser />}
-          iconScale={1.3}
-          fontSize={FONT_SIZE.p}
-        >
+        <CardTitle>{food.title}</CardTitle>
+        <IconWithText icon={<HiOutlineUser />} iconScale={1.3}>
           {food.author}
         </IconWithText>
-        <IconWithText
-          icon={<HiOutlineClock />}
-          iconScale={1.3}
-          fontSize={FONT_SIZE.p}
-        >
+        <IconWithText icon={<HiOutlineClock />} iconScale={1.3}>
           {food.timeToTake}
         </IconWithText>
-        <IconWithText
-          icon={<HiOutlineMapPin />}
-          iconScale={1.3}
-          fontSize={FONT_SIZE.p}
-        >
+        <IconWithText icon={<HiOutlineMapPin />} iconScale={1.3}>
           {food.location}
         </IconWithText>
         <Button
-          fontSize={FONT_SIZE.p}
           margin="10px auto"
           padding="10px"
           styleType="primary"
@@ -84,7 +65,6 @@ const CardImage = styled(Image)`
   cursor: pointer;
 `;
 
-const CardTitle = styled.h2<{ fontSize: string }>`
+const CardTitle = styled.h2`
   margin: 15px auto;
-  font-size: ${(props) => props.fontSize};
 `;
