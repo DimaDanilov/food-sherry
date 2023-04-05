@@ -1,17 +1,57 @@
 import { COLORS } from "@/styles/globalStyles";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { HiOutlineCamera, HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
 
+const MAX_PHOTO_COUNT = 10;
+
 export default function AddPhotoBlock() {
   const [photoArray, setPhotoArray] = useState<Array<File>>([]);
+
+  const handleAddPhotos = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (event.target.files) {
+        const files = Array.from(event.target.files);
+        const newPhotos = files.filter(
+          (file) =>
+            !(
+              photoArray.find((el) => el.lastModified === file.lastModified) !==
+                undefined &&
+              photoArray.find((el) => el.name === file.name) !== undefined
+            )
+        );
+        if (newPhotos.length > 0) {
+          setPhotoArray((prevPhotos) => [
+            ...prevPhotos,
+            ...newPhotos.slice(0, MAX_PHOTO_COUNT - prevPhotos.length),
+          ]);
+        } else {
+          alert(`No new files added.`);
+        }
+      }
+    },
+    [photoArray]
+  );
+
+  const handleRemovePhoto = useCallback(
+    (index: number) => {
+      setPhotoArray((prevPhotos) =>
+        prevPhotos.filter((_, currInd) => {
+          return currInd !== index;
+        })
+      );
+    },
+    [setPhotoArray]
+  );
 
   return (
     <div>
       <PhotoLabel
         htmlFor="addImage"
         bgColor={
-          photoArray.length >= 10 ? COLORS.placeholderMain : COLORS.mainColor
+          photoArray.length >= MAX_PHOTO_COUNT
+            ? COLORS.placeholderMain
+            : COLORS.mainColor
         }
       >
         <HiOutlineCamera color={COLORS.white} size={150} />
@@ -23,34 +63,8 @@ export default function AddPhotoBlock() {
         name="addImage"
         accept="image/png, image/gif, image/jpeg"
         multiple
-        disabled={photoArray.length >= 10}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          if (event.target.files) {
-            let newPhotos: Array<File> = [];
-
-            for (let i = 0; i < event.target.files.length; i++) {
-              const currFile = event.target.files[i];
-              if (
-                !(
-                  photoArray.find(
-                    (el) => el.lastModified === currFile.lastModified
-                  ) !== undefined &&
-                  photoArray.find((el) => el.name === currFile.name) !==
-                    undefined
-                )
-              ) {
-                newPhotos.push(event.target.files[i]);
-              }
-            }
-
-            if (newPhotos.length <= 10 - photoArray.length) {
-              setPhotoArray([...photoArray, ...newPhotos]);
-            } else {
-              alert(`Only ${10 - photoArray.length} files accepted.`);
-              event.preventDefault();
-            }
-          }
-        }}
+        disabled={photoArray.length >= MAX_PHOTO_COUNT}
+        onChange={handleAddPhotos}
       />
 
       <PhotosContainer>
@@ -61,13 +75,7 @@ export default function AddPhotoBlock() {
               color={COLORS.white}
               size={35}
               strokeWidth={1}
-              onClick={() =>
-                setPhotoArray(
-                  photoArray.filter((_, currInd) => {
-                    return currInd !== index;
-                  })
-                )
-              }
+              onClick={() => handleRemovePhoto(index)}
             />
           </PhotoEl>
         ))}
@@ -91,9 +99,11 @@ const Photo = styled.img`
   -moz-box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
   box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
 `;
+
 const InputImage = styled.input`
   display: none;
 `;
+
 const PhotoLabel = styled.label<{ bgColor: string }>`
   display: flex;
   justify-content: center;
@@ -102,6 +112,7 @@ const PhotoLabel = styled.label<{ bgColor: string }>`
   background-color: ${(props) => props.bgColor};
   cursor: pointer;
 `;
+
 const PhotoEl = styled.div`
   position: relative;
   border-radius: 15px;
