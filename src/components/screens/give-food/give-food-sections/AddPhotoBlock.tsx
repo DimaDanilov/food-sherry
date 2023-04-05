@@ -8,7 +8,12 @@ export default function AddPhotoBlock() {
 
   return (
     <div>
-      <PhotoLabel htmlFor="addImage">
+      <PhotoLabel
+        htmlFor="addImage"
+        bgColor={
+          photoArray.length >= 10 ? COLORS.placeholderMain : COLORS.mainColor
+        }
+      >
         <HiOutlineCamera color={COLORS.white} size={150} />
       </PhotoLabel>
       <InputImage
@@ -20,15 +25,28 @@ export default function AddPhotoBlock() {
         disabled={photoArray.length >= 10}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           if (event.target.files) {
-            if (event.target.files.length > 10 - photoArray.length) {
-              alert(`Only ${10 - photoArray.length} files accepted.`);
-              event.preventDefault();
-            } else {
-              let newPhotos: Array<File> = [];
-              for (let i = 0; i < event.target.files.length; i++) {
+            let newPhotos: Array<File> = [];
+
+            for (let i = 0; i < event.target.files.length; i++) {
+              const currFile = event.target.files[i];
+              if (
+                !(
+                  photoArray.find(
+                    (el) => el.lastModified === currFile.lastModified
+                  ) !== undefined &&
+                  photoArray.find((el) => el.name === currFile.name) !==
+                    undefined
+                )
+              ) {
                 newPhotos.push(event.target.files[i]);
               }
+            }
+
+            if (newPhotos.length <= 10 - photoArray.length) {
               setPhotoArray([...photoArray, ...newPhotos]);
+            } else {
+              alert(`Only ${10 - photoArray.length} files accepted.`);
+              event.preventDefault();
             }
           }
         }}
@@ -64,11 +82,11 @@ const Photo = styled.img`
 const InputImage = styled.input`
   display: none;
 `;
-const PhotoLabel = styled.label`
+const PhotoLabel = styled.label<{ bgColor: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 250px;
-  background-color: ${COLORS.mainColor};
+  background-color: ${(props) => props.bgColor};
   cursor: pointer;
 `;
