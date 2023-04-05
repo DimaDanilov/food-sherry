@@ -1,6 +1,6 @@
 import { userFakeData } from "@/fake-data/userData";
 import { IUserData } from "@/models/UserData";
-import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/globalStyles";
+import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
 import { HiUserCircle } from "react-icons/hi2";
 import styled from "styled-components";
 
@@ -33,6 +33,5 @@ const Title = styled.h1`
 `;
 const InfoDetails = styled.h3`
   font-size: ${FONT_SIZE.h3};
-  font-weight: ${FONT_WEIGHT.h3};
   color: ${COLORS.mainColor};
 `;

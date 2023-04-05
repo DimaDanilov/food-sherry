@@ -1,5 +1,5 @@
 import { FoodItem } from "@/models/FoodItem";
-import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/globalStyles";
+import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import { IconWithText } from "@/ui/IconWithText";
 import Image from "next/image";
@@ -87,5 +87,4 @@ const CardImage = styled(Image)`
 const CardTitle = styled.h2<{ fontSize: string }>`
   margin: 15px auto;
   font-size: ${(props) => props.fontSize};
-  font-weight: ${FONT_WEIGHT.h2};
 `;

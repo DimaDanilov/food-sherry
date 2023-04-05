@@ -69,9 +69,7 @@ const FoodSharingInfoContainer = styled.div`
 `;
 const Title = styled.h1`
   font-size: 60px;
-  font-weight: ${FONT_WEIGHT.h1};
 `;
 const Description = styled.h2`
   font-size: 28px;
-  font-weight: ${FONT_WEIGHT.h2};
 `;

@@ -23,7 +23,6 @@ export function Form({
       <Button
         type="submit"
         fontSize={FONT_SIZE.p}
-        fontWeight="bold"
         padding="10px"
         styleType={styleType}
         value="Submit"

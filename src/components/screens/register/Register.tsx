@@ -1,4 +1,4 @@
-import { COLORS, FONT_SIZE, FONT_WEIGHT } from "@/styles/globalStyles";
+import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
 import { Form } from "@/ui/Form";
 import { Container } from "@/ui/Container";
 import { FormInput } from "@/ui/FormInput";
@@ -119,7 +119,6 @@ const Title = styled.h1`
   margin: 0;
   color: ${COLORS.white};
   font-size: ${FONT_SIZE.h1};
-  font-weight: ${FONT_WEIGHT.h1};
 `;
 
 const Flex = styled.div`

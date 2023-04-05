@@ -22,8 +22,8 @@ const PageContainer = styled(Container)`
   justify-content: space-between;
 `;
 const ProfileInfoContainer = styled.div`
-  width: 30%;
+  width: 25%;
 `;
 const ProfileProductsContainer = styled.div`
-  width: 60%;
+  width: 65%;
 `;

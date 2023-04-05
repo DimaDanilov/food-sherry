@@ -21,7 +21,6 @@ export default function NotFound() {
           <p>Looks like you missed a page!</p>
           <Button
             fontSize={FONT_SIZE.p}
-            fontWeight="bold"
             padding="10px"
             styleType="primary"
             value="Go_home"
@@ -38,6 +37,7 @@ export default function NotFound() {
 const Container = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 20px;
   width: 50%;
   margin: 0 auto;
