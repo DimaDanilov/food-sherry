@@ -63,7 +63,7 @@ export default function AddPhotoBlock() {
             />
             <DeleteBtn
               color={COLORS.white}
-              size={25}
+              size={35}
               strokeWidth={1}
               onClick={() =>
                 setPhotoArray(
@@ -108,12 +108,34 @@ const PhotoLabel = styled.label<{ bgColor: string }>`
 `;
 const PhotoEl = styled.div`
   position: relative;
+  border-radius: 15px;
+  ::after {
+    transition: 0.3s;
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    border-radius: 15px;
+  }
+  &:hover {
+    ::after {
+      -webkit-box-shadow: 0px 0px 100px 100px ${COLORS.shadow} inset;
+      -moz-box-shadow: 0px 0px 100px 100px ${COLORS.shadow} inset;
+      box-shadow: 0px 0px 100px 100px ${COLORS.shadow} inset;
+    }
+    & > svg {
+      display: block;
+    }
+  }
 `;
 const DeleteBtn = styled(HiXMark)`
+  display: none;
   position: absolute;
   right: 0;
   top: 0;
-  background-color: tomato;
-  border-radius: 30px;
+  padding: 5px;
   cursor: pointer;
+  z-index: 1;
 `;
