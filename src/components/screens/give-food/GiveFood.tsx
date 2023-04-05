@@ -26,5 +26,4 @@ const FormContainer = styled.div`
 `;
 const PhotosContainer = styled.div`
   width: 40%;
-  border: 1px solid red;
 `;

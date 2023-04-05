@@ -1,4 +1,6 @@
+import { COLORS } from "@/styles/globalStyles";
 import { useState } from "react";
+import { HiOutlineCamera } from "react-icons/hi2";
 import styled from "styled-components";
 
 export default function AddPhotoBlock() {
@@ -6,8 +8,12 @@ export default function AddPhotoBlock() {
 
   return (
     <div>
-      <input
+      <PhotoLabel htmlFor="addImage">
+        <HiOutlineCamera color={COLORS.white} size={150} />
+      </PhotoLabel>
+      <InputImage
         type="file"
+        id="addImage"
         name="addImage"
         accept="image/png, image/gif, image/jpeg"
         multiple
@@ -41,12 +47,28 @@ export default function AddPhotoBlock() {
 }
 
 const PhotosContainer = styled.div`
-  border: 1px solid blue;
   display: grid;
+  align-items: center;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
+  margin: 40px auto;
 `;
 
 const Photo = styled.img`
   width: 100%;
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
+  -moz-box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
+  box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
+`;
+const InputImage = styled.input`
+  display: none;
+`;
+const PhotoLabel = styled.label`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  background-color: ${COLORS.mainColor};
+  cursor: pointer;
 `;
