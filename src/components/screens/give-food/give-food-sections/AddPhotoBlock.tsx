@@ -1,6 +1,6 @@
 import { COLORS } from "@/styles/globalStyles";
 import { useState } from "react";
-import { HiOutlineCamera } from "react-icons/hi2";
+import { HiOutlineCamera, HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
 
 export default function AddPhotoBlock() {
@@ -16,6 +16,7 @@ export default function AddPhotoBlock() {
       >
         <HiOutlineCamera color={COLORS.white} size={150} />
       </PhotoLabel>
+
       <InputImage
         type="file"
         id="addImage"
@@ -51,13 +52,28 @@ export default function AddPhotoBlock() {
           }
         }}
       />
+
       <PhotosContainer>
-        {photoArray.map((photo) => (
-          <Photo
-            key={photo.name}
-            alt={photo.name}
-            src={URL.createObjectURL(photo)}
-          />
+        {photoArray.map((photo, index) => (
+          <PhotoEl>
+            <Photo
+              key={photo.name}
+              alt={photo.name}
+              src={URL.createObjectURL(photo)}
+            />
+            <DeleteBtn
+              color={COLORS.white}
+              size={25}
+              strokeWidth={1}
+              onClick={() =>
+                setPhotoArray(
+                  photoArray.filter((_, currInd) => {
+                    return currInd !== index;
+                  })
+                )
+              }
+            />
+          </PhotoEl>
         ))}
       </PhotosContainer>
     </div>
@@ -88,5 +104,16 @@ const PhotoLabel = styled.label<{ bgColor: string }>`
   align-items: center;
   height: 250px;
   background-color: ${(props) => props.bgColor};
+  cursor: pointer;
+`;
+const PhotoEl = styled.div`
+  position: relative;
+`;
+const DeleteBtn = styled(HiXMark)`
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: tomato;
+  border-radius: 30px;
   cursor: pointer;
 `;
