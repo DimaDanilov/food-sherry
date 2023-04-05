@@ -1,7 +1,7 @@
 import Paginator from "./paginator/Paginator";
 import { foodFakeArray } from "@/fake-data/foodArray";
 import { FoodItem } from "@/models/FoodItem";
-import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
+import { COLORS } from "@/styles/globalStyles";
 import { Container } from "@/ui/Container";
 import SearchInput from "@/ui/SearchInput";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";

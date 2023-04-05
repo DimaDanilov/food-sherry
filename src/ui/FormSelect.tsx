@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { PropsWithChildren } from "react";
-import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
+import { COLORS } from "@/styles/globalStyles";
 
 interface IFormSelect {
   name: string;

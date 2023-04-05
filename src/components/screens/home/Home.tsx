@@ -1,4 +1,4 @@
-import { COLORS, FONT_WEIGHT } from "@/styles/globalStyles";
+import { COLORS } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import { useRouter } from "next/router";
 import styled from "styled-components";

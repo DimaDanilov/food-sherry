@@ -55,13 +55,9 @@ export default function AddPhotoBlock() {
 
       <PhotosContainer>
         {photoArray.map((photo, index) => (
-          <PhotoEl>
-            <Photo
-              key={photo.name}
-              alt={photo.name}
-              src={URL.createObjectURL(photo)}
-            />
-            <DeleteBtn
+          <PhotoEl key={index}>
+            <Photo alt={photo.name} src={URL.createObjectURL(photo)} />
+            <DeleteIcon
               color={COLORS.white}
               size={35}
               strokeWidth={1}
@@ -130,7 +126,7 @@ const PhotoEl = styled.div`
     }
   }
 `;
-const DeleteBtn = styled(HiXMark)`
+const DeleteIcon = styled(HiXMark)`
   display: none;
   position: absolute;
   right: 0;

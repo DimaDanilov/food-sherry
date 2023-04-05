@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
-import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
+import { COLORS } from "@/styles/globalStyles";
 import { Icon } from "@/ui/Icon";
 import { HiUserCircle } from "react-icons/hi2";
 

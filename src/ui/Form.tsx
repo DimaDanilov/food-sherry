@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Button from "./Button";
-import { FONT_SIZE } from "@/styles/globalStyles";
 import { PropsWithChildren } from "react";
 
 interface IAuthForm {

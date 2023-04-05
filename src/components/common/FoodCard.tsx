@@ -1,5 +1,5 @@
 import { FoodItem } from "@/models/FoodItem";
-import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
+import { COLORS } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import { IconWithText } from "@/ui/IconWithText";
 import Image from "next/image";

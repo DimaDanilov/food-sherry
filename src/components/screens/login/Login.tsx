@@ -1,4 +1,4 @@
-import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
+import { COLORS } from "@/styles/globalStyles";
 import { Form } from "@/ui/Form";
 import { Container } from "@/ui/Container";
 import { FormInput } from "@/ui/FormInput";

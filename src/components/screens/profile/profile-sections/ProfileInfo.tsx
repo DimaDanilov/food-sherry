@@ -1,6 +1,6 @@
 import { userFakeData } from "@/fake-data/userData";
 import { IUserData } from "@/models/UserData";
-import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
+import { COLORS } from "@/styles/globalStyles";
 import { HiUserCircle } from "react-icons/hi2";
 import styled from "styled-components";
 

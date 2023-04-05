@@ -1,7 +1,7 @@
 import FoodCard from "@/components/common/FoodCard";
 import { foodFakeArray } from "@/fake-data/foodArray";
 import { FoodItem } from "@/models/FoodItem";
-import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
+import { COLORS } from "@/styles/globalStyles";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";

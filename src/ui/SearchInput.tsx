@@ -1,4 +1,4 @@
-import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
+import { COLORS } from "@/styles/globalStyles";
 import styled from "styled-components";
 import { Icon } from "./Icon";
 

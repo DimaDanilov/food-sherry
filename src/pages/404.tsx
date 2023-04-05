@@ -1,5 +1,4 @@
 import Layout from "@/components/layout/Layout";
-import { FONT_SIZE } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import Image from "next/image";
 import { useRouter } from "next/router";

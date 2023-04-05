@@ -1,6 +1,6 @@
 import { productFakeData } from "@/fake-data/productData";
 import { FoodItem } from "@/models/FoodItem";
-import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
+import { COLORS } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import { Container } from "@/ui/Container";
 import { IconWithText } from "@/ui/IconWithText";
