@@ -1,5 +1,10 @@
 import "@/styles/globals.css";
-import { FONT_SIZE, FONT_WEIGHT, montserrat } from "@/styles/globalStyles";
+import {
+  COLORS,
+  FONT_SIZE,
+  FONT_WEIGHT,
+  montserrat,
+} from "@/styles/globalStyles";
 import type { AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -34,6 +39,8 @@ export default function App({ Component, pageProps }: AppProps) {
           font-size: ${FONT_SIZE.link};
           font-weight: ${FONT_WEIGHT.link};
           font-family: ${montserrat.style.fontFamily};
+          color: ${COLORS.mainColor};
+          text-decoration: none;
         }
         textarea,
         input {

@@ -19,7 +19,7 @@ export default function FoodCard({ food }: { food: FoodItem }) {
   return (
     <Card>
       <CardImage
-        src={food.imageSrc}
+        src={food.imageSrc || "/images/landing_background.jpg"}
         alt={food.title}
         width={150}
         height={150}
