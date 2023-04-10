@@ -5,6 +5,8 @@ import { Icon } from "./Icon";
 interface IInputIcon {
   type: string;
   name: string;
+  searchValue?: string;
+  searchOnChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   icon: JSX.Element;
   iconScale?: number;
@@ -14,6 +16,8 @@ interface IInputIcon {
 export default function SearchInput({
   type,
   name,
+  searchValue,
+  searchOnChange,
   placeholder,
   icon,
   iconScale,
@@ -26,6 +30,8 @@ export default function SearchInput({
         type={type}
         name={name}
         id={name}
+        value={searchValue}
+        onChange={searchOnChange}
         placeholder={placeholder}
         required={required}
       />

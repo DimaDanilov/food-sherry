@@ -6,22 +6,58 @@ import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import styled from "styled-components";
 import FoodCard from "../../common/FoodCard";
 import { ProductsData } from "@/pages/api/FoodAdapter";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 export default function SaveFoodScreen({
   productsData,
   page,
+  search,
 }: {
   productsData: ProductsData;
   page: number;
+  search: string;
 }) {
+  const router = useRouter();
+
+  const [searchField, setSearchField] = useState<string>("");
+
+  useEffect(() => {
+    setSearchField(search);
+  }, [search]);
+
+  function onSearchSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (searchField !== search) {
+      if (searchField) {
+        router.replace({
+          query: { ...router.query, search: searchField },
+        });
+      } else {
+        const { search, ...routerQuery } = router.query;
+        router.replace({
+          query: { ...routerQuery },
+        });
+      }
+    }
+  }
+
+  const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchField(e.target.value);
+  };
+
   return (
     <Container>
-      <SearchInput
-        type="text"
-        name="food_search"
-        icon={<HiOutlineMagnifyingGlass color={COLORS.gray} />}
-        iconScale={1.3}
-      />
+      <form action="" onSubmit={onSearchSubmit}>
+        <SearchInput
+          type="text"
+          name="food_search"
+          searchValue={searchField}
+          searchOnChange={onSearchChange}
+          icon={<HiOutlineMagnifyingGlass color={COLORS.gray} />}
+          iconScale={1.3}
+        />
+      </form>
       <CardsContainer>
         {productsData.products?.map((p) => (
           <FoodCard key={p.id} food={p} />

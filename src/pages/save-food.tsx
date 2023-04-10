@@ -6,24 +6,26 @@ import { ProductsData } from "./api/FoodAdapter";
 export default function SaveFood({
   productsData,
   page,
+  search,
 }: {
   productsData: ProductsData;
   page: number;
+  search: string;
 }) {
   return (
     <Layout
       pageTitle="Food catalog"
       pageDescription="No food should go to waste, let's share the taste."
     >
-      <SaveFoodScreen productsData={productsData} page={page} />
+      <SaveFoodScreen productsData={productsData} page={page} search={search} />
     </Layout>
   );
 }
 
 export async function getServerSideProps({ query }: { query: any }) {
   let page = Number(query["page"]);
-  let search = query["search"];
-  if (!page) {
+  let search = query["search"] || "";
+  if (!page || page <= 0) {
     return {
       redirect: {
         destination: "/save-food?page=1",
@@ -38,6 +40,7 @@ export async function getServerSideProps({ query }: { query: any }) {
     props: {
       productsData,
       page,
+      search,
     },
   };
 }
