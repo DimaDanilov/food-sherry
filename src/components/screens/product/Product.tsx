@@ -20,7 +20,12 @@ export default function ProductScreen({ product }: { product: FoodItem }) {
   return (
     <FlexContainer>
       <FlexItem>
-        <ProductImage alt="" src={product.imageSrc} width={550} height={550} />
+        <ProductImage
+          alt=""
+          src={product.imageSrc || "/icons/product_placeholder.svg"}
+          width={550}
+          height={550}
+        />
       </FlexItem>
       <FlexItem>
         <h1>{product.title}</h1>
