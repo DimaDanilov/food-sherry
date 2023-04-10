@@ -31,12 +31,12 @@ export default function SaveFoodScreen({
     if (searchField !== search) {
       if (searchField) {
         router.replace({
-          query: { ...router.query, search: searchField },
+          query: { ...router.query, page: 1, search: searchField },
         });
       } else {
         const { search, ...routerQuery } = router.query;
         router.replace({
-          query: { ...routerQuery },
+          query: { ...routerQuery, page: 1 },
         });
       }
     }
