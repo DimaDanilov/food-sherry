@@ -7,7 +7,7 @@ import { FoodItem } from "@/models/FoodItem";
 export default function Product({ product }: { product: FoodItem }) {
   return (
     <Layout
-      pageTitle="Product"
+      pageTitle={product.title}
       pageDescription="Eat well, waste less, and save more food with foodsharing."
     >
       <ProductScreen product={product} />
