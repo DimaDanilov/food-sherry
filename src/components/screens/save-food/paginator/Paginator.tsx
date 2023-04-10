@@ -8,7 +8,7 @@ export interface IPaginatorProps {
   currentPage: number;
 }
 
-const ITEMS_PER_PAGE: number = 10;
+const ITEMS_PER_PAGE: number = 12;
 
 export default function Paginator({
   totalItems,
@@ -49,7 +49,7 @@ const PaginationContainer = styled.div`
   width: 20%;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 `;
 const PageBtn = styled.span<{ active: boolean; isNum: boolean }>`
   background-color: ${(props) => props.active && COLORS.mainColor};

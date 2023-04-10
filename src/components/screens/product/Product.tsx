@@ -1,4 +1,3 @@
-import { productFakeData } from "@/fake-data/productData";
 import { FoodItem } from "@/models/FoodItem";
 import { COLORS } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
@@ -15,39 +14,35 @@ import {
 } from "react-icons/hi2";
 import styled from "styled-components";
 
-export default function ProductScreen() {
-  const foodItem: FoodItem = productFakeData;
-
+export default function ProductScreen({ product }: { product: FoodItem }) {
   const handleClick = () => console.log("click");
 
   return (
     <FlexContainer>
       <FlexItem>
-        <ProductImage alt="" src={foodItem.imageSrc} width={550} height={550} />
+        <ProductImage alt="" src={product.imageSrc} width={550} height={550} />
       </FlexItem>
       <FlexItem>
-        <h1>{foodItem.title}</h1>
-        <RegularText fontColor={COLORS.gray}>
-          {foodItem.timeCreated}
-        </RegularText>
+        <h1>{product.title}</h1>
+        <RegularText fontColor={COLORS.gray}>{product.timeCreated}</RegularText>
         <IconWithText icon={<HiOutlineUser />} iconScale={1.3}>
-          {foodItem.author}
+          {product.author}
         </IconWithText>
         <IconWithText icon={<HiOutlineCake />} iconScale={1.3}>
-          {foodItem.category}
+          {product.category}
         </IconWithText>
-        <RegularText>{foodItem.description}</RegularText>
+        <RegularText>{product.description}</RegularText>
         <IconWithText icon={<HiOutlineSquares2X2 />} iconScale={1.3}>
-          {foodItem.amount}
+          {product.amount}
         </IconWithText>
         <IconWithText icon={<HiOutlineClock />} iconScale={1.3}>
-          {foodItem.timeToTake}
+          {product.timeToTake}
         </IconWithText>
         <IconWithText icon={<HiOutlineMapPin />} iconScale={1.3}>
-          {foodItem.location}
+          {product.location}
         </IconWithText>
         <IconWithText icon={<HiOutlinePhone />} iconScale={1.3}>
-          {foodItem.phone}
+          {product.phone}
         </IconWithText>
         <Button
           margin="10px auto"

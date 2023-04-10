@@ -5,7 +5,7 @@ import SearchInput from "@/ui/SearchInput";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import styled from "styled-components";
 import FoodCard from "../../common/FoodCard";
-import { ProductsData } from "@/pages/api/FoodAdapter";
+import { ProductsData } from "@/api/FoodAdapter";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 

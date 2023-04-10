@@ -14,7 +14,7 @@ import styled from "styled-components";
 export default function FoodCard({ food }: { food: FoodItem }) {
   const router = useRouter();
 
-  const handleClick = () => router.push("/product");
+  const handleClick = () => router.push(`/product/${food.id}`);
 
   return (
     <Card>
