@@ -9,6 +9,8 @@ import {
 import { TextArea } from "@/ui/TextArea";
 import { FormSelect } from "@/ui/FormSelect";
 import { categoriesList } from "@/fake-data/categoriesList";
+import Button from "@/ui/Button";
+import styled from "styled-components";
 
 export const GiveFoodForm = () => {
   const categoriesOptions = categoriesList.map((category, index) => (
@@ -17,17 +19,8 @@ export const GiveFoodForm = () => {
     </option>
   ));
 
-  const onFormSubmit = () => (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
-
   return (
-    <Form
-      action=""
-      btnText="Создать объявление"
-      onFormSubmit={onFormSubmit()}
-      styleType="primary"
-    >
+    <FieldsContainer>
       <FormSelect name="select" styleType="primary" required>
         {categoriesOptions}
       </FormSelect>
@@ -64,6 +57,15 @@ export const GiveFoodForm = () => {
         styleType="primary"
         required
       />
-    </Form>
+      <Button type="submit" padding="10px" styleType="primary" value="Submit">
+        Создать объявление
+      </Button>
+    </FieldsContainer>
   );
 };
+
+const FieldsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+`;
