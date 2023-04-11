@@ -1,26 +1,27 @@
-import { FoodAdapter } from "./FoodAdapter";
+import axios from "axios";
+import { FoodItem } from "@/models/FoodItem";
+import { FoodAdapter, ProductsData } from "./FoodAdapter";
 
-export async function loadAllProducts(page: number, search: string) {
-  let res: Response;
-  if (search) {
-    res = await fetch(
-      `http://localhost:5000/api/product?page=${page}&search=${search}`
-    );
-  } else {
-    res = await fetch(`http://localhost:5000/api/product?page=${page}`);
-  }
-  const data = await res.json();
-  const transformedData = FoodAdapter.transformArray(data);
-
-  return transformedData;
+export async function loadAllProducts(
+  page: number,
+  search: string
+): Promise<ProductsData> {
+  const url = `http://localhost:5000/api/product?page=${page}${
+    search && `&search=${search}`
+  }`;
+  const response = await axios.get<ProductsData>(url);
+  return FoodAdapter.transformArray(response.data);
 }
 
-export async function loadOneProduct(productId: string) {
-  let res: Response = await fetch(
+export async function loadOneProduct(productId: string): Promise<FoodItem> {
+  const response = await axios.get<FoodItem>(
     `http://localhost:5000/api/product/${productId}`
   );
-  const data = await res.json();
-  const transformedData = FoodAdapter.transform(data);
+  return FoodAdapter.transform(response.data);
+}
 
-  return transformedData;
+export async function postProduct(product: any) {
+  axios.post("http://localhost:5000/api/product", product);
+  // ДОРАБОТАТЬ
+  // .then(response => this.setState({ articleId: response.data.id }));
 }

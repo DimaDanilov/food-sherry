@@ -5,10 +5,19 @@ interface ITextArea {
   name: string;
   rows: number;
   placeholder: string;
+  inputValue?: string;
+  inputOnChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   styleType: "primary" | "secondary";
 }
 
-export const TextArea = ({ name, rows, placeholder, styleType }: ITextArea) => {
+export const TextArea = ({
+  name,
+  rows,
+  placeholder,
+  inputValue,
+  inputOnChange,
+  styleType,
+}: ITextArea) => {
   return (
     <CustomTextArea
       name={name}
@@ -19,6 +28,8 @@ export const TextArea = ({ name, rows, placeholder, styleType }: ITextArea) => {
           ? COLORS.placeholderMain
           : COLORS.placeholderWhite
       }
+      value={inputValue}
+      onChange={inputOnChange}
       rows={rows}
     />
   );

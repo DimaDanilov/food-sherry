@@ -8,6 +8,8 @@ interface IInputIcon {
   placeholder?: string;
   icon: JSX.Element;
   iconScale?: number;
+  inputValue?: string;
+  inputOnChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   styleType: "primary" | "secondary";
   required?: boolean;
 }
@@ -18,6 +20,8 @@ export function FormInput({
   placeholder,
   icon,
   iconScale,
+  inputValue,
+  inputOnChange,
   styleType,
   required,
 }: IInputIcon) {
@@ -29,6 +33,8 @@ export function FormInput({
         name={name}
         id={name}
         placeholder={placeholder}
+        value={inputValue}
+        onChange={inputOnChange}
         mainColor={styleType === "primary" ? COLORS.mainColor : COLORS.white}
         placeholderColor={
           styleType === "primary"

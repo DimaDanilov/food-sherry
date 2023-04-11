@@ -5,6 +5,7 @@ import { COLORS } from "@/styles/globalStyles";
 interface IFormSelect {
   name: string;
   styleType: "primary" | "secondary";
+  onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   required?: boolean;
 }
 
@@ -12,6 +13,7 @@ export function FormSelect({
   name,
   styleType,
   children,
+  onChange,
   required,
 }: PropsWithChildren<IFormSelect>) {
   return (
@@ -26,10 +28,11 @@ export function FormSelect({
             ? COLORS.placeholderMain
             : COLORS.placeholderWhite
         }
+        onChange={onChange}
         required={required}
-        defaultValue="default"
+        defaultValue=""
       >
-        <option key={-1} value="default" disabled hidden>
+        <option key={-1} value="" disabled hidden>
           Категория
         </option>
         {children}
