@@ -56,6 +56,7 @@ const Card = styled.div`
   -webkit-box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
   -moz-box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
   box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
+  overflow-wrap: anywhere;
 `;
 const CardInfo = styled.div`
   margin: 10px 20px;
