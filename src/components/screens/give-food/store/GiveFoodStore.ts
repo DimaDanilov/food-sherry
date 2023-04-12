@@ -7,6 +7,7 @@ class GiveFoodStore {
   productDescription: string = "";
   productAmount: string = "";
   productAddress: string = "";
+  productDatetimeToTake: string = "";
 
   constructor() {
     makeAutoObservable(this);
@@ -26,6 +27,10 @@ class GiveFoodStore {
   }
   updateProductAddress(address: string) {
     this.productAddress = address;
+  }
+  updateProductDatetimeToTake(datetime: string) {
+    this.productDatetimeToTake = datetime;
+    console.log(typeof datetime);
   }
 }
 

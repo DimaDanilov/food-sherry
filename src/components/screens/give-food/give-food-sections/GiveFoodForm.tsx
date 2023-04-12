@@ -39,6 +39,9 @@ export const GiveFoodForm = observer(() => {
   const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     giveFoodStore.updateProductAddress(event.target.value);
   };
+  const handleDateTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    giveFoodStore.updateProductDatetimeToTake(event.target.value);
+  };
 
   return (
     <FieldsContainer>
@@ -90,6 +93,15 @@ export const GiveFoodForm = observer(() => {
         inputValue={giveFoodStore.productAddress}
         inputOnChange={handleAddressChange}
         required
+      />
+      <input
+        id="takedate"
+        name="takedate"
+        type="datetime-local"
+        min={new Date().toISOString().substring(0, 16)}
+        max="9999-12-31T23:59"
+        value={giveFoodStore.productDatetimeToTake}
+        onChange={handleDateTimeChange}
       />
       <Button type="submit" padding="10px" styleType="primary" value="Submit">
         Создать объявление

@@ -11,18 +11,19 @@ export default function GiveFoodScreen() {
 
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     postProduct({
       title: giveFoodStore.productTitle,
-      author: "ТЕСТОВОЕ ИМЯ",
-      category: categoriesList[giveFoodStore.productSelect],
+      author: "ТЕСТОВОЕ ИМЯ", // ДОРАБОТАТЬ
+      category: categoriesList[giveFoodStore.productSelect], // ДОРАБОТАТЬ
       description: giveFoodStore.productDescription,
       amount: giveFoodStore.productAmount,
-      time_created: "СЕЙЧАС", // ДОРАБОТАТЬ
-      time_to_take: "СЕЙЧАС", // ДОРАБОТАТЬ
+      time_created: new Date().toISOString(),
+      time_to_take: giveFoodStore.productDatetimeToTake,
       location: giveFoodStore.productAddress,
       phone: "ТЕСТОВЫЙ ТЕЛЕФОН", // ДОРАБОТАТЬ
       image_src: "", // ДОРАБОТАТЬ
-      status: "closed", // ДОРАБОТАТЬ
+      status: "open",
     });
   };
 
