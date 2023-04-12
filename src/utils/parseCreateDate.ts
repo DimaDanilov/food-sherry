@@ -21,7 +21,7 @@ export function parseCreateDate(dateString: string): string {
 
   if (todayStart <= date && date < tomorrowStart) {
     return `Today ${date.toLocaleTimeString("en-US", options)}`;
-  } else if (yesterdayStart <= date && date < yesterdayStart) {
+  } else if (yesterdayStart <= date && date < todayStart) {
     return `Yesterday ${date.toLocaleTimeString("en-US", options)}`;
   } else {
     return `${date.toLocaleDateString()} ${date.toLocaleTimeString(

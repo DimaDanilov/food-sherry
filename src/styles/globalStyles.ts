@@ -30,6 +30,8 @@ export const FONT_WEIGHT = {
 
 export const COLORS = {
   mainColor: "#289672",
+  mainColorFilter:
+    "invert(42%) sepia(61%) saturate(457%) hue-rotate(109deg) brightness(102%) contrast(90%)",
   white: "#fff",
   lightgray: "#bdbdbd",
   gray: "#848484",
