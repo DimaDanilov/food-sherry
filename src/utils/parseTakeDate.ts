@@ -1,4 +1,4 @@
-export function parseDate(dateString: string): string {
+export function parseTakeDate(dateString: string): string {
   // String to date
   const date = new Date(dateString);
   // Get the current date

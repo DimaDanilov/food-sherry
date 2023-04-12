@@ -3,7 +3,8 @@ import { COLORS } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import { Container } from "@/ui/Container";
 import { IconWithText } from "@/ui/IconWithText";
-import { parseDate } from "@/utils/parseDate";
+import { parseCreateDate } from "@/utils/parseCreateDate";
+import { parseTakeDate } from "@/utils/parseTakeDate";
 import Image from "next/image";
 import {
   HiOutlineUser,
@@ -31,7 +32,7 @@ export default function ProductScreen({ product }: { product: FoodItem }) {
       <FlexItem>
         <h1>{product.title}</h1>
         <RegularText fontColor={COLORS.gray}>
-          Добавлено {product.timeCreated}
+          Добавлено {parseCreateDate(product.timeCreated)}
         </RegularText>
         <IconWithText icon={<HiOutlineUser />} iconScale={1.3}>
           {product.author}
@@ -44,8 +45,8 @@ export default function ProductScreen({ product }: { product: FoodItem }) {
           {product.amount}
         </IconWithText>
         <IconWithText icon={<HiOutlineClock />} iconScale={1.3}>
-          {parseDate(product.timeToTake)
-            ? `Можно забрать ${parseDate(product.timeToTake)}`
+          {parseTakeDate(product.timeToTake)
+            ? `Можно забрать ${parseTakeDate(product.timeToTake)}`
             : "Closed"}
         </IconWithText>
         <IconWithText icon={<HiOutlineMapPin />} iconScale={1.3}>

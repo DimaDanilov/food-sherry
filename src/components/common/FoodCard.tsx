@@ -2,7 +2,7 @@ import { FoodItem } from "@/models/FoodItem";
 import { COLORS } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import { IconWithText } from "@/ui/IconWithText";
-import { parseDate } from "@/utils/parseDate";
+import { parseTakeDate } from "@/utils/parseTakeDate";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import {
@@ -33,7 +33,7 @@ export default function FoodCard({ food }: { food: FoodItem }) {
           {food.author}
         </IconWithText>
         <IconWithText icon={<HiOutlineClock />} iconScale={1.3}>
-          {parseDate(food.timeToTake)}
+          {parseTakeDate(food.timeToTake)}
         </IconWithText>
         <IconWithText icon={<HiOutlineMapPin />} iconScale={1.3}>
           {food.location}

@@ -30,7 +30,6 @@ class GiveFoodStore {
   }
   updateProductDatetimeToTake(datetime: string) {
     this.productDatetimeToTake = datetime;
-    console.log(typeof datetime);
   }
 }
 
