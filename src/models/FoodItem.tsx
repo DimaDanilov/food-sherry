@@ -1,8 +1,10 @@
+import { ICategory } from "./Category";
+
 export interface FoodItem {
   id: string;
   title: string;
   author: string;
-  category: string;
+  category: ICategory;
   description: string;
   amount: string;
   timeCreated: string;

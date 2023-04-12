@@ -7,18 +7,30 @@ import {
 } from "react-icons/hi2";
 import { TextArea } from "@/ui/TextArea";
 import { FormSelect } from "@/ui/FormSelect";
-import { categoriesList } from "@/fake-data/categoriesList";
 import Button from "@/ui/Button";
 import styled from "styled-components";
 import { useGiveFoodStore } from "../store/GiveFoodStore";
 import { observer } from "mobx-react";
+import { useState, useEffect } from "react";
+import { ICategory } from "@/models/Category";
+import { loadCategories } from "@/api/CategoryRest";
 
 export const GiveFoodForm = observer(() => {
   const giveFoodStore = useGiveFoodStore();
 
+  const [categoriesList, setCategories] = useState<ICategory[]>([]);
+
+  useEffect(() => {
+    async function fetchCategories() {
+      const categories = await loadCategories();
+      setCategories(categories);
+    }
+    fetchCategories().catch(console.error);
+  }, []);
+
   const categoriesOptions = categoriesList.map((category, index) => (
-    <option key={index} value={index}>
-      {category}
+    <option key={index} value={category.id}>
+      {category.name}
     </option>
   ));
 

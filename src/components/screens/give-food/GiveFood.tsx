@@ -4,7 +4,6 @@ import { GiveFoodForm } from "./give-food-sections/GiveFoodForm";
 import AddPhotoBlock from "./give-food-sections/AddPhotoBlock";
 import { postProduct } from "@/api/FoodRest";
 import { useGiveFoodStore } from "./store/GiveFoodStore";
-import { categoriesList } from "@/fake-data/categoriesList";
 
 export default function GiveFoodScreen() {
   const giveFoodStore = useGiveFoodStore();
@@ -12,10 +11,11 @@ export default function GiveFoodScreen() {
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    console.log(giveFoodStore.productSelect);
     postProduct({
       title: giveFoodStore.productTitle,
       author: "ТЕСТОВОЕ ИМЯ", // ДОРАБОТАТЬ
-      category: categoriesList[giveFoodStore.productSelect], // ДОРАБОТАТЬ
+      category_id: giveFoodStore.productSelect,
       description: giveFoodStore.productDescription,
       amount: giveFoodStore.productAmount,
       time_created: new Date().toISOString(),

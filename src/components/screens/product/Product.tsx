@@ -32,13 +32,13 @@ export default function ProductScreen({ product }: { product: FoodItem }) {
       <FlexItem>
         <h1>{product.title}</h1>
         <RegularText fontColor={COLORS.gray}>
-          Добавлено {parseCreateDate(product.timeCreated)}
+          Добавлено: {parseCreateDate(product.timeCreated)}
         </RegularText>
         <IconWithText icon={<HiOutlineUser />} iconScale={1.3}>
           {product.author}
         </IconWithText>
         <IconWithText icon={<HiOutlineCake />} iconScale={1.3}>
-          {product.category}
+          {product.category.name}
         </IconWithText>
         <RegularText>{product.description}</RegularText>
         <IconWithText icon={<HiOutlineSquares2X2 />} iconScale={1.3}>
@@ -46,7 +46,7 @@ export default function ProductScreen({ product }: { product: FoodItem }) {
         </IconWithText>
         <IconWithText icon={<HiOutlineClock />} iconScale={1.3}>
           {parseTakeDate(product.timeToTake)
-            ? `Можно забрать ${parseTakeDate(product.timeToTake)}`
+            ? `Можно забрать: ${parseTakeDate(product.timeToTake)}`
             : "Closed"}
         </IconWithText>
         <IconWithText icon={<HiOutlineMapPin />} iconScale={1.3}>
