@@ -71,6 +71,10 @@ export const AddPhotoBlock = observer(() => {
         disabled={giveFoodStore.productImages.length >= MAX_PHOTO_COUNT}
         onChange={handleAddPhotos}
       />
+      <InputRequireMark // Component to make images required
+        value={giveFoodStore.productImages.length === 0 ? "" : 1}
+        required
+      />
 
       <PhotosContainer>
         {giveFoodStore.productImages.map((photo, index) => (
@@ -108,7 +112,12 @@ const Photo = styled.img`
 const InputImage = styled.input`
   display: none;
 `;
-
+const InputRequireMark = styled.input`
+  // Component to make images required
+  opacity: 0;
+  width: 100%;
+  height: 0px;
+`;
 const PhotoLabel = styled.label<{ bgColor: string }>`
   display: flex;
   justify-content: center;
