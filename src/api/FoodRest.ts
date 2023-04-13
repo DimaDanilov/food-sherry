@@ -23,7 +23,17 @@ export async function loadOneProduct(productId: string): Promise<FoodItem> {
 }
 
 export async function postProduct(product: any) {
-  axios.post("http://localhost:5000/api/product", product);
+  const formData = new FormData();
+  for (let key in product) {
+    if (key === "images") {
+      for (let i = 0; i < product.images.length; i++) {
+        formData.append("images", product.images[i]);
+      }
+    } else {
+      formData.append(key, product[key]);
+    }
+  }
+  axios.post("http://localhost:5000/api/product", formData);
   // ДОРАБОТАТЬ
   // .then(response => this.setState({ articleId: response.data.id }));
 }

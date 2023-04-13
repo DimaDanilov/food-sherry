@@ -19,9 +19,10 @@ import styled from "styled-components";
 export default function ProductScreen({ product }: { product: FoodItem }) {
   const handleClick = () => console.log("click");
 
-  const imageElements = product.imagesSrc.map((imageUrl) => {
+  const imageElements = product.imagesSrc.map((imageUrl, index) => {
     return (
       <Image
+        key={index}
         alt=""
         src={imageUrl || "/icons/product_placeholder.svg"}
         width={150}

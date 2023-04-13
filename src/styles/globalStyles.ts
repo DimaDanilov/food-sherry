@@ -2,7 +2,7 @@ import { Montserrat } from "next/font/google";
 
 export const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["300", "400"],
+  weight: ["200", "300", "400"],
 });
 
 export const FONT_SIZE = {
@@ -17,11 +17,11 @@ export const FONT_SIZE = {
 };
 
 export const FONT_WEIGHT = {
-  default: "500",
-  h1: "500",
-  h2: "500",
-  h3: "500",
-  p: "400",
+  default: "400",
+  h1: "400",
+  h2: "400",
+  h3: "400",
+  p: "300",
   link: "400",
   input: "400",
   button: "400",

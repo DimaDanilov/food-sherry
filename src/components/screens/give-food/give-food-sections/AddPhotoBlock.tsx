@@ -1,12 +1,14 @@
 import { COLORS } from "@/styles/globalStyles";
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import { HiOutlineCamera, HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
+import { useGiveFoodStore } from "../store/GiveFoodStore";
+import { observer } from "mobx-react";
 
 const MAX_PHOTO_COUNT = 10;
 
-export default function AddPhotoBlock() {
-  const [photoArray, setPhotoArray] = useState<Array<File>>([]);
+export const AddPhotoBlock = observer(() => {
+  const giveFoodStore = useGiveFoodStore();
 
   const handleAddPhotos = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,41 +17,44 @@ export default function AddPhotoBlock() {
         const newPhotos = files.filter(
           (file) =>
             !(
-              photoArray.find((el) => el.lastModified === file.lastModified) !==
-                undefined &&
-              photoArray.find((el) => el.name === file.name) !== undefined
+              giveFoodStore.productImages.find(
+                (el) => el.lastModified === file.lastModified
+              ) !== undefined &&
+              giveFoodStore.productImages.find(
+                (el) => el.name === file.name
+              ) !== undefined
             )
         );
         if (newPhotos.length > 0) {
-          setPhotoArray((prevPhotos) => [
-            ...prevPhotos,
-            ...newPhotos.slice(0, MAX_PHOTO_COUNT - prevPhotos.length),
+          giveFoodStore.updateProductImages([
+            ...giveFoodStore.productImages,
+            ...newPhotos.slice(
+              0,
+              MAX_PHOTO_COUNT - giveFoodStore.productImages.length
+            ),
           ]);
         } else {
           alert(`No new files added.`);
         }
       }
     },
-    [photoArray]
+    [giveFoodStore.productImages]
   );
 
-  const handleRemovePhoto = useCallback(
-    (index: number) => {
-      setPhotoArray((prevPhotos) =>
-        prevPhotos.filter((_, currInd) => {
-          return currInd !== index;
-        })
-      );
-    },
-    [setPhotoArray]
-  );
+  const handleRemovePhoto = (index: number) => {
+    giveFoodStore.updateProductImages(
+      giveFoodStore.productImages.filter((_, currInd) => {
+        return currInd !== index;
+      })
+    );
+  };
 
   return (
     <div>
       <PhotoLabel
         htmlFor="addImage"
         bgColor={
-          photoArray.length >= MAX_PHOTO_COUNT
+          giveFoodStore.productImages.length >= MAX_PHOTO_COUNT
             ? COLORS.placeholderMain
             : COLORS.mainColor
         }
@@ -63,12 +68,12 @@ export default function AddPhotoBlock() {
         name="addImage"
         accept="image/png, image/gif, image/jpeg"
         multiple
-        disabled={photoArray.length >= MAX_PHOTO_COUNT}
+        disabled={giveFoodStore.productImages.length >= MAX_PHOTO_COUNT}
         onChange={handleAddPhotos}
       />
 
       <PhotosContainer>
-        {photoArray.map((photo, index) => (
+        {giveFoodStore.productImages.map((photo, index) => (
           <PhotoEl key={index}>
             <Photo alt={photo.name} src={URL.createObjectURL(photo)} />
             <DeleteIcon
@@ -82,7 +87,7 @@ export default function AddPhotoBlock() {
       </PhotosContainer>
     </div>
   );
-}
+});
 
 const PhotosContainer = styled.div`
   display: grid;

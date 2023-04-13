@@ -8,6 +8,7 @@ class GiveFoodStore {
   productAmount: string = "";
   productAddress: string = "";
   productDatetimeToTake: string = "";
+  productImages: Array<File> = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -30,6 +31,9 @@ class GiveFoodStore {
   }
   updateProductDatetimeToTake(datetime: string) {
     this.productDatetimeToTake = datetime;
+  }
+  updateProductImages(images: Array<File>) {
+    this.productImages = images;
   }
 }
 
