@@ -20,7 +20,7 @@ export default function FoodCard({ food }: { food: FoodItem }) {
   return (
     <Card>
       <CardImage
-        src={food.imageSrc || "/icons/product_placeholder.svg"}
+        src={food.imagesSrc[0] || "/icons/product_placeholder.svg"}
         alt={food.title}
         width={150}
         height={150}

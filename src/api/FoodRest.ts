@@ -2,11 +2,13 @@ import axios from "axios";
 import { FoodItem } from "@/models/FoodItem";
 import { FoodAdapter, ProductsData } from "./FoodAdapter";
 
+export const API_URL = "http://localhost:5000";
+
 export async function loadAllProducts(
   page: number,
   search: string
 ): Promise<ProductsData> {
-  const url = `http://localhost:5000/api/product?page=${page}${
+  const url = `${API_URL}/api/product?page=${page}${
     search && `&search=${search}`
   }`;
   const response = await axios.get<ProductsData>(url);
@@ -15,7 +17,7 @@ export async function loadAllProducts(
 
 export async function loadOneProduct(productId: string): Promise<FoodItem> {
   const response = await axios.get<FoodItem>(
-    `http://localhost:5000/api/product/${productId}`
+    `${API_URL}/api/product/${productId}`
   );
   return FoodAdapter.transform(response.data);
 }

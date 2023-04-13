@@ -11,6 +11,6 @@ export interface FoodItem {
   timeToTake: string;
   location: string;
   phone: string;
-  imageSrc: string;
+  imagesSrc: Array<string>;
   status: "open" | "reserved" | "closed";
 }

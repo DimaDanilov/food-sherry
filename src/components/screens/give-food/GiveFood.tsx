@@ -23,7 +23,7 @@ export default function GiveFoodScreen() {
         time_to_take: giveFoodStore.productDatetimeToTake,
         location: giveFoodStore.productAddress,
         phone: "ТЕСТОВЫЙ ТЕЛЕФОН", // ДОРАБОТАТЬ
-        image_src: "", // ДОРАБОТАТЬ
+        images: "", // ДОРАБОТАТЬ
         status: "open",
       });
 

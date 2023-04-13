@@ -19,15 +19,27 @@ import styled from "styled-components";
 export default function ProductScreen({ product }: { product: FoodItem }) {
   const handleClick = () => console.log("click");
 
+  const imageElements = product.imagesSrc.map((imageUrl) => {
+    return (
+      <Image
+        alt=""
+        src={imageUrl || "/icons/product_placeholder.svg"}
+        width={150}
+        height={150}
+      />
+    );
+  });
+
   return (
     <FlexContainer>
       <FlexItem>
         <ProductImage
           alt=""
-          src={product.imageSrc || "/icons/product_placeholder.svg"}
+          src={product.imagesSrc[0] || "/icons/product_placeholder.svg"}
           width={550}
           height={550}
         />
+        <GridImages>{imageElements}</GridImages>
       </FlexItem>
       <FlexItem>
         <h1>{product.title}</h1>
@@ -78,6 +90,13 @@ const FlexContainer = styled(Container)`
 `;
 const FlexItem = styled.div`
   width: 45%;
+`;
+const GridImages = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  gap: 10px;
 `;
 const ProductImage = styled(Image)`
   width: 100%;

@@ -1,4 +1,5 @@
 import { FoodItem } from "@/models/FoodItem";
+import { API_URL } from "./FoodRest";
 
 export interface ProductsData {
   products: FoodItem[];
@@ -6,6 +7,9 @@ export interface ProductsData {
 }
 
 export class FoodAdapter {
+  static imagesUrlTransform(images: Array<string>) {
+    return images.map((imageUrl) => `${API_URL}/food_images/${imageUrl}`);
+  }
   static transform(productItem: any): FoodItem {
     return {
       id: productItem.id,
@@ -18,7 +22,7 @@ export class FoodAdapter {
       timeToTake: productItem.time_to_take,
       location: productItem.location,
       phone: productItem.phone,
-      imageSrc: productItem.image_src,
+      imagesSrc: this.imagesUrlTransform(productItem.images),
       status: productItem.status,
     };
   }
