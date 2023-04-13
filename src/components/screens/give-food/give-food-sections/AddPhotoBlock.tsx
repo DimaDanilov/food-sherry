@@ -74,7 +74,6 @@ export const AddPhotoBlock = observer(() => {
       <InputRequireMark // Component to make images required
         value={giveFoodStore.productImages.length === 0 ? "" : 1}
         required
-        readOnly
       />
 
       <PhotosContainer>

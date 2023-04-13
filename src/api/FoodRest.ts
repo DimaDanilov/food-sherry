@@ -33,7 +33,7 @@ export async function postProduct(product: any) {
       formData.append(key, product[key]);
     }
   }
-  axios.post("http://localhost:5000/api/product", formData);
+  axios.post(`${API_URL}/api/product`, formData);
   // ДОРАБОТАТЬ
   // .then(response => this.setState({ articleId: response.data.id }));
 }
