@@ -35,6 +35,15 @@ class GiveFoodStore {
   updateProductImages(images: Array<File>) {
     this.productImages = images;
   }
+  reset() {
+    this.updateProductSelect("0");
+    this.updateProductTitle("");
+    this.updateProductDescription("");
+    this.updateProductAmount("");
+    this.updateProductAddress("");
+    this.updateProductDatetimeToTake("");
+    this.updateProductImages([]);
+  }
 }
 
 export const GiveFoodInstance = new GiveFoodStore();

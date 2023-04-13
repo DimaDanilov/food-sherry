@@ -26,6 +26,7 @@ export default function GiveFoodScreen() {
         images: giveFoodStore.productImages,
         status: "open",
       });
+      giveFoodStore.reset();
       router.push("/save-food");
     } catch (error) {
       console.log(error);

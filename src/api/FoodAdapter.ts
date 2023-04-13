@@ -8,7 +8,9 @@ export interface ProductsData {
 
 export class FoodAdapter {
   static imagesUrlTransform(images: Array<string>) {
-    return images.map((imageUrl) => `${API_URL}/food_images/${imageUrl}`);
+    return (
+      images?.map((imageUrl) => `${API_URL}/food_images/${imageUrl}`) || ""
+    );
   }
   static transform(productItem: any): FoodItem {
     return {

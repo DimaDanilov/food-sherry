@@ -148,6 +148,7 @@ export const GiveFoodForm = observer(() => {
         max="9999-12-31T23:59"
         value={giveFoodStore.productDatetimeToTake}
         onChange={handleDateTimeChange}
+        required
       />
       <Button type="submit" padding="10px" styleType="primary" value="Submit">
         Создать объявление

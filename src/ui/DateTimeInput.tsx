@@ -7,6 +7,7 @@ interface DateTimeInput {
   min?: string;
   max?: string;
   value?: string;
+  required?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -16,6 +17,7 @@ export const DateTimeInput = ({
   min,
   max,
   value,
+  required,
   onChange,
 }: DateTimeInput) => {
   return (
@@ -34,6 +36,7 @@ export const DateTimeInput = ({
       iconColor={COLORS.mainColorFilter}
       value={value}
       onChange={onChange}
+      required={required}
     />
   );
 };

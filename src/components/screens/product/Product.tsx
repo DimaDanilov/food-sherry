@@ -78,15 +78,16 @@ export default function ProductScreen({ product }: IProductScreenProps) {
             height={400}
           />
           <GridImages>
-            {product.imagesSrc.map((imageUrl, index) => (
-              <ProductImage
-                key={index}
-                imageUrl={imageUrl}
-                index={index}
-                currentImageID={currentImageID}
-                onImageClick={onImageClick}
-              />
-            ))}
+            {product.imagesSrc &&
+              product.imagesSrc.map((imageUrl, index) => (
+                <ProductImage
+                  key={index}
+                  imageUrl={imageUrl}
+                  index={index}
+                  currentImageID={currentImageID}
+                  onImageClick={onImageClick}
+                />
+              ))}
           </GridImages>
         </ProductImagesContainer>
       </FlexItem>
