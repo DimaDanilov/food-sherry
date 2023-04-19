@@ -1,4 +1,4 @@
-import Header from "./header/Header";
+import { Header } from "./header/Header";
 import React from "react";
 import { Meta } from "../ceo/Meta";
 

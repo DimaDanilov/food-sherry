@@ -6,8 +6,27 @@ import {
   montserrat,
 } from "@/styles/globalStyles";
 import type { AppProps } from "next/app";
+import { auth } from "@/api/AuthRest";
+import { useEffect } from "react";
+import { User, useAuthStore } from "@/store/AuthStore";
 
 export default function App({ Component, pageProps }: AppProps) {
+  const authStore = useAuthStore();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const user: User = await auth(token);
+        if (user.email) {
+          authStore.setUser(user);
+        }
+      }
+      authStore.setFirstLoadStatus(true);
+    };
+    checkAuth();
+  }, []);
+
   return (
     <>
       <style jsx global>{`

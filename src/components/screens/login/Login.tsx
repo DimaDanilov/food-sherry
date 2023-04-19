@@ -6,16 +6,41 @@ import { FormSwitch } from "@/ui/FormSwitch";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { HiOutlineEnvelope, HiOutlineKey } from "react-icons/hi2";
+import { useState, useEffect } from "react";
+import { login } from "@/api/AuthRest";
+import { useAuthStore } from "@/store/AuthStore";
+import { observer } from "mobx-react";
+import Loader from "@/components/layout/Loader";
 
-export default function LoginScreen() {
+export const LoginScreen = observer(() => {
   const router = useRouter();
+  const authStore = useAuthStore();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const onFormSubmit = () => (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    router.push("/profile");
+  const onLoginChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+  const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
   };
 
-  return (
+  const onFormSubmit =
+    () => async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      const user = await login(email, password);
+      authStore.setUser(user);
+    };
+
+  useEffect(() => {
+    if (authStore.user.email) {
+      router.replace("/profile");
+    }
+  }, [authStore.user]);
+
+  return !authStore.firstLoadCompleted ? (
+    <Loader />
+  ) : (
     <Container>
       <LoginFormContainer>
         <Title>Вход</Title>
@@ -35,6 +60,8 @@ export default function LoginScreen() {
             type="email"
             name="email"
             placeholder="Почта"
+            inputValue={email}
+            inputOnChange={onLoginChange}
             icon={<HiOutlineEnvelope color={COLORS.white} />}
             iconScale={1.5}
             styleType="secondary"
@@ -44,6 +71,8 @@ export default function LoginScreen() {
             type="password"
             name="password"
             placeholder="Пароль"
+            inputValue={password}
+            inputOnChange={onPasswordChange}
             icon={<HiOutlineKey color={COLORS.white} />}
             iconScale={1.5}
             styleType="secondary"
@@ -53,7 +82,7 @@ export default function LoginScreen() {
       </LoginFormContainer>
     </Container>
   );
-}
+});
 
 const LoginFormContainer = styled.div`
   width: 40%;

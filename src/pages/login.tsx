@@ -1,5 +1,5 @@
 import Layout from "@/components/layout/Layout";
-import LoginScreen from "@/components/screens/login/Login";
+import { LoginScreen } from "@/components/screens/login/Login";
 
 export default function Login() {
   return (

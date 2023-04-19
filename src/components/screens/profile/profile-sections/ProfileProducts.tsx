@@ -1,5 +1,4 @@
 import FoodCard from "@/components/common/FoodCard";
-import { foodFakeArray } from "@/fake-data/foodArray";
 import { FoodItem } from "@/models/FoodItem";
 import { COLORS } from "@/styles/globalStyles";
 import styled from "styled-components";
@@ -12,7 +11,7 @@ export const ProfileProducts = () => {
     undefined
   );
 
-  const productsData: Array<FoodItem> = foodFakeArray;
+  const productsData: Array<FoodItem> = [];
   const productsItems = productsData.map((product) => (
     <FoodCard key={product.id} food={product} />
   ));

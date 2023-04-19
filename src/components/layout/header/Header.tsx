@@ -4,8 +4,20 @@ import Link from "next/link";
 import { COLORS } from "@/styles/globalStyles";
 import { Icon } from "@/ui/Icon";
 import { HiUserCircle } from "react-icons/hi2";
+import { User, useAuthStore } from "@/store/AuthStore";
+import { unlogin } from "@/api/AuthRest";
+import { useRouter } from "next/router";
+import { observer } from "mobx-react";
 
-export default function Header() {
+export const Header = observer(() => {
+  const router = useRouter();
+  const authStore = useAuthStore();
+
+  const onExitBtn = () => {
+    unlogin();
+    authStore.setUser({} as User);
+    router.push("/login");
+  };
   return (
     <Container>
       <LeftContainer>
@@ -25,16 +37,21 @@ export default function Header() {
             <NavLi>
               <NavLink href="/give-food">Отдать еду</NavLink>
             </NavLi>
+            {authStore.user.email && (
+              <NavLi>
+                <button onClick={onExitBtn}>Выйти</button>
+              </NavLi>
+            )}
           </NavUl>
         </Nav>
       </LeftContainer>
 
-      <NavLink href="/login">
+      <NavLink href={authStore.user.email ? "/profile" : "/login"}>
         <Icon icon={<HiUserCircle />} iconScale={2.5} />
       </NavLink>
     </Container>
   );
-}
+});
 
 const Container = styled.header`
   position: sticky;

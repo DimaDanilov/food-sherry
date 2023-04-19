@@ -1,5 +1,5 @@
 import Layout from "@/components/layout/Layout";
-import RegisterScreen from "@/components/screens/register/Register";
+import { RegisterScreen } from "@/components/screens/register/Register";
 
 export default function Register() {
   return (

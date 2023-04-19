@@ -5,21 +5,35 @@ import { FormInput } from "@/ui/FormInput";
 import { FormSwitch } from "@/ui/FormSwitch";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import { useEffect } from "react";
 import {
   HiOutlineUser,
   HiOutlineEnvelope,
   HiOutlinePhone,
   HiOutlineKey,
 } from "react-icons/hi2";
+import { useAuthStore } from "@/store/AuthStore";
+import { observer } from "mobx-react";
+import Loader from "@/components/layout/Loader";
 
-export default function RegisterScreen() {
+export const RegisterScreen = observer(() => {
   const router = useRouter();
+  const authStore = useAuthStore();
 
   const onFormSubmit = () => (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     router.push("/login");
   };
-  return (
+
+  useEffect(() => {
+    if (authStore.user.email) {
+      router.replace("/profile");
+    }
+  }, [authStore.user]);
+
+  return !authStore.firstLoadCompleted ? (
+    <Loader />
+  ) : (
     <Container>
       <LoginFormContainer>
         <Title>Регистрация</Title>
@@ -101,7 +115,7 @@ export default function RegisterScreen() {
       </LoginFormContainer>
     </Container>
   );
-}
+});
 
 const LoginFormContainer = styled.div`
   width: 40%;
