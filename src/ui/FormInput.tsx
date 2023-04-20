@@ -10,6 +10,7 @@ interface IInputIcon {
   iconScale?: number;
   inputValue?: string;
   inputOnChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  inputRef?: React.RefObject<HTMLInputElement>;
   styleType: "primary" | "secondary";
   required?: boolean;
 }
@@ -22,6 +23,7 @@ export function FormInput({
   iconScale,
   inputValue,
   inputOnChange,
+  inputRef,
   styleType,
   required,
 }: IInputIcon) {
@@ -35,6 +37,7 @@ export function FormInput({
         placeholder={placeholder}
         value={inputValue}
         onChange={inputOnChange}
+        ref={inputRef}
         mainColor={styleType === "primary" ? COLORS.mainColor : COLORS.white}
         placeholderColor={
           styleType === "primary"

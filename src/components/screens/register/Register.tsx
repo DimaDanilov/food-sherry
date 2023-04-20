@@ -5,7 +5,7 @@ import { FormInput } from "@/ui/FormInput";
 import { FormSwitch } from "@/ui/FormSwitch";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   HiOutlineUser,
   HiOutlineEnvelope,
@@ -25,6 +25,9 @@ export const RegisterScreen = observer(() => {
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
 
   const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -41,6 +44,9 @@ export const RegisterScreen = observer(() => {
   const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
+  const onConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(e.target.value);
+  };
 
   const onFormSubmit =
     () => async (event: React.FormEvent<HTMLFormElement>) => {
@@ -54,6 +60,18 @@ export const RegisterScreen = observer(() => {
       router.replace("/profile");
     }
   }, [authStore.user]);
+
+  useEffect(() => {
+    if (confirmPasswordRef.current) {
+      if (password !== confirmPassword) {
+        confirmPasswordRef.current.setCustomValidity(
+          "Поле должно совпадать с паролем"
+        );
+      } else {
+        confirmPasswordRef.current.setCustomValidity("");
+      }
+    }
+  }, [password, confirmPassword]);
 
   return !authStore.firstLoadCompleted ? (
     <Loader />
@@ -136,15 +154,18 @@ export const RegisterScreen = observer(() => {
             styleType="secondary"
             required
           />
-          {/* <FormInput
+          <FormInput
             type="password"
             name="confirm_password"
             placeholder="Подтвердите пароль"
+            inputValue={confirmPassword}
+            inputOnChange={onConfirmPasswordChange}
+            inputRef={confirmPasswordRef}
             icon={<HiOutlineKey color={COLORS.white} />}
             iconScale={1.5}
             styleType="secondary"
             required
-          /> */}
+          />
         </Form>
       </LoginFormContainer>
     </Container>
