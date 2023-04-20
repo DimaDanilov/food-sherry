@@ -9,7 +9,7 @@ import { TextArea } from "@/ui/TextArea";
 import { FormSelect } from "@/ui/FormSelect";
 import Button from "@/ui/Button";
 import styled from "styled-components";
-import { useGiveFoodStore } from "../store/GiveFoodStore";
+import { useGiveProductStore } from "../store/GiveProductStore";
 import { observer } from "mobx-react";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { ICategory } from "@/models/Category";
@@ -20,8 +20,8 @@ const now = new Date();
 const tzoffset = now.getTimezoneOffset() * 60000;
 const dateToInput = new Date(Date.now() - tzoffset).toISOString().slice(0, 16);
 
-export const GiveFoodForm = observer(() => {
-  const giveFoodStore = useGiveFoodStore();
+export const GiveProductForm = observer(() => {
+  const giveProductStore = useGiveProductStore();
 
   const [categoriesList, setCategories] = useState<ICategory[]>([]);
 
@@ -50,44 +50,44 @@ export const GiveFoodForm = observer(() => {
 
   const handleSelectChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
-      giveFoodStore.updateProductSelect(event.target.value);
+      giveProductStore.updateProductSelect(event.target.value);
     },
-    [giveFoodStore.updateProductSelect]
+    [giveProductStore.updateProductSelect]
   );
 
   const handleTitleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      giveFoodStore.updateProductTitle(event.target.value);
+      giveProductStore.updateProductTitle(event.target.value);
     },
-    [giveFoodStore.updateProductTitle]
+    [giveProductStore.updateProductTitle]
   );
 
   const handleDescriptionChange = useCallback(
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-      giveFoodStore.updateProductDescription(event.target.value);
+      giveProductStore.updateProductDescription(event.target.value);
     },
-    [giveFoodStore.updateProductDescription]
+    [giveProductStore.updateProductDescription]
   );
 
   const handleAmountChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      giveFoodStore.updateProductAmount(event.target.value);
+      giveProductStore.updateProductAmount(event.target.value);
     },
-    [giveFoodStore.updateProductAmount]
+    [giveProductStore.updateProductAmount]
   );
 
   const handleAddressChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      giveFoodStore.updateProductAddress(event.target.value);
+      giveProductStore.updateProductAddress(event.target.value);
     },
-    [giveFoodStore.updateProductAddress]
+    [giveProductStore.updateProductAddress]
   );
 
   const handleDateTimeChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      giveFoodStore.updateProductDatetimeToTake(event.target.value);
+      giveProductStore.updateProductDatetimeToTake(event.target.value);
     },
-    [giveFoodStore.updateProductDatetimeToTake]
+    [giveProductStore.updateProductDatetimeToTake]
   );
 
   return (
@@ -108,7 +108,7 @@ export const GiveFoodForm = observer(() => {
         iconScale={1.5}
         styleType="primary"
         required
-        inputValue={giveFoodStore.productTitle}
+        inputValue={giveProductStore.productTitle}
         inputOnChange={handleTitleChange}
       />
       <TextArea
@@ -116,7 +116,7 @@ export const GiveFoodForm = observer(() => {
         rows={10}
         placeholder="Описание"
         styleType="primary"
-        inputValue={giveFoodStore.productDescription}
+        inputValue={giveProductStore.productDescription}
         inputOnChange={handleDescriptionChange}
       />
       <FormInput
@@ -126,7 +126,7 @@ export const GiveFoodForm = observer(() => {
         icon={<HiOutlineSquares2X2 color={COLORS.mainColor} />}
         iconScale={1.5}
         styleType="primary"
-        inputValue={giveFoodStore.productAmount}
+        inputValue={giveProductStore.productAmount}
         inputOnChange={handleAmountChange}
         required
       />
@@ -137,7 +137,7 @@ export const GiveFoodForm = observer(() => {
         icon={<HiOutlineMapPin color={COLORS.mainColor} />}
         iconScale={1.5}
         styleType="primary"
-        inputValue={giveFoodStore.productAddress}
+        inputValue={giveProductStore.productAddress}
         inputOnChange={handleAddressChange}
         required
       />
@@ -146,7 +146,7 @@ export const GiveFoodForm = observer(() => {
         styleType="primary"
         min={dateToInput}
         max="9999-12-31T23:59"
-        value={giveFoodStore.productDatetimeToTake}
+        value={giveProductStore.productDatetimeToTake}
         onChange={handleDateTimeChange}
         required
       />

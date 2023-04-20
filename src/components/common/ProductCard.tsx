@@ -12,31 +12,31 @@ import {
 } from "react-icons/hi2";
 import styled from "styled-components";
 
-export default function FoodCard({ food }: { food: IProduct }) {
+export default function ProductCard({ product }: { product: IProduct }) {
   const router = useRouter();
 
-  const handleClick = () => router.push(`/product/${food.id}`);
+  const handleClick = () => router.push(`/product/${product.id}`);
 
   return (
     <Card>
       <CardImage
-        src={food.imagesSrc[0] || "/icons/product_placeholder.svg"}
-        alt={food.title}
+        src={product.imagesSrc[0] || "/icons/product_placeholder.svg"}
+        alt={product.title}
         width={150}
         height={150}
         style={{ width: "100%", height: "auto" }}
         onClick={handleClick}
       />
       <CardInfo>
-        <CardTitle>{food.title}</CardTitle>
+        <CardTitle>{product.title}</CardTitle>
         <IconWithText icon={<HiOutlineUser />} iconScale={1.3}>
-          {food.author}
+          {product.author}
         </IconWithText>
         <IconWithText icon={<HiOutlineClock />} iconScale={1.3}>
-          {parseTakeDate(food.timeToTake)}
+          {parseTakeDate(product.timeToTake)}
         </IconWithText>
         <IconWithText icon={<HiOutlineMapPin />} iconScale={1.3}>
-          {food.location}
+          {product.location}
         </IconWithText>
         <Button
           margin="10px auto"

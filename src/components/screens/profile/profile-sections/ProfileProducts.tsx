@@ -1,4 +1,4 @@
-import FoodCard from "@/components/common/FoodCard";
+import ProductCard from "@/components/common/ProductCard";
 import { IProduct } from "@/models/Product";
 import { COLORS } from "@/styles/globalStyles";
 import styled from "styled-components";
@@ -13,7 +13,7 @@ export const ProfileProducts = () => {
 
   const productsData: Array<IProduct> = [];
   const productsItems = productsData.map((product) => (
-    <FoodCard key={product.id} food={product} />
+    <ProductCard key={product.id} product={product} />
   ));
 
   useEffect(() => {

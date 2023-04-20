@@ -33,10 +33,10 @@ export const Header = observer(() => {
         <Nav>
           <NavUl>
             <NavLi>
-              <NavLink href="/save-food">Забрать еду</NavLink>
+              <NavLink href="/save-product">Забрать еду</NavLink>
             </NavLi>
             <NavLi>
-              <NavLink href="/give-food">Отдать еду</NavLink>
+              <NavLink href="/give-product">Отдать еду</NavLink>
             </NavLi>
           </NavUl>
         </Nav>

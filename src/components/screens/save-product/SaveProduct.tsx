@@ -4,12 +4,12 @@ import { Container } from "@/ui/Container";
 import SearchInput from "@/ui/SearchInput";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import styled from "styled-components";
-import FoodCard from "../../common/FoodCard";
-import { ProductsData } from "@/api/FoodAdapter";
+import ProductCard from "../../common/ProductCard";
+import { ProductsData } from "@/api/ProductAdapter";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-export default function SaveFoodScreen({
+export default function SaveProductScreen({
   productsData,
   page,
   search,
@@ -60,7 +60,7 @@ export default function SaveFoodScreen({
       </form>
       <CardsContainer>
         {productsData.products?.map((p) => (
-          <FoodCard key={p.id} food={p} />
+          <ProductCard key={p.id} product={p} />
         ))}
       </CardsContainer>
       <Paginator totalItems={productsData.totalCount} currentPage={page} />

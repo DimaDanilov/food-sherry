@@ -1,33 +1,33 @@
 import { Container } from "@/ui/Container";
 import styled from "styled-components";
-import { GiveFoodForm } from "./give-food-sections/GiveFoodForm";
-import { AddPhotoBlock } from "./give-food-sections/AddPhotoBlock";
-import { postProduct } from "@/api/FoodApi";
-import { useGiveFoodStore } from "./store/GiveFoodStore";
+import { GiveProductForm } from "./give-product-sections/GiveProductForm";
+import { AddPhotoBlock } from "./give-product-sections/AddPhotoBlock";
+import { postProduct } from "@/api/ProductApi";
+import { useGiveProductStore } from "./store/GiveProductStore";
 import { useRouter } from "next/router";
 
-export default function GiveFoodScreen() {
-  const giveFoodStore = useGiveFoodStore();
+export default function GiveProductScreen() {
+  const giveProductStore = useGiveProductStore();
   const router = useRouter();
 
   const onFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await postProduct({
-        title: giveFoodStore.productTitle,
+        title: giveProductStore.productTitle,
         author: "ТЕСТОВОЕ ИМЯ", // ДОРАБОТАТЬ
-        category_id: giveFoodStore.productSelect,
-        description: giveFoodStore.productDescription,
-        amount: giveFoodStore.productAmount,
+        category_id: giveProductStore.productSelect,
+        description: giveProductStore.productDescription,
+        amount: giveProductStore.productAmount,
         time_created: new Date().toISOString(),
-        time_to_take: giveFoodStore.productDatetimeToTake,
-        location: giveFoodStore.productAddress,
+        time_to_take: giveProductStore.productDatetimeToTake,
+        location: giveProductStore.productAddress,
         phone: "ТЕСТОВЫЙ ТЕЛЕФОН", // ДОРАБОТАТЬ
-        images: giveFoodStore.productImages,
+        images: giveProductStore.productImages,
         status: "open",
       });
-      giveFoodStore.reset();
-      router.push("/save-food");
+      giveProductStore.reset();
+      router.push("/save-product");
     } catch (error) {
       console.log(error);
     }
@@ -37,7 +37,7 @@ export default function GiveFoodScreen() {
     <PageContainer>
       <Form action="" method="post" onSubmit={onFormSubmit}>
         <FieldsContainer>
-          <GiveFoodForm />
+          <GiveProductForm />
         </FieldsContainer>
 
         <PhotosContainer>

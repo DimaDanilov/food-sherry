@@ -2,13 +2,13 @@ import { COLORS } from "@/styles/globalStyles";
 import { useCallback } from "react";
 import { HiOutlineCamera, HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
-import { useGiveFoodStore } from "../store/GiveFoodStore";
+import { useGiveProductStore } from "../store/GiveProductStore";
 import { observer } from "mobx-react";
 
 const MAX_PHOTO_COUNT = 10;
 
 export const AddPhotoBlock = observer(() => {
-  const giveFoodStore = useGiveFoodStore();
+  const giveProductStore = useGiveProductStore();
 
   const handleAddPhotos = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,20 +17,20 @@ export const AddPhotoBlock = observer(() => {
         const newPhotos = files.filter(
           (file) =>
             !(
-              giveFoodStore.productImages.find(
+              giveProductStore.productImages.find(
                 (el) => el.lastModified === file.lastModified
               ) !== undefined &&
-              giveFoodStore.productImages.find(
+              giveProductStore.productImages.find(
                 (el) => el.name === file.name
               ) !== undefined
             )
         );
         if (newPhotos.length > 0) {
-          giveFoodStore.updateProductImages([
-            ...giveFoodStore.productImages,
+          giveProductStore.updateProductImages([
+            ...giveProductStore.productImages,
             ...newPhotos.slice(
               0,
-              MAX_PHOTO_COUNT - giveFoodStore.productImages.length
+              MAX_PHOTO_COUNT - giveProductStore.productImages.length
             ),
           ]);
         } else {
@@ -38,12 +38,12 @@ export const AddPhotoBlock = observer(() => {
         }
       }
     },
-    [giveFoodStore.productImages]
+    [giveProductStore.productImages]
   );
 
   const handleRemovePhoto = (index: number) => {
-    giveFoodStore.updateProductImages(
-      giveFoodStore.productImages.filter((_, currInd) => {
+    giveProductStore.updateProductImages(
+      giveProductStore.productImages.filter((_, currInd) => {
         return currInd !== index;
       })
     );
@@ -54,7 +54,7 @@ export const AddPhotoBlock = observer(() => {
       <PhotoLabel
         htmlFor="addImage"
         bgColor={
-          giveFoodStore.productImages.length >= MAX_PHOTO_COUNT
+          giveProductStore.productImages.length >= MAX_PHOTO_COUNT
             ? COLORS.placeholderMain
             : COLORS.mainColor
         }
@@ -68,16 +68,16 @@ export const AddPhotoBlock = observer(() => {
         name="addImage"
         accept="image/png, image/gif, image/jpeg"
         multiple
-        disabled={giveFoodStore.productImages.length >= MAX_PHOTO_COUNT}
+        disabled={giveProductStore.productImages.length >= MAX_PHOTO_COUNT}
         onChange={handleAddPhotos}
       />
       <InputRequireMark // Component to make images required
-        value={giveFoodStore.productImages.length === 0 ? "" : 1}
+        value={giveProductStore.productImages.length === 0 ? "" : 1}
         required
       />
 
       <PhotosContainer>
-        {giveFoodStore.productImages.map((photo, index) => (
+        {giveProductStore.productImages.map((photo, index) => (
           <PhotoEl key={index}>
             <Photo alt={photo.name} src={URL.createObjectURL(photo)} />
             <DeleteIcon

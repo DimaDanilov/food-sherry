@@ -1,12 +1,12 @@
 import { IProduct } from "@/models/Product";
-import { API_URL } from "./FoodApi";
+import { API_URL } from "./ProductApi";
 
 export interface ProductsData {
   products: IProduct[];
   totalCount: number;
 }
 
-export class FoodAdapter {
+export class ProductAdapter {
   static imagesUrlTransform(images: Array<string>) {
     return (
       images?.map((imageUrl) => `${API_URL}/food_images/${imageUrl}`) || ""

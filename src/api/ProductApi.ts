@@ -1,6 +1,6 @@
 import axios from "axios";
 import { IProduct } from "@/models/Product";
-import { FoodAdapter, ProductsData } from "./FoodAdapter";
+import { ProductAdapter, ProductsData } from "./ProductAdapter";
 
 export const API_URL = "http://localhost:5000";
 
@@ -12,14 +12,14 @@ export async function loadAllProducts(
     search && `&search=${search}`
   }`;
   const response = await axios.get<ProductsData>(url);
-  return FoodAdapter.transformArray(response.data);
+  return ProductAdapter.transformArray(response.data);
 }
 
 export async function loadOneProduct(productId: string): Promise<IProduct> {
   const response = await axios.get<IProduct>(
     `${API_URL}/api/product/${productId}`
   );
-  return FoodAdapter.transform(response.data);
+  return ProductAdapter.transform(response.data);
 }
 
 export async function postProduct(product: any) {

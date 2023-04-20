@@ -1,7 +1,7 @@
 import React from "react";
 import { makeAutoObservable } from "mobx";
 
-class GiveFoodStore {
+class GiveProductStore {
   productSelect = 0;
   productTitle: string = "";
   productDescription: string = "";
@@ -46,11 +46,11 @@ class GiveFoodStore {
   }
 }
 
-export const GiveFoodInstance = new GiveFoodStore();
-export const GiveFoodContext = React.createContext(GiveFoodInstance);
+export const GiveProductInstance = new GiveProductStore();
+export const GiveProductContext = React.createContext(GiveProductInstance);
 
-export const useGiveFoodStore = () => {
-  return React.useContext(GiveFoodContext);
+export const useGiveProductStore = () => {
+  return React.useContext(GiveProductContext);
 };
 
-export default GiveFoodInstance;
+export default GiveProductInstance;

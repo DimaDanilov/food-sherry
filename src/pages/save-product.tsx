@@ -1,9 +1,9 @@
 import Layout from "@/components/layout/Layout";
-import SaveFoodScreen from "@/components/screens/save-food/SaveFood";
-import { loadAllProducts } from "../api/FoodApi";
-import { ProductsData } from "../api/FoodAdapter";
+import SaveProductScreen from "@/components/screens/save-product/SaveProduct";
+import { loadAllProducts } from "../api/ProductApi";
+import { ProductsData } from "../api/ProductAdapter";
 
-export default function SaveFood({
+export default function SaveProduct({
   productsData,
   page,
   search,
@@ -17,7 +17,11 @@ export default function SaveFood({
       pageTitle="Food catalog"
       pageDescription="No food should go to waste, let's share the taste."
     >
-      <SaveFoodScreen productsData={productsData} page={page} search={search} />
+      <SaveProductScreen
+        productsData={productsData}
+        page={page}
+        search={search}
+      />
     </Layout>
   );
 }
@@ -28,7 +32,7 @@ export async function getServerSideProps({ query }: { query: any }) {
   if (!page || page <= 0) {
     return {
       redirect: {
-        destination: "/save-food?page=1",
+        destination: "/save-product?page=1",
         permanent: false,
       },
     };
