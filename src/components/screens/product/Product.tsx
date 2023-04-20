@@ -1,4 +1,4 @@
-import { FoodItem } from "@/models/FoodItem";
+import { IProduct } from "@/models/Product";
 import { COLORS } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import { Container } from "@/ui/Container";
@@ -24,7 +24,7 @@ interface IProductImageProps {
   onImageClick: (id: number) => void;
 }
 interface IProductScreenProps {
-  product: FoodItem;
+  product: IProduct;
 }
 
 interface IRegularTextProps {

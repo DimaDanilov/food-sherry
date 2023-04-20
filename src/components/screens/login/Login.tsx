@@ -7,10 +7,11 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { HiOutlineEnvelope, HiOutlineKey } from "react-icons/hi2";
 import { useState, useEffect } from "react";
-import { login } from "@/api/AuthRest";
+import { login } from "@/api/AuthApi";
 import { useAuthStore } from "@/store/AuthStore";
 import { observer } from "mobx-react";
 import Loader from "@/components/layout/Loader";
+import { IUser } from "@/models/User";
 
 export const LoginScreen = observer(() => {
   const router = useRouter();

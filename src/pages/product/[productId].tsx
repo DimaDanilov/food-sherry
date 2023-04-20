@@ -1,10 +1,10 @@
 import { ProductsData } from "@/api/FoodAdapter";
-import { loadOneProduct } from "@/api/FoodRest";
+import { loadOneProduct } from "@/api/FoodApi";
 import Layout from "@/components/layout/Layout";
 import ProductScreen from "@/components/screens/product/Product";
-import { FoodItem } from "@/models/FoodItem";
+import { IProduct } from "@/models/Product";
 
-export default function Product({ product }: { product: FoodItem }) {
+export default function Product({ product }: { product: IProduct }) {
   return (
     <Layout
       pageTitle={product.title}

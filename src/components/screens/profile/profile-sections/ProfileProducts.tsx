@@ -1,5 +1,5 @@
 import FoodCard from "@/components/common/FoodCard";
-import { FoodItem } from "@/models/FoodItem";
+import { IProduct } from "@/models/Product";
 import { COLORS } from "@/styles/globalStyles";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ export const ProfileProducts = () => {
     undefined
   );
 
-  const productsData: Array<FoodItem> = [];
+  const productsData: Array<IProduct> = [];
   const productsItems = productsData.map((product) => (
     <FoodCard key={product.id} food={product} />
   ));

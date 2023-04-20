@@ -1,6 +1,6 @@
 import Layout from "@/components/layout/Layout";
 import SaveFoodScreen from "@/components/screens/save-food/SaveFood";
-import { loadAllProducts } from "../api/FoodRest";
+import { loadAllProducts } from "../api/FoodApi";
 import { ProductsData } from "../api/FoodAdapter";
 
 export default function SaveFood({

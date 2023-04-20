@@ -3,11 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { COLORS } from "@/styles/globalStyles";
 import { Icon } from "@/ui/Icon";
-import { HiUserCircle } from "react-icons/hi2";
-import { User, useAuthStore } from "@/store/AuthStore";
-import { unlogin } from "@/api/AuthRest";
+import { HiOutlineArrowLeftOnRectangle, HiUserCircle } from "react-icons/hi2";
+import { useAuthStore } from "@/store/AuthStore";
+import { unlogin } from "@/api/AuthApi";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react";
+import { IUser } from "@/models/User";
 
 export const Header = observer(() => {
   const router = useRouter();
@@ -15,7 +16,7 @@ export const Header = observer(() => {
 
   const onExitBtn = () => {
     unlogin();
-    authStore.setUser({} as User);
+    authStore.setUser({} as IUser);
     router.push("/login");
   };
   return (
@@ -37,18 +38,25 @@ export const Header = observer(() => {
             <NavLi>
               <NavLink href="/give-food">Отдать еду</NavLink>
             </NavLi>
-            {authStore.user.email && (
-              <NavLi>
-                <button onClick={onExitBtn}>Выйти</button>
-              </NavLi>
-            )}
           </NavUl>
         </Nav>
       </LeftContainer>
 
-      <NavLink href={authStore.user.email ? "/profile" : "/login"}>
-        <Icon icon={<HiUserCircle />} iconScale={2.5} />
-      </NavLink>
+      <NavUl>
+        {authStore.user.email && (
+          <NavLi onClick={onExitBtn}>
+            <Icon
+              icon={<HiOutlineArrowLeftOnRectangle color={COLORS.white} />}
+              iconScale={2}
+            />
+          </NavLi>
+        )}
+        <NavLi>
+          <NavLink href={authStore.user.email ? "/profile" : "/login"}>
+            <Icon icon={<HiUserCircle />} iconScale={2.5} />
+          </NavLink>
+        </NavLi>
+      </NavUl>
     </Container>
   );
 });
@@ -84,6 +92,7 @@ const NavLi = styled.li`
   height: 100%;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 const NavLink = styled(Link)`
   color: ${COLORS.white};

@@ -2,7 +2,7 @@ import { Container } from "@/ui/Container";
 import styled from "styled-components";
 import { GiveFoodForm } from "./give-food-sections/GiveFoodForm";
 import { AddPhotoBlock } from "./give-food-sections/AddPhotoBlock";
-import { postProduct } from "@/api/FoodRest";
+import { postProduct } from "@/api/FoodApi";
 import { useGiveFoodStore } from "./store/GiveFoodStore";
 import { useRouter } from "next/router";
 

@@ -1,18 +1,13 @@
-import { User } from "@/store/AuthStore";
+import { IUser } from "@/models/User";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-
-const authConfig = {
-  headers: {
-    authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0ZW1haWxAZ21haWwuY29tIiwiaWF0IjoxNjgxOTEyNjI5LCJleHAiOjE2ODE5OTkwMjl9.OGcgWwj7E2wYzzUfZqJ0rErI_s3lgLd-04VFR90VJRQ`,
-  },
-};
+import { AuthAdapter } from "./AuthAdapter";
 
 interface IToken {
   token: string;
 }
 
-export async function auth(token: string): Promise<User> {
+export async function auth(token: string): Promise<IUser> {
   const url = `http://localhost:5000/api/auth`;
   try {
     const response = await axios.get<IToken>(url, {
@@ -24,17 +19,17 @@ export async function auth(token: string): Promise<User> {
     return jwt_decode(response.data.token);
   } catch (error) {
     console.error(error);
-    return {} as User;
+    return {} as IUser;
   }
 }
 
-export async function login(email: string, password: string): Promise<User> {
+export async function login(email: string, password: string): Promise<IUser> {
   const { data } = await axios.post("http://localhost:5000/api/login", {
     email,
     password,
   });
   localStorage.setItem("token", data.token);
-  return jwt_decode(data.token);
+  return AuthAdapter.transform(jwt_decode(data.token));
 }
 
 export async function unlogin() {
@@ -48,7 +43,7 @@ export async function registerUser(
   surname: string,
   phone: string
 ) {
-  await axios.post("http://localhost:5000/api/register_user", {
+  await axios.post("http://localhost:5000/api/register", {
     email,
     password,
     name,
@@ -63,7 +58,7 @@ export async function registerCompany(
   companyName: string,
   phone: string
 ) {
-  await axios.post("http://localhost:5000/api/register_company", {
+  await axios.post("http://localhost:5000/api/register", {
     email,
     password,
     company_name: companyName,

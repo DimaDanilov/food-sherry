@@ -1,20 +1,16 @@
 import React from "react";
 import { makeAutoObservable } from "mobx";
-
-export interface User {
-  id: number;
-  email: string;
-}
+import { IUser } from "@/models/User";
 
 class AuthStore {
-  user: User = {} as User;
+  user: IUser = {} as IUser;
   firstLoadCompleted: boolean = false; // Param for first page loading
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  setUser(user: User) {
+  setUser(user: IUser) {
     this.user = { ...user };
   }
   setFirstLoadStatus(status: boolean) {

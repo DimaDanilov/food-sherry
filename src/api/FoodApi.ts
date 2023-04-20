@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FoodItem } from "@/models/FoodItem";
+import { IProduct } from "@/models/Product";
 import { FoodAdapter, ProductsData } from "./FoodAdapter";
 
 export const API_URL = "http://localhost:5000";
@@ -15,8 +15,8 @@ export async function loadAllProducts(
   return FoodAdapter.transformArray(response.data);
 }
 
-export async function loadOneProduct(productId: string): Promise<FoodItem> {
-  const response = await axios.get<FoodItem>(
+export async function loadOneProduct(productId: string): Promise<IProduct> {
+  const response = await axios.get<IProduct>(
     `${API_URL}/api/product/${productId}`
   );
   return FoodAdapter.transform(response.data);

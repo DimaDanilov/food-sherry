@@ -1,4 +1,4 @@
-import { FoodItem } from "@/models/FoodItem";
+import { IProduct } from "@/models/Product";
 import { COLORS } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import { IconWithText } from "@/ui/IconWithText";
@@ -12,7 +12,7 @@ import {
 } from "react-icons/hi2";
 import styled from "styled-components";
 
-export default function FoodCard({ food }: { food: FoodItem }) {
+export default function FoodCard({ food }: { food: IProduct }) {
   const router = useRouter();
 
   const handleClick = () => router.push(`/product/${food.id}`);

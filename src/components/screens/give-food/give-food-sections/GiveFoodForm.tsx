@@ -13,7 +13,7 @@ import { useGiveFoodStore } from "../store/GiveFoodStore";
 import { observer } from "mobx-react";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { ICategory } from "@/models/Category";
-import { loadCategories } from "@/api/CategoryRest";
+import { loadCategories } from "@/api/CategoryApi";
 import { DateTimeInput } from "@/ui/DateTimeInput";
 
 const now = new Date();

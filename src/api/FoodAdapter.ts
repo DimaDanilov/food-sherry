@@ -1,8 +1,8 @@
-import { FoodItem } from "@/models/FoodItem";
-import { API_URL } from "./FoodRest";
+import { IProduct } from "@/models/Product";
+import { API_URL } from "./FoodApi";
 
 export interface ProductsData {
-  products: FoodItem[];
+  products: IProduct[];
   totalCount: number;
 }
 
@@ -12,7 +12,7 @@ export class FoodAdapter {
       images?.map((imageUrl) => `${API_URL}/food_images/${imageUrl}`) || ""
     );
   }
-  static transform(productItem: any): FoodItem {
+  static transform(productItem: any): IProduct {
     return {
       id: productItem.id,
       title: productItem.title,
@@ -29,7 +29,7 @@ export class FoodAdapter {
     };
   }
   static transformArray(data: any): {
-    products: FoodItem[];
+    products: IProduct[];
     totalCount: number;
   } {
     return {

@@ -1,6 +1,6 @@
 import { ICategory } from "./Category";
 
-export interface FoodItem {
+export interface IProduct {
   id: string;
   title: string;
   author: string;

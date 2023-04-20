@@ -15,7 +15,7 @@ import {
 import { useAuthStore } from "@/store/AuthStore";
 import { observer } from "mobx-react";
 import Loader from "@/components/layout/Loader";
-import { registerUser } from "@/api/AuthRest";
+import { registerUser } from "@/api/AuthApi";
 
 export const RegisterScreen = observer(() => {
   const router = useRouter();
