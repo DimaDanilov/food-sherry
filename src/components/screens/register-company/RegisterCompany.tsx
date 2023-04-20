@@ -5,7 +5,7 @@ import { FormInput } from "@/ui/FormInput";
 import { FormSwitch } from "@/ui/FormSwitch";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   HiOutlineBuildingOffice2,
   HiOutlineEnvelope,
@@ -15,15 +15,35 @@ import {
 import { useAuthStore } from "@/store/AuthStore";
 import { observer } from "mobx-react";
 import Loader from "@/components/layout/Loader";
+import { registerCompany } from "@/api/AuthRest";
 
 export const RegisterCompanyScreen = observer(() => {
   const router = useRouter();
   const authStore = useAuthStore();
+  const [companyName, setCompanyName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const onFormSubmit = () => (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    router.push("/login");
+  const onCompanyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCompanyName(e.target.value);
   };
+  const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+  const onPhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(e.target.value);
+  };
+  const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const onFormSubmit =
+    () => async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      await registerCompany(email, password, companyName, phone);
+      router.push("/login");
+    };
 
   useEffect(() => {
     if (authStore.user.email) {
@@ -59,6 +79,8 @@ export const RegisterCompanyScreen = observer(() => {
             type="text"
             name="company"
             placeholder="Название компании"
+            inputValue={companyName}
+            inputOnChange={onCompanyNameChange}
             icon={<HiOutlineBuildingOffice2 color={COLORS.white} />}
             iconScale={1.5}
             styleType="secondary"
@@ -68,6 +90,8 @@ export const RegisterCompanyScreen = observer(() => {
             type="email"
             name="email"
             placeholder="Почта"
+            inputValue={email}
+            inputOnChange={onEmailChange}
             icon={<HiOutlineEnvelope color={COLORS.white} />}
             iconScale={1.5}
             styleType="secondary"
@@ -77,6 +101,8 @@ export const RegisterCompanyScreen = observer(() => {
             type="tel"
             name="tel"
             placeholder="Телефон"
+            inputValue={phone}
+            inputOnChange={onPhoneChange}
             icon={<HiOutlinePhone color={COLORS.white} />}
             iconScale={1.5}
             styleType="secondary"
@@ -86,12 +112,14 @@ export const RegisterCompanyScreen = observer(() => {
             type="password"
             name="password"
             placeholder="Пароль"
+            inputValue={password}
+            inputOnChange={onPasswordChange}
             icon={<HiOutlineKey color={COLORS.white} />}
             iconScale={1.5}
             styleType="secondary"
             required
           />
-          <FormInput
+          {/* <FormInput
             type="password"
             name="confirm_password"
             placeholder="Подтвердите пароль"
@@ -99,7 +127,7 @@ export const RegisterCompanyScreen = observer(() => {
             iconScale={1.5}
             styleType="secondary"
             required
-          />
+          /> */}
         </Form>
       </LoginFormContainer>
     </Container>

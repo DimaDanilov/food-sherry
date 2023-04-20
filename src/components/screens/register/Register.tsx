@@ -15,7 +15,7 @@ import {
 import { useAuthStore } from "@/store/AuthStore";
 import { observer } from "mobx-react";
 import Loader from "@/components/layout/Loader";
-import { register } from "@/api/AuthRest";
+import { registerUser } from "@/api/AuthRest";
 
 export const RegisterScreen = observer(() => {
   const router = useRouter();
@@ -45,7 +45,7 @@ export const RegisterScreen = observer(() => {
   const onFormSubmit =
     () => async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      await register(email, password, name, surname, phone);
+      await registerUser(email, password, name, surname, phone);
       router.push("/login");
     };
 

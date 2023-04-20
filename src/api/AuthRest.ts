@@ -41,18 +41,32 @@ export async function unlogin() {
   localStorage.removeItem("token");
 }
 
-export async function register(
+export async function registerUser(
   email: string,
   password: string,
   name: string,
   surname: string,
   phone: string
 ) {
-  await axios.post("http://localhost:5000/api/register", {
+  await axios.post("http://localhost:5000/api/register_user", {
     email,
     password,
     name,
     surname,
+    phone,
+  });
+}
+
+export async function registerCompany(
+  email: string,
+  password: string,
+  companyName: string,
+  phone: string
+) {
+  await axios.post("http://localhost:5000/api/register_company", {
+    email,
+    password,
+    company_name: companyName,
     phone,
   });
 }
