@@ -3,6 +3,7 @@ import { loadOneProduct } from "@/api/ProductApi";
 import Layout from "@/components/layout/Layout";
 import ProductScreen from "@/components/screens/product/Product";
 import { IProduct } from "@/models/Product";
+import axios from "axios";
 
 export default function Product({ product }: { product: IProduct }) {
   return (
@@ -16,17 +17,22 @@ export default function Product({ product }: { product: IProduct }) {
 }
 
 export async function getStaticPaths() {
-  const response = await fetch("http://localhost:5000/api/product");
-  const products: ProductsData = await response.json();
+  try {
+    const response = await axios.get<ProductsData>(
+      "http://localhost:5000/api/product"
+    );
 
-  const paths = products.products.map((product) => ({
-    params: { productId: product.id.toString() },
-  }));
+    const paths = response.data.products.map((product) => ({
+      params: { productId: product.id.toString() },
+    }));
 
-  return {
-    paths,
-    fallback: false,
-  };
+    return {
+      paths,
+      fallback: false,
+    };
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 export async function getStaticProps({

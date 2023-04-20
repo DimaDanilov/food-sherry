@@ -1,23 +1,22 @@
-import { userFakeData } from "@/fake-data/userData";
-import { IUserData } from "@/models/UserData";
+import { IUser } from "@/models/User";
 import { COLORS } from "@/styles/globalStyles";
 import { HiUserCircle } from "react-icons/hi2";
 import styled from "styled-components";
 
-export const ProfileInfo = () => {
-  const userData: IUserData = userFakeData;
-
+export const ProfileInfo = ({ user }: { user: IUser }) => {
   return (
     <div>
       <ProfileBriefData>
         <HiUserCircle fontSize={200} width="10px" color={COLORS.mainColor} />
         <Title>
-          {userData.name} {userData.surname}
+          {user.name} {user.surname} {user.companyName}
         </Title>
       </ProfileBriefData>
-      <InfoDetails>Помогает с {userData.registrationDate}</InfoDetails>
-      <InfoDetails>Создал объявлений: {userData.adsCreated}</InfoDetails>
-      <InfoDetails>Забрал еды: {userData.adsTaken}</InfoDetails>
+      <InfoDetails>Телефон: {user.phone}</InfoDetails>
+      <InfoDetails>Почта: {user.email}</InfoDetails>
+      <InfoDetails>Помогает с: N даты</InfoDetails>
+      <InfoDetails>Создал объявлений: N штук</InfoDetails>
+      <InfoDetails>Забрал еды: N штук</InfoDetails>
     </div>
   );
 };
@@ -30,6 +29,6 @@ const ProfileBriefData = styled.div`
 const Title = styled.h1`
   color: ${COLORS.mainColor};
 `;
-const InfoDetails = styled.h3`
+const InfoDetails = styled.h4`
   color: ${COLORS.mainColor};
 `;

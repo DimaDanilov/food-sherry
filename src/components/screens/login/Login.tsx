@@ -11,7 +11,6 @@ import { login } from "@/api/AuthApi";
 import { useAuthStore } from "@/store/AuthStore";
 import { observer } from "mobx-react";
 import Loader from "@/components/layout/Loader";
-import { IUser } from "@/models/User";
 
 export const LoginScreen = observer(() => {
   const router = useRouter();
@@ -35,7 +34,7 @@ export const LoginScreen = observer(() => {
 
   useEffect(() => {
     if (authStore.user.email) {
-      router.replace("/profile");
+      router.replace(`/profile/${authStore.user.id}`);
     }
   }, [authStore.user]);
 

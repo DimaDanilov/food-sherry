@@ -1,7 +1,7 @@
 import { IUser } from "@/models/User";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { AuthAdapter } from "./AuthAdapter";
+import { UserAdapter } from "./UserAdapter";
 
 interface IToken {
   token: string;
@@ -29,7 +29,7 @@ export async function login(email: string, password: string): Promise<IUser> {
     password,
   });
   localStorage.setItem("token", data.token);
-  return AuthAdapter.transform(jwt_decode(data.token));
+  return UserAdapter.transform(jwt_decode(data.token));
 }
 
 export async function unlogin() {

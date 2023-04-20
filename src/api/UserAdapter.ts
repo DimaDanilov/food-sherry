@@ -1,6 +1,6 @@
 import { IUser } from "@/models/User";
 
-export class AuthAdapter {
+export class UserAdapter {
   static transform(userItem: any): IUser {
     return {
       id: userItem.id,

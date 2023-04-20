@@ -2,14 +2,13 @@ import { Container } from "@/ui/Container";
 import styled from "styled-components";
 import { ProfileProducts } from "./profile-sections/ProfileProducts";
 import { ProfileInfo } from "./profile-sections/ProfileInfo";
-import { useAuthStore } from "@/store/AuthStore";
+import { IUser } from "@/models/User";
 
-export default function ProfileScreen() {
-  const authStore = useAuthStore();
+export default function ProfileScreen({ user }: { user: IUser }) {
   return (
     <PageContainer>
       <ProfileInfoContainer>
-        <ProfileInfo />
+        <ProfileInfo user={user} />
       </ProfileInfoContainer>
       <ProfileProductsContainer>
         <ProfileProducts />
