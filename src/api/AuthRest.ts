@@ -20,6 +20,7 @@ export async function auth(token: string): Promise<User> {
         authorization: `Bearer ${token}`,
       },
     });
+    localStorage.setItem("token", response.data.token);
     return jwt_decode(response.data.token);
   } catch (error) {
     console.error(error);
@@ -40,12 +41,18 @@ export async function unlogin() {
   localStorage.removeItem("token");
 }
 
-// export const registration = async (email, password) => {
-//   const { data } = await $host.post("api/user/registration", {
-//     email,
-//     password,
-//     role: "ADMIN",
-//   });
-//   localStorage.setItem("token", data.token);
-//   return jwt_decode(data.token);
-// };
+export async function register(
+  email: string,
+  password: string,
+  name: string,
+  surname: string,
+  phone: string
+) {
+  await axios.post("http://localhost:5000/api/register", {
+    email,
+    password,
+    name,
+    surname,
+    phone,
+  });
+}
