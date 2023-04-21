@@ -66,22 +66,11 @@ export const ProductScreen = observer(({ product }: IProductScreenProps) => {
   const [currentProduct, setCurrentProduct] = useState(product);
   const [currentImageID, setCurrentImageID] = useState<number>(0);
 
-  const onCreateReserving = async (productId: number) => {
-    const newStatusInfo = await updateProductStatus(productId, "reserved");
-    setCurrentProduct({
-      ...currentProduct,
-      ...newStatusInfo,
-    });
-  };
-  const onDeleteReserving = async (productId: number) => {
-    const newStatusInfo = await updateProductStatus(productId, "open");
-    setCurrentProduct({
-      ...currentProduct,
-      ...newStatusInfo,
-    });
-  };
-  const onCloseReserving = async (productId: number) => {
-    const newStatusInfo = await updateProductStatus(productId, "closed");
+  const onReservingChange = async (
+    productId: number,
+    status: "reserved" | "open" | "closed"
+  ) => {
+    const newStatusInfo = await updateProductStatus(productId, status);
     setCurrentProduct({
       ...currentProduct,
       ...newStatusInfo,
@@ -152,6 +141,20 @@ export const ProductScreen = observer(({ product }: IProductScreenProps) => {
         <IconWithText icon={<HiOutlinePhone />} iconScale={1.3}>
           {currentProduct.author.phone}
         </IconWithText>
+        {currentProduct.status === "closed" && (
+          <ProductStatus>Данный товар спасен</ProductStatus>
+        )}
+        {currentProduct.status === "reserved" &&
+          authStore.firstLoadCompleted &&
+          authStore.user.id !== currentProduct.clientId &&
+          (authStore.user.id !== currentProduct.author.id ? (
+            <ProductStatus>Данный товар зерезервирован не вами</ProductStatus>
+          ) : (
+            <ProductStatus>
+              Данный товар ваш, он зерезервирован другим человеком
+            </ProductStatus>
+          ))}
+
         {currentProduct.status === "open" &&
           authStore.firstLoadCompleted &&
           authStore.user.id !== currentProduct.author.id && (
@@ -159,7 +162,7 @@ export const ProductScreen = observer(({ product }: IProductScreenProps) => {
               margin="10px auto"
               padding="10px"
               styleType="primary"
-              onClick={() => onCreateReserving(currentProduct.id)}
+              onClick={() => onReservingChange(currentProduct.id, "reserved")}
             >
               Забронировать
             </Button>
@@ -173,7 +176,7 @@ export const ProductScreen = observer(({ product }: IProductScreenProps) => {
                 margin="10px auto"
                 padding="10px"
                 styleType="primary"
-                onClick={() => onDeleteReserving(currentProduct.id)}
+                onClick={() => onReservingChange(currentProduct.id, "open")}
               >
                 Снять бронь
               </Button>
@@ -181,7 +184,7 @@ export const ProductScreen = observer(({ product }: IProductScreenProps) => {
                 margin="10px auto"
                 padding="10px"
                 styleType="primary"
-                onClick={() => onCloseReserving(currentProduct.id)}
+                onClick={() => onReservingChange(currentProduct.id, "closed")}
               >
                 Закрыть бронь
               </Button>
@@ -223,6 +226,9 @@ const ProductImageSmall = styled(Image)<IProductImageSmallProps>`
 const RegularText = styled.p<IRegularTextProps>`
   margin: 10px auto;
   color: ${(props) => props.fontColor};
+`;
+const ProductStatus = styled.h3`
+  color: ${COLORS.darkgray};
 `;
 const NavLink = styled(Link)`
   color: ${COLORS.darkgray};
