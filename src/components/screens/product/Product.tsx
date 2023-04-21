@@ -6,6 +6,7 @@ import { IconWithText } from "@/ui/IconWithText";
 import { parseCreateDate } from "@/utils/parseCreateDate";
 import { parseTakeDate } from "@/utils/parseTakeDate";
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useCallback, memo } from "react";
 import {
   HiOutlineUser,
@@ -97,11 +98,13 @@ export default function ProductScreen({ product }: IProductScreenProps) {
         <RegularText fontColor={COLORS.gray}>
           Добавлено: {parseCreateDate(product.timeCreated)}
         </RegularText>
-        <IconWithText icon={<HiOutlineUser />} iconScale={1.3}>
-          {product.author.name
-            ? product.author.name + " " + product.author.surname
-            : product.author.companyName}
-        </IconWithText>
+        <NavLink href={`/profile/${product.author.id}`} color="red">
+          <IconWithText icon={<HiOutlineUser />} iconScale={1.3}>
+            {product.author.name
+              ? product.author.name + " " + product.author.surname
+              : product.author.companyName}
+          </IconWithText>
+        </NavLink>
         <IconWithText icon={<HiOutlineCake />} iconScale={1.3}>
           {product.category.name}
         </IconWithText>
@@ -167,4 +170,8 @@ const ProductImageSmall = styled(Image)<IProductImageSmallProps>`
 const RegularText = styled.p<IRegularTextProps>`
   margin: 10px auto;
   color: ${(props) => props.fontColor};
+`;
+const NavLink = styled(Link)`
+  color: ${COLORS.darkgray};
+  white-space: nowrap;
 `;

@@ -42,7 +42,11 @@ export default function Paginator({
     </PageBtn>
   ));
 
-  return <PaginationContainer>{pageElements}</PaginationContainer>;
+  return (
+    <PaginationContainer>
+      {pageElements.length > 1 && pageElements}
+    </PaginationContainer>
+  );
 }
 
 const PaginationContainer = styled.div`

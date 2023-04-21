@@ -1,3 +1,4 @@
+import { useAuthStore } from "@/store/AuthStore";
 import { COLORS } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import { useRouter } from "next/router";
@@ -5,8 +6,12 @@ import styled from "styled-components";
 
 export default function HomeScreen() {
   const router = useRouter();
+  const authStore = useAuthStore();
 
-  const handleClick = () => router.push("/login");
+  const handleClick = () =>
+    router.push(
+      authStore.user.email ? `/profile/${authStore.user.id}` : "/login"
+    );
 
   return (
     <>
