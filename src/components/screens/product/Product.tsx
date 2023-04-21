@@ -1,10 +1,13 @@
+import { loadOneProduct, updateProductStatus } from "@/api/ProductApi";
 import { IProduct } from "@/models/Product";
+import { useAuthStore } from "@/store/AuthStore";
 import { COLORS } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import { Container } from "@/ui/Container";
 import { IconWithText } from "@/ui/IconWithText";
 import { parseCreateDate } from "@/utils/parseCreateDate";
 import { parseTakeDate } from "@/utils/parseTakeDate";
+import { observer } from "mobx-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useCallback, memo } from "react";
@@ -37,6 +40,7 @@ interface IProductImageSmallProps {
   cursor: string;
 }
 
+// Small image of product
 const ProductImage = memo(
   ({ imageUrl, index, currentImageID, onImageClick }: IProductImageProps) => {
     const border =
@@ -57,10 +61,32 @@ const ProductImage = memo(
   }
 );
 
-export default function ProductScreen({ product }: IProductScreenProps) {
-  const handleClick = () => console.log("click");
-
+export const ProductScreen = observer(({ product }: IProductScreenProps) => {
+  const authStore = useAuthStore();
+  const [currentProduct, setCurrentProduct] = useState(product);
   const [currentImageID, setCurrentImageID] = useState<number>(0);
+
+  const onCreateReserving = async (productId: number) => {
+    const newStatusInfo = await updateProductStatus(productId, "reserved");
+    setCurrentProduct({
+      ...currentProduct,
+      ...newStatusInfo,
+    });
+  };
+  const onDeleteReserving = async (productId: number) => {
+    const newStatusInfo = await updateProductStatus(productId, "open");
+    setCurrentProduct({
+      ...currentProduct,
+      ...newStatusInfo,
+    });
+  };
+  const onCloseReserving = async (productId: number) => {
+    const newStatusInfo = await updateProductStatus(productId, "closed");
+    setCurrentProduct({
+      ...currentProduct,
+      ...newStatusInfo,
+    });
+  };
 
   const onImageClick = useCallback((id: number) => {
     setCurrentImageID(id);
@@ -73,15 +99,15 @@ export default function ProductScreen({ product }: IProductScreenProps) {
           <ProductImageBig
             alt=""
             src={
-              product.imagesSrc[currentImageID] ||
+              currentProduct.imagesSrc[currentImageID] ||
               "/icons/product_placeholder.svg"
             }
             width={400}
             height={400}
           />
           <GridImages>
-            {product.imagesSrc &&
-              product.imagesSrc.map((imageUrl, index) => (
+            {currentProduct.imagesSrc &&
+              currentProduct.imagesSrc.map((imageUrl, index) => (
                 <ProductImage
                   key={index}
                   imageUrl={imageUrl}
@@ -94,50 +120,77 @@ export default function ProductScreen({ product }: IProductScreenProps) {
         </ProductImagesContainer>
       </FlexItem>
       <FlexItem>
-        <h1>{product.title}</h1>
+        <h1>{currentProduct.title}</h1>
         <RegularText fontColor={COLORS.gray}>
-          Добавлено: {parseCreateDate(product.timeCreated)}
+          Добавлено: {parseCreateDate(currentProduct.timeCreated)}
         </RegularText>
-        <NavLink href={`/profile/${product.author.id}`} color="red">
+        <NavLink href={`/profile/${currentProduct.author.id}`} color="red">
           <IconWithText icon={<HiOutlineUser />} iconScale={1.3}>
-            {product.author.name
-              ? product.author.name + " " + product.author.surname
-              : product.author.companyName}
+            {currentProduct.author.name
+              ? currentProduct.author.name + " " + currentProduct.author.surname
+              : currentProduct.author.companyName}
           </IconWithText>
         </NavLink>
         <IconWithText icon={<HiOutlineCake />} iconScale={1.3}>
-          {product.category.name}
+          {currentProduct.category.name}
         </IconWithText>
-        <RegularText>{product.description}</RegularText>
+        <RegularText>{currentProduct.description}</RegularText>
         <IconWithText icon={<HiOutlineSquares2X2 />} iconScale={1.3}>
-          {product.amount}
+          {currentProduct.amount}
         </IconWithText>
         <IconWithText icon={<HiOutlineClock />} iconScale={1.3}>
-          {parseTakeDate(product.timeToTake)
-            ? `Можно забрать: ${parseTakeDate(product.timeToTake)}`
-            : "Closed"}
+          {parseTakeDate(currentProduct.timeToTake)
+            ? `Можно забрать: ${parseTakeDate(currentProduct.timeToTake)}`
+            : "Outdated"}
         </IconWithText>
         <IconWithText icon={<HiOutlineMapPin />} iconScale={1.3}>
-          {product.location}
+          {currentProduct.location}
         </IconWithText>
         <IconWithText icon={<HiOutlineEnvelope />} iconScale={1.3}>
-          {product.author.email}
+          {currentProduct.author.email}
         </IconWithText>
         <IconWithText icon={<HiOutlinePhone />} iconScale={1.3}>
-          {product.author.phone}
+          {currentProduct.author.phone}
         </IconWithText>
-        <Button
-          margin="10px auto"
-          padding="10px"
-          styleType="primary"
-          onClick={handleClick}
-        >
-          Забрать
-        </Button>
+        {currentProduct.status === "open" &&
+          authStore.firstLoadCompleted &&
+          authStore.user.id !== currentProduct.author.id && (
+            <Button
+              margin="10px auto"
+              padding="10px"
+              styleType="primary"
+              onClick={() => onCreateReserving(currentProduct.id)}
+            >
+              Забронировать
+            </Button>
+          )}
+        {currentProduct.status === "reserved" &&
+          authStore.firstLoadCompleted &&
+          (authStore.user.id === currentProduct.author.id ||
+            authStore.user.id === currentProduct.clientId) && (
+            <>
+              <Button
+                margin="10px auto"
+                padding="10px"
+                styleType="primary"
+                onClick={() => onDeleteReserving(currentProduct.id)}
+              >
+                Снять бронь
+              </Button>
+              <Button
+                margin="10px auto"
+                padding="10px"
+                styleType="primary"
+                onClick={() => onCloseReserving(currentProduct.id)}
+              >
+                Закрыть бронь
+              </Button>
+            </>
+          )}
       </FlexItem>
     </FlexContainer>
   );
-}
+});
 
 const FlexContainer = styled(Container)`
   display: flex;

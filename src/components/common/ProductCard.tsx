@@ -38,7 +38,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
           </IconWithText>
         </NavLink>
         <IconWithText icon={<HiOutlineClock />} iconScale={1.3}>
-          {parseTakeDate(product.timeToTake) || "Closed"}
+          {parseTakeDate(product.timeToTake) || "Outdated"}
         </IconWithText>
         <IconWithText icon={<HiOutlineMapPin />} iconScale={1.3}>
           {product.location}

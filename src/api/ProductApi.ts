@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IProduct } from "@/models/Product";
+import { IProduct, IProductStatusInfo } from "@/models/Product";
 import { ProductAdapter, ProductsData } from "./ProductAdapter";
 
 export const API_URL = "http://localhost:5000";
@@ -39,6 +39,24 @@ export async function postProduct(product: any) {
       authorization: `Bearer ${token}`,
     },
   });
-  // ДОРАБОТАТЬ
-  // .then(response => this.setState({ articleId: response.data.id }));
+}
+
+export async function updateProductStatus(
+  productId: number,
+  status: "open" | "reserved" | "closed"
+): Promise<IProductStatusInfo> {
+  const token = localStorage.getItem("token");
+  const response = await axios.put(
+    `${API_URL}/api/product_status`,
+    {
+      id: productId,
+      status,
+    },
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return ProductAdapter.transformUpdatedStatus(response.data);
 }

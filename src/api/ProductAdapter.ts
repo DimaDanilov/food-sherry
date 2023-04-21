@@ -1,4 +1,4 @@
-import { IProduct } from "@/models/Product";
+import { IProduct, IProductStatusInfo } from "@/models/Product";
 import { API_URL } from "./ProductApi";
 
 export interface ProductsData {
@@ -24,6 +24,7 @@ export class ProductAdapter {
         email: productItem.author.email,
         phone: productItem.author.phone,
       },
+      clientId: productItem.client_id,
       category: productItem.category,
       description: productItem.description,
       amount: productItem.amount,
@@ -32,6 +33,13 @@ export class ProductAdapter {
       location: productItem.location,
       imagesSrc: this.imagesUrlTransform(productItem.images),
       status: productItem.status,
+    };
+  }
+  static transformUpdatedStatus(newStatusInfo: any): IProductStatusInfo {
+    return {
+      id: newStatusInfo.id,
+      clientId: newStatusInfo.client_id,
+      status: newStatusInfo.status,
     };
   }
   static transformArray(data: any): {

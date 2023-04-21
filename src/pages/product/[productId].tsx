@@ -1,7 +1,7 @@
 import { ProductsData } from "@/api/ProductAdapter";
 import { loadOneProduct } from "@/api/ProductApi";
 import Layout from "@/components/layout/Layout";
-import ProductScreen from "@/components/screens/product/Product";
+import { ProductScreen } from "@/components/screens/product/Product";
 import { IProduct } from "@/models/Product";
 import axios from "axios";
 
