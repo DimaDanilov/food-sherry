@@ -1,4 +1,4 @@
-import { loadOneProduct, updateProductStatus } from "@/api/ProductApi";
+import { updateProductStatus } from "@/api/ProductApi";
 import { IProduct } from "@/models/Product";
 import { useAuthStore } from "@/store/AuthStore";
 import { COLORS } from "@/styles/globalStyles";
@@ -10,7 +10,7 @@ import { parseTakeDate } from "@/utils/parseTakeDate";
 import { observer } from "mobx-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useCallback, memo } from "react";
+import { useState } from "react";
 import {
   HiOutlineUser,
   HiOutlineCake,
@@ -21,13 +21,8 @@ import {
   HiOutlineEnvelope,
 } from "react-icons/hi2";
 import styled from "styled-components";
+import { ImageGallery } from "./ImageGallery/ImageGallery";
 
-interface IProductImageProps {
-  imageUrl: string;
-  index: number;
-  currentImageID: number;
-  onImageClick: (id: number) => void;
-}
 interface IProductScreenProps {
   product: IProduct;
 }
@@ -35,36 +30,10 @@ interface IProductScreenProps {
 interface IRegularTextProps {
   fontColor?: string;
 }
-interface IProductImageSmallProps {
-  border: string;
-  cursor: string;
-}
-
-// Small image of product
-const ProductImage = memo(
-  ({ imageUrl, index, currentImageID, onImageClick }: IProductImageProps) => {
-    const border =
-      index === currentImageID ? `6px double ${COLORS.mainColor}` : "none";
-    const cursor = index === currentImageID ? "default" : "pointer";
-
-    return (
-      <ProductImageSmall
-        alt=""
-        src={imageUrl || "/icons/product_placeholder.svg"}
-        width={100}
-        height={100}
-        onClick={() => onImageClick(index)}
-        border={border}
-        cursor={cursor}
-      />
-    );
-  }
-);
 
 export const ProductScreen = observer(({ product }: IProductScreenProps) => {
   const authStore = useAuthStore();
   const [currentProduct, setCurrentProduct] = useState(product);
-  const [currentImageID, setCurrentImageID] = useState<number>(0);
 
   const onReservingChange = async (
     productId: number,
@@ -77,36 +46,10 @@ export const ProductScreen = observer(({ product }: IProductScreenProps) => {
     });
   };
 
-  const onImageClick = useCallback((id: number) => {
-    setCurrentImageID(id);
-  }, []);
-
   return (
     <FlexContainer>
       <FlexItem>
-        <ProductImagesContainer>
-          <ProductImageBig
-            alt=""
-            src={
-              currentProduct.imagesSrc[currentImageID] ||
-              "/icons/product_placeholder.svg"
-            }
-            width={400}
-            height={400}
-          />
-          <GridImages>
-            {currentProduct.imagesSrc &&
-              currentProduct.imagesSrc.map((imageUrl, index) => (
-                <ProductImage
-                  key={index}
-                  imageUrl={imageUrl}
-                  index={index}
-                  currentImageID={currentImageID}
-                  onImageClick={onImageClick}
-                />
-              ))}
-          </GridImages>
-        </ProductImagesContainer>
+        <ImageGallery imageUrls={currentProduct.imagesSrc} />
       </FlexItem>
       <FlexItem>
         <h1>{currentProduct.title}</h1>
@@ -199,29 +142,8 @@ const FlexContainer = styled(Container)`
   display: flex;
   justify-content: space-between;
 `;
-const ProductImagesContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
 const FlexItem = styled.div`
   width: 45%;
-`;
-const GridImages = styled.div`
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
-  gap: 10px;
-`;
-const ProductImageBig = styled(Image)`
-  width: 100%;
-`;
-const ProductImageSmall = styled(Image)<IProductImageSmallProps>`
-  width: 100%;
-  height: 100%;
-  border: ${(props) => props.border};
-  cursor: ${(props) => props.cursor};
 `;
 const RegularText = styled.p<IRegularTextProps>`
   margin: 10px auto;
