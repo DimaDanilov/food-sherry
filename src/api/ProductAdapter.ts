@@ -16,14 +16,20 @@ export class ProductAdapter {
     return {
       id: productItem.id,
       title: productItem.title,
-      author: productItem.author,
+      author: {
+        id: productItem.author.id,
+        name: productItem.author.name,
+        surname: productItem.author.surname,
+        companyName: productItem.author.company_name,
+        email: productItem.author.email,
+        phone: productItem.author.phone,
+      },
       category: productItem.category,
       description: productItem.description,
       amount: productItem.amount,
       timeCreated: productItem.time_created,
       timeToTake: productItem.time_to_take,
       location: productItem.location,
-      phone: productItem.phone,
       imagesSrc: this.imagesUrlTransform(productItem.images),
       status: productItem.status,
     };

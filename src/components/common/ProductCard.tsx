@@ -4,6 +4,7 @@ import Button from "@/ui/Button";
 import { IconWithText } from "@/ui/IconWithText";
 import { parseTakeDate } from "@/utils/parseTakeDate";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import {
   HiOutlineUser,
@@ -29,11 +30,15 @@ export default function ProductCard({ product }: { product: IProduct }) {
       />
       <CardInfo>
         <CardTitle>{product.title}</CardTitle>
-        <IconWithText icon={<HiOutlineUser />} iconScale={1.3}>
-          {product.author}
-        </IconWithText>
+        <NavLink href={`/profile/${product.author.id}`} color="red">
+          <IconWithText icon={<HiOutlineUser />} iconScale={1.3}>
+            {product.author.name
+              ? product.author.name + " " + product.author.surname
+              : product.author.companyName}
+          </IconWithText>
+        </NavLink>
         <IconWithText icon={<HiOutlineClock />} iconScale={1.3}>
-          {parseTakeDate(product.timeToTake)}
+          {parseTakeDate(product.timeToTake) || "Closed"}
         </IconWithText>
         <IconWithText icon={<HiOutlineMapPin />} iconScale={1.3}>
           {product.location}
@@ -69,4 +74,9 @@ const CardImage = styled(Image)`
 
 const CardTitle = styled.h2`
   margin: 15px auto;
+`;
+
+const NavLink = styled(Link)`
+  color: ${COLORS.darkgray};
+  white-space: nowrap;
 `;

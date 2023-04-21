@@ -37,6 +37,7 @@ export const COLORS = {
   white: "#fff",
   lightgray: "#bdbdbd",
   gray: "#848484",
+  darkgray: "#606060",
   shadow: "rgba(0, 0, 0, 0.35)",
   shadowLanding: "rgba(26, 58, 23, 0.3)", // Shadow for landing page
   placeholderMain: "rgba(40, 150, 114, 0.6)",

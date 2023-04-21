@@ -33,7 +33,12 @@ export async function postProduct(product: any) {
       formData.append(key, product[key]);
     }
   }
-  axios.post(`${API_URL}/api/product`, formData);
+  const token = localStorage.getItem("token");
+  axios.post(`${API_URL}/api/product`, formData, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
   // ДОРАБОТАТЬ
   // .then(response => this.setState({ articleId: response.data.id }));
 }

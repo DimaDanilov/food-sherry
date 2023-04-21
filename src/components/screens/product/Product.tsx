@@ -14,6 +14,7 @@ import {
   HiOutlineClock,
   HiOutlineMapPin,
   HiOutlinePhone,
+  HiOutlineEnvelope,
 } from "react-icons/hi2";
 import styled from "styled-components";
 
@@ -97,7 +98,9 @@ export default function ProductScreen({ product }: IProductScreenProps) {
           Добавлено: {parseCreateDate(product.timeCreated)}
         </RegularText>
         <IconWithText icon={<HiOutlineUser />} iconScale={1.3}>
-          {product.author}
+          {product.author.name
+            ? product.author.name + " " + product.author.surname
+            : product.author.companyName}
         </IconWithText>
         <IconWithText icon={<HiOutlineCake />} iconScale={1.3}>
           {product.category.name}
@@ -114,8 +117,11 @@ export default function ProductScreen({ product }: IProductScreenProps) {
         <IconWithText icon={<HiOutlineMapPin />} iconScale={1.3}>
           {product.location}
         </IconWithText>
+        <IconWithText icon={<HiOutlineEnvelope />} iconScale={1.3}>
+          {product.author.email}
+        </IconWithText>
         <IconWithText icon={<HiOutlinePhone />} iconScale={1.3}>
-          {product.phone}
+          {product.author.phone}
         </IconWithText>
         <Button
           margin="10px auto"
