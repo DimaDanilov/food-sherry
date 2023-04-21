@@ -100,6 +100,7 @@ export const ProductScreen = observer(({ product }: IProductScreenProps) => {
 
         {currentProduct.status === "open" &&
           authStore.firstLoadCompleted &&
+          authStore.user.id &&
           authStore.user.id !== currentProduct.author.id && (
             <Button
               margin="10px auto"
@@ -112,6 +113,7 @@ export const ProductScreen = observer(({ product }: IProductScreenProps) => {
           )}
         {currentProduct.status === "reserved" &&
           authStore.firstLoadCompleted &&
+          authStore.user.id &&
           (authStore.user.id === currentProduct.author.id ||
             authStore.user.id === currentProduct.clientId) && (
             <>

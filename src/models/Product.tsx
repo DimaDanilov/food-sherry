@@ -21,3 +21,10 @@ export interface IProductStatusInfo {
   clientId: number;
   status: "open" | "reserved" | "closed";
 }
+
+export interface IProductProfile {
+  id: number;
+  title: string;
+  imagesSrc: Array<string>;
+  status: "open" | "reserved" | "closed";
+}

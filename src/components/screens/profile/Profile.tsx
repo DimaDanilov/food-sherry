@@ -11,7 +11,7 @@ export default function ProfileScreen({ user }: { user: IUser }) {
         <ProfileInfo user={user} />
       </ProfileInfoContainer>
       <ProfileProductsContainer>
-        <ProfileProducts />
+        <ProfileProducts userId={user.id} />
       </ProfileProductsContainer>
     </PageContainer>
   );

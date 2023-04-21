@@ -35,6 +35,7 @@ export const COLORS = {
   mainColorFilter:
     "invert(42%) sepia(61%) saturate(457%) hue-rotate(109deg) brightness(102%) contrast(90%)",
   white: "#fff",
+  black: "#000000",
   lightgray: "#bdbdbd",
   gray: "#848484",
   darkgray: "#606060",

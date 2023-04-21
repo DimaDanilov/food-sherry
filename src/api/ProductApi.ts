@@ -1,5 +1,9 @@
 import axios from "axios";
-import { IProduct, IProductStatusInfo } from "@/models/Product";
+import {
+  IProduct,
+  IProductProfile,
+  IProductStatusInfo,
+} from "@/models/Product";
 import { ProductAdapter, ProductsData } from "./ProductAdapter";
 
 export const API_URL = "http://localhost:5000";
@@ -13,6 +17,22 @@ export async function loadAllProducts(
   }`;
   const response = await axios.get<ProductsData>(url);
   return ProductAdapter.transformArray(response.data);
+}
+
+export async function loadUserProducts(
+  id: number,
+  filter: "current" | "closed" | "taken"
+): Promise<IProductProfile[]> {
+  let url: string;
+  if (filter === "current") {
+    url = `${API_URL}/api/product_current/${id}`;
+  } else if (filter === "closed") {
+    url = `${API_URL}/api/product_closed/${id}`;
+  } else {
+    url = `${API_URL}/api/product_taken/${id}`;
+  }
+  const response = await axios.get<IProductProfile[]>(url);
+  return ProductAdapter.transformProfileProductArray(response.data);
 }
 
 export async function loadOneProduct(productId: string): Promise<IProduct> {

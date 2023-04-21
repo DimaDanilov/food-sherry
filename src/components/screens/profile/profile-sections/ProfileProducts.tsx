@@ -1,65 +1,106 @@
-import ProductCard from "@/components/common/ProductCard";
-import { IProduct } from "@/models/Product";
+import { IProductProfile } from "@/models/Product";
 import { COLORS } from "@/styles/globalStyles";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useEffect, useState, useMemo, useCallback } from "react";
+import { loadUserProducts } from "@/api/ProductApi";
+import { ProfileProductCard } from "./ProfileProductCard";
 
-export const ProfileProducts = () => {
-  const router = useRouter();
-  const [productsFilter, setProductsFilter] = useState<string | undefined>(
-    undefined
+export const ProfileProducts = ({ userId }: { userId: number }) => {
+  const [productsFilter, setProductsFilter] = useState<string>("current");
+
+  const [currentProducts, setCurrentProducts] = useState<IProductProfile[]>([]);
+  const [closedProducts, setClosedProducts] = useState<IProductProfile[]>([]);
+  const [takenProducts, setTakenProducts] = useState<IProductProfile[]>([]);
+
+  const [isCurrentLoaded, setIsCurrentLoaded] = useState<boolean>(false);
+  const [isClosedLoaded, setIsClosedLoaded] = useState<boolean>(false);
+  const [isTakenLoaded, setIsTakenLoaded] = useState<boolean>(false);
+
+  const currentProductsItems = useMemo(
+    () =>
+      currentProducts.map((product) => (
+        <ProfileProductCard product={product} />
+      )),
+    [currentProducts]
   );
 
-  const productsData: Array<IProduct> = [];
-  const productsItems = productsData.map((product) => (
-    <ProductCard key={product.id} product={product} />
-  ));
+  const closedProductsItems = useMemo(
+    () =>
+      closedProducts.map((product) => <ProfileProductCard product={product} />),
+    [closedProducts]
+  );
+
+  const takenProductsItems = useMemo(
+    () =>
+      takenProducts.map((product) => <ProfileProductCard product={product} />),
+    [takenProducts]
+  );
+
+  const onFilterChange = (filter: string) => {
+    setProductsFilter(filter);
+  };
+
+  const fetchProducts = useCallback(
+    async (filter: string) => {
+      if (filter === "current" && !isCurrentLoaded) {
+        const newProducts: IProductProfile[] = await loadUserProducts(
+          userId,
+          "current"
+        );
+        setIsCurrentLoaded(true);
+        setCurrentProducts(newProducts);
+      }
+      if (filter === "closed" && !isClosedLoaded) {
+        const newProducts: IProductProfile[] = await loadUserProducts(
+          userId,
+          "closed"
+        );
+        setIsClosedLoaded(true);
+        setClosedProducts(newProducts);
+      }
+      if (filter === "taken" && !isTakenLoaded) {
+        const newProducts: IProductProfile[] = await loadUserProducts(
+          userId,
+          "taken"
+        );
+        setIsTakenLoaded(true);
+        setTakenProducts(newProducts);
+      }
+    },
+    [userId]
+  );
 
   useEffect(() => {
-    if (!router.isReady) return;
-    const ads = router.query.ads;
-    if (ads === "given" || ads === "taken") {
-      setProductsFilter(ads);
-    } else {
-      setProductsFilter("open");
-    }
-  }, [router.isReady, router.query]);
-
-  const handleClick = (query: string) => {
-    router.push(
-      query
-        ? {
-            pathname: "/profile",
-            query: { ads: query },
-          }
-        : "/profile"
-    );
-  };
+    fetchProducts(productsFilter);
+  }, [productsFilter]);
 
   return (
     <div>
       <ProductsHeader activeItem={productsFilter}>
         <HeaderEl
-          active={productsFilter === "open"}
-          onClick={() => handleClick("")}
+          active={productsFilter === "current"}
+          onClick={() => onFilterChange("current")}
         >
           Текущие объявления
         </HeaderEl>
         <HeaderEl
-          active={productsFilter === "given"}
-          onClick={() => handleClick("given")}
+          active={productsFilter === "closed"}
+          onClick={() => onFilterChange("closed")}
         >
           Отдано
         </HeaderEl>
         <HeaderEl
           active={productsFilter === "taken"}
-          onClick={() => handleClick("taken")}
+          onClick={() => onFilterChange("taken")}
         >
-          Забрано
+          Забронировано
         </HeaderEl>
       </ProductsHeader>
-      <ProductsContainer>{productsItems}</ProductsContainer>
+      <ProductsContainer>
+        {productsFilter === "current" && currentProductsItems}
+        {productsFilter === "closed" && closedProductsItems}
+        {productsFilter === "taken" && takenProductsItems}
+      </ProductsContainer>
     </div>
   );
 };
@@ -69,11 +110,11 @@ const ProductsHeader = styled.div<{ activeItem?: string | undefined }>`
   align-items: end;
   div:nth-child(1) {
     border-radius: ${(props) =>
-      props.activeItem === "open" ? "11px 11px 0 0" : "11px 0 0 0"};
+      props.activeItem === "current" ? "11px 11px 0 0" : "11px 0 0 0"};
   }
   div:nth-child(2) {
     border-radius: ${(props) =>
-      props.activeItem === "given" && "11px 11px 0 0"};
+      props.activeItem === "closed" && "11px 11px 0 0"};
     border-left-style: none;
     border-right-style: none;
   }
