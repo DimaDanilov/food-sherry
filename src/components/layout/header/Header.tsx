@@ -54,7 +54,9 @@ export const Header = observer(() => {
         <NavLi>
           <NavLink
             href={
-              authStore.user.email ? `/profile/${authStore.user.id}` : "/login"
+              authStore.user.email
+                ? `/profile/${authStore.user.id}?page=1`
+                : "/login"
             }
           >
             <Icon icon={<HiUserCircle />} iconScale={2.5} />

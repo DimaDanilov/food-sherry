@@ -4,7 +4,11 @@ import {
   IProductProfile,
   IProductStatusInfo,
 } from "@/models/Product";
-import { ProductAdapter, ProductsData } from "./ProductAdapter";
+import {
+  ProductAdapter,
+  ProductsData,
+  ProductsProfileData,
+} from "./ProductAdapter";
 
 export const API_URL = "http://localhost:5000";
 
@@ -21,15 +25,16 @@ export async function loadAllProducts(
 
 export async function loadUserProducts(
   id: number,
-  filter: "current" | "closed" | "taken"
-): Promise<IProductProfile[]> {
+  filter: "current" | "closed" | "taken",
+  page: string
+): Promise<ProductsProfileData> {
   let url: string;
   if (filter === "current") {
-    url = `${API_URL}/api/product_current/${id}`;
+    url = `${API_URL}/api/product_current/${id}?page=${page}`;
   } else if (filter === "closed") {
-    url = `${API_URL}/api/product_closed/${id}`;
+    url = `${API_URL}/api/product_closed/${id}?page=${page}`;
   } else {
-    url = `${API_URL}/api/product_taken/${id}`;
+    url = `${API_URL}/api/product_taken/${id}?page=${page}`;
   }
   const response = await axios.get<IProductProfile[]>(url);
   return ProductAdapter.transformProfileProductArray(response.data);
@@ -40,6 +45,15 @@ export async function loadOneProduct(productId: string): Promise<IProduct> {
     `${API_URL}/api/product/${productId}`
   );
   return ProductAdapter.transform(response.data);
+}
+
+export async function loadUserTotalProducts(
+  productId: number
+): Promise<{ count: string }> {
+  const response = await axios.get<{ count: string }>(
+    `${API_URL}/api/product_created/${productId}`
+  );
+  return response.data;
 }
 
 export async function postProduct(product: any) {

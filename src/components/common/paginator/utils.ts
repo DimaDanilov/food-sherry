@@ -1,15 +1,15 @@
 import { IPaginatorProps } from "./Paginator";
 
 interface IPaginatorFillFuncProps extends IPaginatorProps {
-  ITEMS_PER_PAGE: number;
+  itemsPerPage: number;
 }
 
 export const fillPaginatorValues = ({
   totalItems,
   currentPage,
-  ITEMS_PER_PAGE,
+  itemsPerPage,
 }: IPaginatorFillFuncProps): Array<string> => {
-  const totalPages: number = Math.ceil(totalItems / ITEMS_PER_PAGE);
+  const totalPages: number = Math.ceil(totalItems / itemsPerPage);
   switch (true) {
     case totalPages <= 7:
       let arr: Array<string> = [];

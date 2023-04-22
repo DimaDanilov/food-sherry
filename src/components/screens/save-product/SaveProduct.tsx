@@ -1,10 +1,10 @@
-import Paginator from "./paginator/Paginator";
+import Paginator from "../../common/paginator/Paginator";
 import { COLORS } from "@/styles/globalStyles";
 import { Container } from "@/ui/Container";
 import SearchInput from "@/ui/SearchInput";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import styled from "styled-components";
-import ProductCard from "../../common/ProductCard";
+import ProductCard from "./ProductCard/ProductCard";
 import { ProductsData } from "@/api/ProductAdapter";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -63,7 +63,11 @@ export default function SaveProductScreen({
           <ProductCard key={p.id} product={p} />
         ))}
       </CardsContainer>
-      <Paginator totalItems={productsData.totalCount} currentPage={page} />
+      <Paginator
+        totalItems={productsData.totalCount}
+        currentPage={page}
+        itemsPerPage={12}
+      />
     </Container>
   );
 }

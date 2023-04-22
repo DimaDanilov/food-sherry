@@ -6,13 +6,15 @@ import { useRouter } from "next/router";
 export interface IPaginatorProps {
   totalItems: number;
   currentPage: number;
+  itemsPerPage: number;
 }
 
-const ITEMS_PER_PAGE: number = 12;
+// const ITEMS_PER_PAGE: number = 12;
 
 export default function Paginator({
   totalItems,
   currentPage,
+  itemsPerPage,
 }: IPaginatorProps) {
   const router = useRouter();
 
@@ -28,7 +30,7 @@ export default function Paginator({
   const pages: Array<string> = fillPaginatorValues({
     totalItems,
     currentPage,
-    ITEMS_PER_PAGE,
+    itemsPerPage,
   });
 
   const pageElements = pages.map((page, index) => (

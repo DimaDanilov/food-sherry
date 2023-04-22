@@ -1,133 +1,94 @@
-import { IProductProfile } from "@/models/Product";
 import { COLORS } from "@/styles/globalStyles";
 import styled from "styled-components";
-import { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { loadUserProducts } from "@/api/ProductApi";
 import { ProfileProductCard } from "./ProfileProductCard";
 import { useRouter } from "next/router";
+import Paginator from "../../../common/paginator/Paginator";
+import { ProductsProfileData } from "@/api/ProductAdapter";
 
-export const ProfileProducts = ({ userId }: { userId: number }) => {
+interface ProfileProductsProps {
+  userId: number;
+  queryAds: "current" | "closed" | "taken";
+  queryPage: string | undefined;
+}
+
+export const ProfileProducts = ({
+  userId,
+  queryAds,
+  queryPage,
+}: ProfileProductsProps) => {
   const router = useRouter();
 
-  const [currentProducts, setCurrentProducts] = useState<IProductProfile[]>([]);
-  const [closedProducts, setClosedProducts] = useState<IProductProfile[]>([]);
-  const [takenProducts, setTakenProducts] = useState<IProductProfile[]>([]);
-
-  const [isCurrentLoaded, setIsCurrentLoaded] = useState<boolean>(false);
-  const [isClosedLoaded, setIsClosedLoaded] = useState<boolean>(false);
-  const [isTakenLoaded, setIsTakenLoaded] = useState<boolean>(false);
-
-  const currentProductsItems = useMemo(
-    () =>
-      currentProducts.map((product, index) => (
-        <ProfileProductCard key={index} product={product} />
-      )),
-    [currentProducts]
+  const [products, setProducts] = useState<ProductsProfileData>(
+    {} as ProductsProfileData
   );
 
-  const closedProductsItems = useMemo(
-    () =>
-      closedProducts.map((product, index) => (
-        <ProfileProductCard key={index} product={product} />
-      )),
-    [closedProducts]
-  );
-
-  const takenProductsItems = useMemo(
-    () =>
-      takenProducts.map((product, index) => (
-        <ProfileProductCard key={index} product={product} />
-      )),
-    [takenProducts]
-  );
-
-  const onFilterChange = (filter: string) => {
+  const onAdsClick = (filter: string) => {
     if (filter) {
       router.replace({
-        query: { ...router.query, ads: filter },
+        query: { ...router.query, ads: filter, page: 1 },
       });
     } else {
       // When ads = "" remove query from url
       const { ads, ...routerQuery } = router.query;
       router.replace({
-        query: { ...routerQuery },
+        query: { ...routerQuery, page: 1 },
       });
     }
   };
 
   const fetchProducts = useCallback(
-    async (filter: string) => {
-      if (filter === "current" && !isCurrentLoaded) {
-        const newProducts: IProductProfile[] = await loadUserProducts(
-          userId,
-          "current"
-        );
-        setIsCurrentLoaded(true);
-        setCurrentProducts(newProducts);
-      }
-      if (filter === "closed" && !isClosedLoaded) {
-        const newProducts: IProductProfile[] = await loadUserProducts(
-          userId,
-          "closed"
-        );
-        setIsClosedLoaded(true);
-        setClosedProducts(newProducts);
-      }
-      if (filter === "taken" && !isTakenLoaded) {
-        const newProducts: IProductProfile[] = await loadUserProducts(
-          userId,
-          "taken"
-        );
-        setIsTakenLoaded(true);
-        setTakenProducts(newProducts);
-      }
+    async (filter: "current" | "closed" | "taken") => {
+      const newProducts: ProductsProfileData = await loadUserProducts(
+        userId,
+        filter,
+        queryPage ? queryPage.toString() : ""
+      );
+      setProducts(newProducts);
     },
-    [userId, isCurrentLoaded, isClosedLoaded, isTakenLoaded]
+    [router.query, userId]
   );
 
   useEffect(() => {
     if (!router.isReady) return;
-    const ads = router.query.ads;
-    if (ads === "closed" || ads === "taken") {
-      fetchProducts(ads);
-    } else {
-      fetchProducts("current");
-    }
-  }, [router.isReady, router.query, fetchProducts]);
+    fetchProducts(queryAds);
+  }, [router.isReady, queryAds, fetchProducts]);
 
   return (
     <div>
       <ProductsHeader activeItem={router.query.ads?.toString()}>
         <HeaderEl
-          active={
-            router.isReady &&
-            router.query.ads !== "closed" &&
-            router.query.ads !== "taken"
-          }
-          onClick={() => onFilterChange("")}
+          active={queryAds !== "closed" && queryAds !== "taken"}
+          onClick={() => onAdsClick("")}
         >
           Текущие объявления
         </HeaderEl>
         <HeaderEl
-          active={router.isReady && router.query.ads === "closed"}
-          onClick={() => onFilterChange("closed")}
+          active={queryAds === "closed"}
+          onClick={() => onAdsClick("closed")}
         >
           Отдано
         </HeaderEl>
         <HeaderEl
-          active={router.isReady && router.query.ads === "taken"}
-          onClick={() => onFilterChange("taken")}
+          active={queryAds === "taken"}
+          onClick={() => onAdsClick("taken")}
         >
           Забронировано
         </HeaderEl>
       </ProductsHeader>
-      <ProductsContainer>
-        {router.query.ads !== "closed" &&
-          router.query.ads !== "taken" &&
-          currentProductsItems}
-        {router.query.ads === "closed" && closedProductsItems}
-        {router.query.ads === "taken" && takenProductsItems}
-      </ProductsContainer>
+      <ProductsBlock>
+        <ProductsContainer>
+          {products.products?.map((product, index) => (
+            <ProfileProductCard key={index} product={product} />
+          ))}
+        </ProductsContainer>
+        <Paginator
+          currentPage={Number(queryPage)}
+          totalItems={products.totalCount}
+          itemsPerPage={6}
+        />
+      </ProductsBlock>
     </div>
   );
 };
@@ -164,11 +125,16 @@ const HeaderEl = styled.div<{ active?: boolean }>`
   text-align: center;
   cursor: pointer;
 `;
-const ProductsContainer = styled.div`
+const ProductsBlock = styled.div`
   border: 2px solid ${COLORS.mainColor};
   border-radius: 0 0 11px 11px;
   min-height: 150px;
   padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+const ProductsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;

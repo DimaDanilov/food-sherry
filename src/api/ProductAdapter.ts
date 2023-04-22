@@ -9,6 +9,10 @@ export interface ProductsData {
   products: IProduct[];
   totalCount: number;
 }
+export interface ProductsProfileData {
+  products: IProductProfile[];
+  totalCount: number;
+}
 
 export class ProductAdapter {
   static imagesUrlTransform(images: Array<string>) {
@@ -63,7 +67,12 @@ export class ProductAdapter {
       status: product.status,
     };
   }
-  static transformProfileProductArray(data: any): IProductProfile[] {
-    return data.map((item: any) => this.transformProfileProduct(item));
+  static transformProfileProductArray(data: any): ProductsProfileData {
+    return {
+      products: data.products?.map((item: any) =>
+        this.transformProfileProduct(item)
+      ),
+      totalCount: data.total_count,
+    };
   }
 }
