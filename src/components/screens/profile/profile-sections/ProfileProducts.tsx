@@ -4,9 +4,10 @@ import styled from "styled-components";
 import { useEffect, useState, useMemo, useCallback } from "react";
 import { loadUserProducts } from "@/api/ProductApi";
 import { ProfileProductCard } from "./ProfileProductCard";
+import { useRouter } from "next/router";
 
 export const ProfileProducts = ({ userId }: { userId: number }) => {
-  const [productsFilter, setProductsFilter] = useState<string>("current");
+  const router = useRouter();
 
   const [currentProducts, setCurrentProducts] = useState<IProductProfile[]>([]);
   const [closedProducts, setClosedProducts] = useState<IProductProfile[]>([]);
@@ -18,26 +19,40 @@ export const ProfileProducts = ({ userId }: { userId: number }) => {
 
   const currentProductsItems = useMemo(
     () =>
-      currentProducts.map((product) => (
-        <ProfileProductCard product={product} />
+      currentProducts.map((product, index) => (
+        <ProfileProductCard key={index} product={product} />
       )),
     [currentProducts]
   );
 
   const closedProductsItems = useMemo(
     () =>
-      closedProducts.map((product) => <ProfileProductCard product={product} />),
+      closedProducts.map((product, index) => (
+        <ProfileProductCard key={index} product={product} />
+      )),
     [closedProducts]
   );
 
   const takenProductsItems = useMemo(
     () =>
-      takenProducts.map((product) => <ProfileProductCard product={product} />),
+      takenProducts.map((product, index) => (
+        <ProfileProductCard key={index} product={product} />
+      )),
     [takenProducts]
   );
 
   const onFilterChange = (filter: string) => {
-    setProductsFilter(filter);
+    if (filter) {
+      router.replace({
+        query: { ...router.query, ads: filter },
+      });
+    } else {
+      // When ads = "" remove query from url
+      const { ads, ...routerQuery } = router.query;
+      router.replace({
+        query: { ...routerQuery },
+      });
+    }
   };
 
   const fetchProducts = useCallback(
@@ -67,39 +82,51 @@ export const ProfileProducts = ({ userId }: { userId: number }) => {
         setTakenProducts(newProducts);
       }
     },
-    [userId]
+    [userId, isCurrentLoaded, isClosedLoaded, isTakenLoaded]
   );
 
   useEffect(() => {
-    fetchProducts(productsFilter);
-  }, [productsFilter]);
+    if (!router.isReady) return;
+    const ads = router.query.ads;
+    if (ads === "closed" || ads === "taken") {
+      fetchProducts(ads);
+    } else {
+      fetchProducts("current");
+    }
+  }, [router.isReady, router.query, fetchProducts]);
 
   return (
     <div>
-      <ProductsHeader activeItem={productsFilter}>
+      <ProductsHeader activeItem={router.query.ads?.toString()}>
         <HeaderEl
-          active={productsFilter === "current"}
-          onClick={() => onFilterChange("current")}
+          active={
+            router.isReady &&
+            router.query.ads !== "closed" &&
+            router.query.ads !== "taken"
+          }
+          onClick={() => onFilterChange("")}
         >
           Текущие объявления
         </HeaderEl>
         <HeaderEl
-          active={productsFilter === "closed"}
+          active={router.isReady && router.query.ads === "closed"}
           onClick={() => onFilterChange("closed")}
         >
           Отдано
         </HeaderEl>
         <HeaderEl
-          active={productsFilter === "taken"}
+          active={router.isReady && router.query.ads === "taken"}
           onClick={() => onFilterChange("taken")}
         >
           Забронировано
         </HeaderEl>
       </ProductsHeader>
       <ProductsContainer>
-        {productsFilter === "current" && currentProductsItems}
-        {productsFilter === "closed" && closedProductsItems}
-        {productsFilter === "taken" && takenProductsItems}
+        {router.query.ads !== "closed" &&
+          router.query.ads !== "taken" &&
+          currentProductsItems}
+        {router.query.ads === "closed" && closedProductsItems}
+        {router.query.ads === "taken" && takenProductsItems}
       </ProductsContainer>
     </div>
   );
@@ -110,7 +137,9 @@ const ProductsHeader = styled.div<{ activeItem?: string | undefined }>`
   align-items: end;
   div:nth-child(1) {
     border-radius: ${(props) =>
-      props.activeItem === "current" ? "11px 11px 0 0" : "11px 0 0 0"};
+      props.activeItem !== "closed" && props.activeItem !== "taken"
+        ? "11px 11px 0 0"
+        : "11px 0 0 0"};
   }
   div:nth-child(2) {
     border-radius: ${(props) =>
