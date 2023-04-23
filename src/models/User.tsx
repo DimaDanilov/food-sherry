@@ -5,4 +5,5 @@ export interface IUser {
   surname: string;
   companyName: string;
   phone: string;
+  timeCreated: string;
 }

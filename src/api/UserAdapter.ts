@@ -9,6 +9,7 @@ export class UserAdapter {
       surname: userItem.surname,
       companyName: userItem.company_name,
       phone: userItem.phone,
+      timeCreated: userItem.time_created,
     };
   }
 }

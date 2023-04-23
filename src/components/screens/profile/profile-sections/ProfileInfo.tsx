@@ -26,7 +26,11 @@ export const ProfileInfo = ({ user }: { user: IUser }) => {
       </ProfileBriefData>
       <InfoDetails>Телефон: {user.phone}</InfoDetails>
       <InfoDetails>Почта: {user.email}</InfoDetails>
-      <InfoDetails>Помогает с: N даты</InfoDetails>
+      {user.timeCreated && (
+        <InfoDetails>
+          Помогает с: {new Date(user.timeCreated).toLocaleDateString()}
+        </InfoDetails>
+      )}
       <InfoDetails>Создал объявлений: {userProductAmount}</InfoDetails>
     </div>
   );
