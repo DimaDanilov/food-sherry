@@ -31,19 +31,43 @@ export const Header = observer(() => {
           />
         </NavLink>
         <Nav>
-          <NavUl>
-            <NavLi>
+          <MainNavUl>
+            <MainNavLi
+              activeColor={
+                router.pathname === "/save-product"
+                  ? COLORS.mainActive
+                  : COLORS.mainColor
+              }
+              hoverColor={
+                router.pathname === "/save-product"
+                  ? COLORS.mainActive
+                  : COLORS.mainHoverDark
+              }
+            >
               <NavLink href="/save-product">Забрать еду</NavLink>
-            </NavLi>
-            <NavLi>
-              <NavLink href="/give-product">Отдать еду</NavLink>
-            </NavLi>
-          </NavUl>
+            </MainNavLi>
+            {authStore.user.id && (
+              <MainNavLi
+                activeColor={
+                  router.pathname === "/give-product"
+                    ? COLORS.mainActive
+                    : COLORS.mainColor
+                }
+                hoverColor={
+                  router.pathname === "/give-product"
+                    ? COLORS.mainActive
+                    : COLORS.mainHoverDark
+                }
+              >
+                <NavLink href="/give-product">Отдать еду</NavLink>
+              </MainNavLi>
+            )}
+          </MainNavUl>
         </Nav>
       </LeftContainer>
 
       <NavUl>
-        {authStore.user.email && (
+        {authStore.user.id && (
           <NavLi onClick={onExitBtn}>
             <Icon
               icon={<HiOutlineArrowLeftOnRectangle color={COLORS.white} />}
@@ -54,7 +78,7 @@ export const Header = observer(() => {
         <NavLi>
           <NavLink
             href={
-              authStore.user.email
+              authStore.user.id
                 ? `/profile/${authStore.user.id}?page=1`
                 : "/login"
             }
@@ -75,13 +99,14 @@ const Container = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5% 3%;
+  padding: 0 3%;
   height: 8vh;
   z-index: 1;
 `;
 const LeftContainer = styled.div`
   display: flex;
   gap: 5vw;
+  height: 100%;
 `;
 const Nav = styled.nav`
   display: flex;
@@ -90,6 +115,12 @@ const Nav = styled.nav`
 const NavUl = styled.ul`
   display: flex;
   gap: 30px;
+  list-style: none;
+  height: 100%;
+`;
+const MainNavUl = styled(NavUl)`
+  display: flex;
+  gap: 0;
   list-style: none;
   height: 100%;
 `;
@@ -103,4 +134,18 @@ const NavLi = styled.li`
 const NavLink = styled(Link)`
   color: ${COLORS.white};
   white-space: nowrap;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+`;
+const MainNavLi = styled(NavLi)<{ activeColor: string; hoverColor: string }>`
+  background-color: ${(props) => props.activeColor};
+  & :hover {
+    background-color: ${(props) => props.hoverColor};
+  }
+  & a {
+    padding: 0 20px;
+  }
 `;

@@ -5,8 +5,13 @@ import { AddPhotoBlock } from "./give-product-sections/AddPhotoBlock";
 import { postProduct } from "@/api/ProductApi";
 import { useGiveProductStore } from "./store/GiveProductStore";
 import { useRouter } from "next/router";
+import { useAuthStore } from "@/store/AuthStore";
+import { useEffect } from "react";
+import Loader from "@/components/layout/Loader";
+import { observer } from "mobx-react";
 
-export default function GiveProductScreen() {
+export const GiveProductScreen = observer(() => {
+  const authStore = useAuthStore();
   const giveProductStore = useGiveProductStore();
   const router = useRouter();
 
@@ -33,7 +38,15 @@ export default function GiveProductScreen() {
     }
   };
 
-  return (
+  useEffect(() => {
+    if (authStore.firstLoadCompleted && !authStore.user.id) {
+      router.replace("/login");
+    }
+  }, [authStore.user]);
+
+  return !authStore.firstLoadCompleted || !authStore.user.id ? (
+    <Loader />
+  ) : (
     <PageContainer>
       <Form action="" method="post" onSubmit={onFormSubmit}>
         <FieldsContainer>
@@ -46,7 +59,7 @@ export default function GiveProductScreen() {
       </Form>
     </PageContainer>
   );
-}
+});
 
 const PageContainer = styled(Container)`
   display: flex;

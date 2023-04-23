@@ -1,14 +1,13 @@
 import { updateProductStatus } from "@/api/ProductApi";
 import { IProduct } from "@/models/Product";
 import { useAuthStore } from "@/store/AuthStore";
-import { COLORS } from "@/styles/globalStyles";
+import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
 import { Container } from "@/ui/Container";
 import { IconWithText } from "@/ui/IconWithText";
 import { parseCreateDate } from "@/utils/parseCreateDate";
 import { parseTakeDate } from "@/utils/parseTakeDate";
 import { observer } from "mobx-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import {
@@ -22,6 +21,7 @@ import {
 } from "react-icons/hi2";
 import styled from "styled-components";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
+import { useRouter } from "next/router";
 
 interface IProductScreenProps {
   product: IProduct;
@@ -94,7 +94,10 @@ export const ProductScreen = observer(({ product }: IProductScreenProps) => {
             <ProductStatus>Данный товар зерезервирован не вами</ProductStatus>
           ) : (
             <ProductStatus>
-              Данный товар ваш, он зерезервирован другим человеком
+              Данный товар ваш, он зерезервирован{" "}
+              <NavLink href={"/profile/" + currentProduct.clientId}>
+                другим человеком
+              </NavLink>
             </ProductStatus>
           ))}
 
@@ -153,6 +156,11 @@ const RegularText = styled.p<IRegularTextProps>`
 `;
 const ProductStatus = styled.h3`
   color: ${COLORS.darkgray};
+  font-size: ${FONT_SIZE.h3};
+  & a {
+    font-size: ${FONT_SIZE.h3};
+    text-decoration: dashed underline;
+  }
 `;
 const NavLink = styled(Link)`
   color: ${COLORS.darkgray};

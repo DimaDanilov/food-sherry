@@ -27,6 +27,9 @@ export default function Button({
       margin={margin || "0 auto"}
       padding={padding}
       bgColor={styleType === "primary" ? COLORS.mainColor : COLORS.white}
+      bgColorHover={
+        styleType === "primary" ? COLORS.mainHoverDark : COLORS.secondaryHover
+      }
       color={styleType === "primary" ? COLORS.white : COLORS.mainColor}
       {...props}
     >
@@ -40,10 +43,12 @@ interface IStyledBtnProps {
   margin: string;
   padding?: string;
   bgColor: string;
+  bgColorHover: string;
   color: string;
 }
 
 const StyledButton = styled.button<IStyledBtnProps>`
+  transition: 0.3s;
   background-color: ${(props) => props.bgColor};
   color: ${(props) => props.color};
   border: none;
@@ -52,4 +57,7 @@ const StyledButton = styled.button<IStyledBtnProps>`
   padding: ${(props) => props.padding};
   border-radius: 10px;
   cursor: pointer;
+  &:hover {
+    background-color: ${(props) => props.bgColorHover};
+  }
 `;

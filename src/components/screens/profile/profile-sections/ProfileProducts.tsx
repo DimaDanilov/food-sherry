@@ -2,14 +2,14 @@ import { COLORS } from "@/styles/globalStyles";
 import styled from "styled-components";
 import { useEffect, useState, useCallback } from "react";
 import { loadUserProducts } from "@/api/ProductApi";
-import { ProfileProductCard } from "./ProfileProductCard";
+import { ProfileProductCard } from "./ProfileProductCard/ProfileProductCard";
 import { useRouter } from "next/router";
 import Paginator from "../../../common/paginator/Paginator";
 import { ProductsProfileData } from "@/api/ProductAdapter";
 
 interface ProfileProductsProps {
   userId: number;
-  queryAds: "current" | "closed" | "taken";
+  queryAds: "current" | "closed" | "taken" | undefined;
   queryPage: string | undefined;
 }
 
@@ -24,28 +24,30 @@ export const ProfileProducts = ({
     {} as ProductsProfileData
   );
 
-  const onAdsClick = (filter: string) => {
-    if (filter) {
-      router.replace({
-        query: { ...router.query, ads: filter, page: 1 },
-      });
-    } else {
+  const onAdsClick = (filter: "current" | "closed" | "taken") => {
+    if (filter === "current") {
       // When ads = "" remove query from url
       const { ads, ...routerQuery } = router.query;
       router.replace({
         query: { ...routerQuery, page: 1 },
       });
+    } else {
+      router.replace({
+        query: { ...router.query, ads: filter, page: 1 },
+      });
     }
   };
 
   const fetchProducts = useCallback(
-    async (filter: "current" | "closed" | "taken") => {
-      const newProducts: ProductsProfileData = await loadUserProducts(
-        userId,
-        filter,
-        queryPage ? queryPage.toString() : ""
-      );
-      setProducts(newProducts);
+    async (filter: "current" | "closed" | "taken" | undefined) => {
+      if (filter) {
+        const newProducts: ProductsProfileData = await loadUserProducts(
+          userId,
+          filter,
+          queryPage ? queryPage.toString() : ""
+        );
+        setProducts(newProducts);
+      }
     },
     [router.query, userId]
   );
@@ -57,10 +59,10 @@ export const ProfileProducts = ({
 
   return (
     <div>
-      <ProductsHeader activeItem={router.query.ads?.toString()}>
+      <ProductsHeader activeItem={router.isReady ? queryAds : ""}>
         <HeaderEl
-          active={queryAds !== "closed" && queryAds !== "taken"}
-          onClick={() => onAdsClick("")}
+          active={queryAds === "current"}
+          onClick={() => onAdsClick("current")}
         >
           Текущие объявления
         </HeaderEl>
@@ -98,9 +100,7 @@ const ProductsHeader = styled.div<{ activeItem?: string | undefined }>`
   align-items: end;
   div:nth-child(1) {
     border-radius: ${(props) =>
-      props.activeItem !== "closed" && props.activeItem !== "taken"
-        ? "11px 11px 0 0"
-        : "11px 0 0 0"};
+      props.activeItem === "current" ? "11px 11px 0 0" : "11px 0 0 0"};
   }
   div:nth-child(2) {
     border-radius: ${(props) =>
@@ -111,6 +111,9 @@ const ProductsHeader = styled.div<{ activeItem?: string | undefined }>`
   div:nth-last-child(1) {
     border-radius: ${(props) =>
       props.activeItem === "taken" ? "11px 11px 0 0" : "0 11px 0 0"};
+  }
+  & > div:hover {
+    border-radius: 11px 11px 0 0;
   }
 `;
 const HeaderEl = styled.div<{ active?: boolean }>`
@@ -123,7 +126,16 @@ const HeaderEl = styled.div<{ active?: boolean }>`
   flex: 1;
   height: min-content;
   text-align: center;
+  transition: 0.3s;
   cursor: pointer;
+  &:hover {
+    padding: ${(props) => (props.active ? "10px 5px" : "5px 5px 10px")};
+    background-color: ${(props) =>
+      props.active ? COLORS.mainColor : COLORS.mainHoverLight};
+    border-color: ${(props) =>
+      props.active ? COLORS.mainColor : COLORS.mainHoverLight};
+    color: ${COLORS.white};
+  }
 `;
 const ProductsBlock = styled.div`
   border: 2px solid ${COLORS.mainColor};

@@ -1,5 +1,5 @@
 import Layout from "@/components/layout/Layout";
-import GiveProductScreen from "@/components/screens/give-product/GiveProduct";
+import { GiveProductScreen } from "@/components/screens/give-product/GiveProduct";
 
 export default function GiveProduct() {
   return (

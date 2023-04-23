@@ -34,13 +34,21 @@ export const COLORS = {
   mainColor: "#289672",
   mainColorFilter:
     "invert(42%) sepia(61%) saturate(457%) hue-rotate(109deg) brightness(102%) contrast(90%)",
+  mainHoverDark: "#007957",
+  mainHoverLight: "#30B287",
+  mainActive: "#005D3D",
+  secondaryHover: "#EAEAEA",
+
   white: "#fff",
   black: "#000000",
+
   lightgray: "#bdbdbd",
   gray: "#848484",
   darkgray: "#606060",
+
   shadow: "rgba(0, 0, 0, 0.35)",
   shadowLanding: "rgba(26, 58, 23, 0.3)", // Shadow for landing page
+
   placeholderMain: "rgba(40, 150, 114, 0.6)",
   placeholderWhite: "rgba(255, 255, 255, 0.6)",
 };

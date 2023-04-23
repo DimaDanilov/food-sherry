@@ -18,7 +18,7 @@ export async function loadAllProducts(
 ): Promise<ProductsData> {
   const url = `${API_URL}/api/product?page=${page}${
     search && `&search=${search}`
-  }`;
+  }&status=open`;
   const response = await axios.get<ProductsData>(url);
   return ProductAdapter.transformArray(response.data);
 }
@@ -28,14 +28,7 @@ export async function loadUserProducts(
   filter: "current" | "closed" | "taken",
   page: string
 ): Promise<ProductsProfileData> {
-  let url: string;
-  if (filter === "current") {
-    url = `${API_URL}/api/product_current/${id}?page=${page}`;
-  } else if (filter === "closed") {
-    url = `${API_URL}/api/product_closed/${id}?page=${page}`;
-  } else {
-    url = `${API_URL}/api/product_taken/${id}?page=${page}`;
-  }
+  const url = `${API_URL}/api/product_user/${id}?page=${page}&filter=${filter}`;
   const response = await axios.get<IProductProfile[]>(url);
   return ProductAdapter.transformProfileProductArray(response.data);
 }

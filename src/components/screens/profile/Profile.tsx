@@ -9,8 +9,8 @@ import { useRouter } from "next/router";
 export default function ProfileScreen({ user }: { user: IUser }) {
   const router = useRouter();
 
-  const queryAds: "current" | "closed" | "taken" = useMemo(() => {
-    if (!router.isReady) return "current";
+  const queryAds: "current" | "closed" | "taken" | undefined = useMemo(() => {
+    if (!router.isReady) return undefined;
     if (router.query.ads === "closed" || router.query.ads === "taken") {
       return router.query.ads;
     } else {

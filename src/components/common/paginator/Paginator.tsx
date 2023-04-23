@@ -9,8 +9,6 @@ export interface IPaginatorProps {
   itemsPerPage: number;
 }
 
-// const ITEMS_PER_PAGE: number = 12;
-
 export default function Paginator({
   totalItems,
   currentPage,

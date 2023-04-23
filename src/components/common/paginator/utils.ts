@@ -11,6 +11,8 @@ export const fillPaginatorValues = ({
 }: IPaginatorFillFuncProps): Array<string> => {
   const totalPages: number = Math.ceil(totalItems / itemsPerPage);
   switch (true) {
+    case !Number(totalPages):
+      return [];
     case totalPages <= 7:
       let arr: Array<string> = [];
       for (let i = 1; i <= totalPages; i++) {
