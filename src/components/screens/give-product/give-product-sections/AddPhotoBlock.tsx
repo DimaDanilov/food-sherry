@@ -1,5 +1,5 @@
 import { COLORS } from "@/styles/globalStyles";
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { HiOutlineCamera, HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
 import { useGiveProductStore } from "../store/GiveProductStore";
@@ -9,6 +9,8 @@ const MAX_PHOTO_COUNT = 10;
 
 export const AddPhotoBlock = observer(() => {
   const giveProductStore = useGiveProductStore();
+
+  const photoValidationRef = useRef<HTMLInputElement>(null);
 
   const handleAddPhotos = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,6 +51,16 @@ export const AddPhotoBlock = observer(() => {
     );
   };
 
+  useEffect(() => {
+    if (photoValidationRef.current) {
+      if (giveProductStore.productImages.length === 0) {
+        photoValidationRef.current.setCustomValidity("Загрузите фото");
+      } else {
+        photoValidationRef.current.setCustomValidity("");
+      }
+    }
+  }, [giveProductStore.productImages.length]);
+
   return (
     <div>
       <PhotoLabel
@@ -72,8 +84,7 @@ export const AddPhotoBlock = observer(() => {
         onChange={handleAddPhotos}
       />
       <InputRequireMark // Component to make images required
-        value={giveProductStore.productImages.length === 0 ? "" : 1}
-        required
+        ref={photoValidationRef}
       />
 
       <PhotosContainer>

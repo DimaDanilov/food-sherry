@@ -15,6 +15,10 @@ const GallerySmallImage = memo(
   ({ imageUrl, index, currentImageID, onImageClick }: IProductImageProps) => {
     const border =
       index === currentImageID ? `6px double ${COLORS.mainColor}` : "none";
+    const borderHover =
+      index === currentImageID
+        ? `6px double ${COLORS.mainColor}`
+        : `4px double ${COLORS.mainColor}`;
     const cursor = index === currentImageID ? "default" : "pointer";
 
     return (
@@ -25,6 +29,7 @@ const GallerySmallImage = memo(
         height={100}
         onClick={() => onImageClick(index)}
         border={border}
+        borderhover={borderHover}
         cursor={cursor}
       />
     );
@@ -63,6 +68,7 @@ export const ImageGallery = ({ imageUrls }: { imageUrls: string[] }) => {
 
 interface ICustomSmallImageProps {
   border: string;
+  borderhover: string;
   cursor: string;
 }
 
@@ -73,10 +79,14 @@ const GalleryContainer = styled.div`
 `;
 
 const CustomSmallImage = styled(Image)<ICustomSmallImageProps>`
+  transition: 0.2s ease-out;
   width: 100%;
   height: 100%;
   border: ${(props) => props.border};
   cursor: ${(props) => props.cursor};
+  &:hover {
+    border: ${(props) => props.borderhover};
+  }
 `;
 
 const GridImages = styled.div`
