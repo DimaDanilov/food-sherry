@@ -1,16 +1,22 @@
+import { loadUserTotalProducts } from "@/api/ProductApi";
 import { loadOneUser } from "@/api/UserApi";
 import Layout from "@/components/layout/Layout";
 import ProfileScreen from "@/components/screens/profile/Profile";
 import { IUser } from "@/models/User";
 import axios from "axios";
 
-export default function Profile({ user }: { user: IUser }) {
+interface ProfileProps {
+  user: IUser;
+  totalProducts: number;
+}
+
+export default function Profile({ user, totalProducts }: ProfileProps) {
   return (
     <Layout
       pageTitle="Profile"
       pageDescription="Create your profile, Connect, share, and make world a better place."
     >
-      <ProfileScreen user={user} />
+      <ProfileScreen user={user} totalProducts={totalProducts} />
     </Layout>
   );
 }
@@ -40,9 +46,11 @@ export async function getStaticProps({
   };
 }) {
   const user = await loadOneUser(params.userId);
+  const totalProducts = await loadUserTotalProducts(params.userId);
   return {
     props: {
       user,
+      totalProducts,
     },
   };
 }

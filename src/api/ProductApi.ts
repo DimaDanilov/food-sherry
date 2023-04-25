@@ -12,7 +12,12 @@ import {
 
 export const API_URL = "http://localhost:5000";
 
-export async function loadAllProducts(
+export async function loadAllProducts(): Promise<ProductsData> {
+  const response = await axios.get<ProductsData>(`${API_URL}/api/product`);
+  return ProductAdapter.transformArray(response.data);
+}
+
+export async function loadProducts(
   page: number,
   search: string
 ): Promise<ProductsData> {
@@ -41,9 +46,9 @@ export async function loadOneProduct(productId: string): Promise<IProduct> {
 }
 
 export async function loadUserTotalProducts(
-  productId: number
-): Promise<{ count: string }> {
-  const response = await axios.get<{ count: string }>(
+  productId: string
+): Promise<number> {
+  const response = await axios.get<number>(
     `${API_URL}/api/product_created/${productId}`
   );
   return response.data;
@@ -85,5 +90,5 @@ export async function updateProductStatus(
       },
     }
   );
-  return ProductAdapter.transformUpdatedStatus(response.data);
+  return ProductAdapter.transformUpdatedStatus(response.data[1]);
 }

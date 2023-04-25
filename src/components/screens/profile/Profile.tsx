@@ -6,7 +6,15 @@ import { ProfileInfo } from "./profile-sections/ProfileInfo";
 import { IUser } from "@/models/User";
 import { useRouter } from "next/router";
 
-export default function ProfileScreen({ user }: { user: IUser }) {
+interface ProfileScreenProps {
+  user: IUser;
+  totalProducts: number;
+}
+
+export default function ProfileScreen({
+  user,
+  totalProducts,
+}: ProfileScreenProps) {
   const router = useRouter();
 
   const queryAds: "current" | "closed" | "taken" | undefined = useMemo(() => {
@@ -33,7 +41,7 @@ export default function ProfileScreen({ user }: { user: IUser }) {
   return (
     <PageContainer>
       <ProfileInfoContainer>
-        <ProfileInfo user={user} />
+        <ProfileInfo user={user} totalProducts={totalProducts} />
       </ProfileInfoContainer>
       <ProfileProductsContainer>
         <ProfileProducts

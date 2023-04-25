@@ -21,7 +21,6 @@ import {
 } from "react-icons/hi2";
 import styled from "styled-components";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
-import { useRouter } from "next/router";
 
 interface IProductScreenProps {
   product: IProduct;
@@ -91,7 +90,9 @@ export const ProductScreen = observer(({ product }: IProductScreenProps) => {
           authStore.firstLoadCompleted &&
           authStore.user.id !== currentProduct.clientId &&
           (authStore.user.id !== currentProduct.author.id ? (
-            <ProductStatus>Данный товар зерезервирован не вами</ProductStatus>
+            <ProductStatus>
+              Данный товар уже кем-то зерезервирован
+            </ProductStatus>
           ) : (
             <ProductStatus>
               Данный товар ваш, он зерезервирован{" "}

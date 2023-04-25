@@ -49,8 +49,8 @@ export class ProductAdapter {
     totalCount: number;
   } {
     return {
-      products: data.products.map((item: any) => this.transform(item)),
-      totalCount: data.total_count,
+      products: data.rows.map((item: any) => this.transform(item)),
+      totalCount: data.count,
     };
   }
   static transformUpdatedStatus(newStatusInfo: any): IProductStatusInfo {
@@ -70,10 +70,10 @@ export class ProductAdapter {
   }
   static transformProfileProductArray(data: any): ProductsProfileData {
     return {
-      products: data.products?.map((item: any) =>
+      products: data.rows?.map((item: any) =>
         this.transformProfileProduct(item)
       ),
-      totalCount: data.total_count,
+      totalCount: data.count,
     };
   }
 }

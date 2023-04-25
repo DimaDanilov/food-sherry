@@ -1,6 +1,6 @@
 import Layout from "@/components/layout/Layout";
 import SaveProductScreen from "@/components/screens/save-product/SaveProduct";
-import { loadAllProducts } from "../api/ProductApi";
+import { loadProducts } from "../api/ProductApi";
 import { ProductsData } from "../api/ProductAdapter";
 
 export default function SaveProduct({
@@ -38,7 +38,7 @@ export async function getServerSideProps({ query }: { query: any }) {
     };
   }
 
-  const productsData = await loadAllProducts(page, search);
+  const productsData = await loadProducts(page, search);
 
   return {
     props: {

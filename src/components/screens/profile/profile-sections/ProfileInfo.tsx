@@ -1,21 +1,14 @@
-import { loadUserTotalProducts } from "@/api/ProductApi";
 import { IUser } from "@/models/User";
 import { COLORS } from "@/styles/globalStyles";
 import { HiUserCircle } from "react-icons/hi2";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
 
-export const ProfileInfo = ({ user }: { user: IUser }) => {
-  const [userProductAmount, setUserProductAmount] = useState<string>("");
+interface ProfileScreenProps {
+  user: IUser;
+  totalProducts: number;
+}
 
-  useEffect(() => {
-    async function fetchUserProductAmount() {
-      const productInfo = await loadUserTotalProducts(user.id);
-      setUserProductAmount(productInfo.count);
-    }
-    fetchUserProductAmount();
-  }, [user.id]);
-
+export const ProfileInfo = ({ user, totalProducts }: ProfileScreenProps) => {
   return (
     <div>
       <ProfileBriefData>
@@ -31,7 +24,9 @@ export const ProfileInfo = ({ user }: { user: IUser }) => {
           Помогает с: {new Date(user.timeCreated).toLocaleDateString()}
         </InfoDetails>
       )}
-      <InfoDetails>Создал объявлений: {userProductAmount}</InfoDetails>
+      {!Number.isNaN(totalProducts) && (
+        <InfoDetails>Создал объявлений: {totalProducts}</InfoDetails>
+      )}
     </div>
   );
 };

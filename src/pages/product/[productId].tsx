@@ -1,9 +1,7 @@
-import { ProductsData } from "@/api/ProductAdapter";
-import { loadOneProduct } from "@/api/ProductApi";
+import { loadAllProducts, loadOneProduct } from "@/api/ProductApi";
 import Layout from "@/components/layout/Layout";
 import { ProductScreen } from "@/components/screens/product/Product";
 import { IProduct } from "@/models/Product";
-import axios from "axios";
 
 export default function Product({ product }: { product: IProduct }) {
   return (
@@ -18,11 +16,9 @@ export default function Product({ product }: { product: IProduct }) {
 
 export async function getStaticPaths() {
   try {
-    const response = await axios.get<ProductsData>(
-      "http://localhost:5000/api/product"
-    );
+    const data = await loadAllProducts();
 
-    const paths = response.data.products.map((product) => ({
+    const paths = data.products.map((product) => ({
       params: { productId: product.id.toString() },
     }));
 
