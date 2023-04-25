@@ -1,5 +1,5 @@
 import { updateProductStatus } from "@/api/ProductApi";
-import { IProduct } from "@/models/Product";
+import { IProduct, ProductStatus } from "@/models/Product";
 import { useAuthStore } from "@/store/AuthStore";
 import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
@@ -36,7 +36,7 @@ export const ProductScreen = observer(({ product }: IProductScreenProps) => {
 
   const onReservingChange = async (
     productId: number,
-    status: "reserved" | "open" | "closed"
+    status: ProductStatus
   ) => {
     const newStatusInfo = await updateProductStatus(productId, status);
     setCurrentProduct({

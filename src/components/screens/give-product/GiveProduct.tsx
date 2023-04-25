@@ -20,14 +20,11 @@ export const GiveProductScreen = observer(() => {
     try {
       await postProduct({
         title: giveProductStore.productTitle,
-        author: "ТЕСТОВОЕ ИМЯ", // ДОРАБОТАТЬ
         category_id: giveProductStore.productSelect,
         description: giveProductStore.productDescription,
         amount: giveProductStore.productAmount,
-        time_created: new Date().toISOString(),
         time_to_take: giveProductStore.productDatetimeToTake,
         location: giveProductStore.productAddress,
-        phone: "ТЕСТОВЫЙ ТЕЛЕФОН", // ДОРАБОТАТЬ
         images: giveProductStore.productImages,
         status: "open",
       });

@@ -6,10 +6,11 @@ import { ProfileProductCard } from "./ProfileProductCard/ProfileProductCard";
 import { useRouter } from "next/router";
 import Paginator from "../../../common/paginator/Paginator";
 import { ProductsProfileData } from "@/api/ProductAdapter";
+import { ProductProfileFilter } from "@/models/Product";
 
 interface ProfileProductsProps {
   userId: number;
-  queryAds: "current" | "closed" | "taken" | undefined;
+  queryAds: ProductProfileFilter | undefined;
   queryPage: string | undefined;
 }
 
@@ -24,7 +25,7 @@ export const ProfileProducts = ({
     {} as ProductsProfileData
   );
 
-  const onAdsClick = (filter: "current" | "closed" | "taken") => {
+  const onAdsClick = (filter: ProductProfileFilter) => {
     if (filter === "current") {
       // When ads = "" remove query from url
       const { ads, ...routerQuery } = router.query;
@@ -39,7 +40,7 @@ export const ProfileProducts = ({
   };
 
   const fetchProducts = useCallback(
-    async (filter: "current" | "closed" | "taken" | undefined) => {
+    async (filter: ProductProfileFilter | undefined) => {
       if (filter) {
         const newProducts: ProductsProfileData = await loadUserProducts(
           userId,
@@ -59,7 +60,7 @@ export const ProfileProducts = ({
 
   return (
     <div>
-      <ProductsHeader activeItem={router.isReady ? queryAds : ""}>
+      <ProductsHeader activeItem={router.isReady ? queryAds : undefined}>
         <HeaderEl
           active={queryAds === "current"}
           onClick={() => onAdsClick("current")}
@@ -95,7 +96,9 @@ export const ProfileProducts = ({
   );
 };
 
-const ProductsHeader = styled.div<{ activeItem?: string | undefined }>`
+const ProductsHeader = styled.div<{
+  activeItem?: ProductProfileFilter | undefined;
+}>`
   display: flex;
   align-items: end;
   div:nth-child(1) {

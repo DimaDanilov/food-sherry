@@ -1,4 +1,4 @@
-import { loadAllProducts, loadOneProduct } from "@/api/ProductApi";
+import { loadOneProduct, loadProducts } from "@/api/ProductApi";
 import Layout from "@/components/layout/Layout";
 import { ProductScreen } from "@/components/screens/product/Product";
 import { IProduct } from "@/models/Product";
@@ -16,7 +16,7 @@ export default function Product({ product }: { product: IProduct }) {
 
 export async function getStaticPaths() {
   try {
-    const data = await loadAllProducts();
+    const data = await loadProducts();
 
     const paths = data.products.map((product) => ({
       params: { productId: product.id.toString() },

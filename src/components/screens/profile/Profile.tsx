@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { ProfileInfo } from "./profile-sections/ProfileInfo";
 import { IUser } from "@/models/User";
 import { useRouter } from "next/router";
+import { ProductProfileFilter } from "@/models/Product";
 
 interface ProfileScreenProps {
   user: IUser;
@@ -17,7 +18,7 @@ export default function ProfileScreen({
 }: ProfileScreenProps) {
   const router = useRouter();
 
-  const queryAds: "current" | "closed" | "taken" | undefined = useMemo(() => {
+  const queryAds: ProductProfileFilter | undefined = useMemo(() => {
     if (!router.isReady) return undefined;
     if (router.query.ads === "closed" || router.query.ads === "taken") {
       return router.query.ads;

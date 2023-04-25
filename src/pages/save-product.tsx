@@ -27,8 +27,8 @@ export default function SaveProduct({
 }
 
 export async function getServerSideProps({ query }: { query: any }) {
-  let page = Number(query["page"]);
-  let search = query["search"] || "";
+  let page: number = Number(query["page"]);
+  let search = query["search"];
   if (!page || page <= 0) {
     return {
       redirect: {
@@ -37,14 +37,13 @@ export async function getServerSideProps({ query }: { query: any }) {
       },
     };
   }
-
   const productsData = await loadProducts(page, search);
 
   return {
     props: {
       productsData,
       page,
-      search,
+      search: search || "",
     },
   };
 }

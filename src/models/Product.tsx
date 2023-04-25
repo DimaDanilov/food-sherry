@@ -1,6 +1,9 @@
 import { ICategory } from "./Category";
 import { IUser } from "./User";
 
+export type ProductStatus = "open" | "reserved" | "closed";
+export type ProductProfileFilter = "current" | "closed" | "taken";
+
 export interface IProduct {
   id: number;
   title: string;
@@ -13,18 +16,18 @@ export interface IProduct {
   timeToTake: string;
   location: string;
   imagesSrc: Array<string>;
-  status: "open" | "reserved" | "closed";
+  status: ProductStatus;
 }
 
 export interface IProductStatusInfo {
   id: number;
   clientId: number;
-  status: "open" | "reserved" | "closed";
+  status: ProductStatus;
 }
 
 export interface IProductProfile {
   id: number;
   title: string;
   imagesSrc: Array<string>;
-  status: "open" | "reserved" | "closed";
+  status: ProductStatus;
 }
