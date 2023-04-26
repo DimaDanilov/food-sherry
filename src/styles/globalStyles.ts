@@ -6,10 +6,11 @@ export const montserrat = Montserrat({
 });
 
 export const FONT_SIZE = {
-  h1: "32px",
+  h1: "28px",
   h2: "24px",
   h3: "22px",
   h4: "20px",
+  h5: "18px",
   p: "16px",
   link: "16px",
   input: "18px",
@@ -23,6 +24,7 @@ export const FONT_WEIGHT = {
   h2: "400",
   h3: "400",
   h4: "400",
+  h5: "400",
   p: "300",
   link: "400",
   input: "400",

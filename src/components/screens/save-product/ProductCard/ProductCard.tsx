@@ -116,6 +116,5 @@ const CardTitle = styled.h3`
 
 const NavLink = styled(Link)`
   color: ${COLORS.darkgray};
-  white-space: nowrap;
 `;
 const CardButton = styled(Button)``;

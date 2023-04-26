@@ -75,6 +75,11 @@ export default function App({ Component, pageProps }: AppProps) {
           font-weight: ${FONT_WEIGHT.h4};
           font-family: ${montserrat.style.fontFamily};
         }
+        h5 {
+          font-size: ${FONT_SIZE.h5};
+          font-weight: ${FONT_WEIGHT.h5};
+          font-family: ${montserrat.style.fontFamily};
+        }
         p {
           font-size: ${FONT_SIZE.p};
           font-weight: ${FONT_WEIGHT.p};

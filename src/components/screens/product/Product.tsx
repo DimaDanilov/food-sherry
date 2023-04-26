@@ -155,11 +155,11 @@ const RegularText = styled.p<IRegularTextProps>`
   margin: 10px auto;
   color: ${(props) => props.fontColor};
 `;
-const ProductStatus = styled.h3`
+const ProductStatus = styled.h4`
+  margin: 15px auto;
   color: ${COLORS.darkgray};
-  font-size: ${FONT_SIZE.h3};
   & a {
-    font-size: ${FONT_SIZE.h3};
+    font-size: ${FONT_SIZE.h4};
     text-decoration: dashed underline;
   }
 `;

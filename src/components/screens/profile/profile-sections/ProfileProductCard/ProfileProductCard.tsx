@@ -17,12 +17,16 @@ export const ProfileProductCard = ({
         width={300}
         height={300}
       />
-      <CardTitle>{product.title}</CardTitle>
+      <TitleContainer>
+        <CardTitle>{product.title}</CardTitle>
+      </TitleContainer>
     </Card>
   );
 };
 
 const Card = styled(Link)`
+  display: flex;
+  flex-direction: column;
   transition: 0.15s;
   color: ${COLORS.black};
   border-radius: 15px;
@@ -37,19 +41,26 @@ const Card = styled(Link)`
     box-shadow: 0px 3px 4px 0px ${COLORS.shadow};
   }
 `;
+const TitleContainer = styled.div`
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const CardImage = styled(Image)`
   width: 100%;
-  height: 200px;
+  height: 150px;
   object-fit: cover;
   border-radius: 15px 15px 0 0;
 `;
 const CardTitle = styled.h4`
   width: 100%;
-  padding: 10px;
+  margin: 10px 0;
+  padding: 0 10px;
   overflow: hidden;
+  text-align: center;
   display: -webkit-box;
   -webkit-line-clamp: 2; /* number of lines to show */
   line-clamp: 2;
   -webkit-box-orient: vertical;
-  text-align: center;
 `;

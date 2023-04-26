@@ -89,7 +89,7 @@ export const ProfileProducts = ({
         <Paginator
           currentPage={Number(queryPage)}
           totalItems={products.totalCount}
-          itemsPerPage={6}
+          itemsPerPage={8}
         />
       </ProductsBlock>
     </div>
@@ -151,6 +151,6 @@ const ProductsBlock = styled.div`
 `;
 const ProductsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 30px;
 `;

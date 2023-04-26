@@ -74,6 +74,7 @@ export default function SaveProductScreen({
 
 const CardsContainer = styled.div`
   display: grid;
+  width: 100%;
   grid-template-columns: repeat(4, 1fr);
   margin: 3% 0;
   gap: 10vh 6vh;

@@ -39,6 +39,7 @@ const ProfileBriefData = styled.div`
 const Title = styled.h1`
   color: ${COLORS.mainColor};
 `;
-const InfoDetails = styled.h4`
+const InfoDetails = styled.h5`
   color: ${COLORS.mainColor};
+  margin: 5px auto;
 `;
