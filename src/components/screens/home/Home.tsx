@@ -22,6 +22,7 @@ export default function HomeScreen() {
         width={200}
         height={200}
       />
+      <BackgroundOverlay />
       <PageContent>
         <FoodSharingInfoContainer>
           <Title>ФУДШЕРИНГ</Title>
@@ -52,6 +53,15 @@ const Background = styled(Image)`
   -o-filter: blur(5px);
   -ms-filter: blur(5px);
   filter: blur(5px);
+`;
+
+const BackgroundOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: ${COLORS.shadowLanding}; /* прозрачный красный цвет */
 `;
 
 const PageContent = styled.div`
