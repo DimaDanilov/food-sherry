@@ -27,35 +27,51 @@ export default function ProductCard({ product }: { product: IProduct }) {
         height={200}
         onClick={handleClick}
       />
-      <CardInfo>
+      <CardContent>
         <CardTitle>{product.title}</CardTitle>
-        <NavLink href={`/profile/${product.author.id}`} color="red">
-          <IconWithText icon={<HiOutlineUser />} iconScale={1.3}>
-            {product.author.name
-              ? product.author.name + " " + product.author.surname
-              : product.author.companyName}
+        <CardInfo>
+          <NavLink href={`/profile/${product.author.id}`} color="red">
+            <IconWithText
+              icon={<HiOutlineUser />}
+              iconScale={1.3}
+              hideStringsExcept={1}
+            >
+              {product.author.name
+                ? product.author.name + " " + product.author.surname
+                : product.author.companyName}
+            </IconWithText>
+          </NavLink>
+          <IconWithText
+            icon={<HiOutlineClock />}
+            iconScale={1.3}
+            hideStringsExcept={1}
+          >
+            {parseTakeDate(product.timeToTake) || "Outdated"}
           </IconWithText>
-        </NavLink>
-        <IconWithText icon={<HiOutlineClock />} iconScale={1.3}>
-          {parseTakeDate(product.timeToTake) || "Outdated"}
-        </IconWithText>
-        <IconWithText icon={<HiOutlineMapPin />} iconScale={1.3}>
-          {product.location}
-        </IconWithText>
-        <Button
-          margin="10px auto"
-          padding="10px"
-          styleType="primary"
-          onClick={handleClick}
-        >
-          Посмотреть
-        </Button>
-      </CardInfo>
+          <IconWithText
+            icon={<HiOutlineMapPin />}
+            iconScale={1.3}
+            hideStringsExcept={1}
+          >
+            {product.location}
+          </IconWithText>
+          <CardButton
+            margin="10px auto"
+            padding="10px"
+            styleType="primary"
+            onClick={handleClick}
+          >
+            Посмотреть
+          </CardButton>
+        </CardInfo>
+      </CardContent>
     </Card>
   );
 }
 
 const Card = styled.div`
+  display: flex;
+  flex-direction: column;
   transition: 0.15s;
   border-radius: 15px;
   background-color: ${COLORS.white};
@@ -63,6 +79,7 @@ const Card = styled.div`
   -moz-box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
   box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
   overflow-wrap: anywhere;
+  box-sizing: border-box;
   &:hover {
     z-index: 1;
     transform: scale(1.005);
@@ -71,9 +88,14 @@ const Card = styled.div`
     box-shadow: 0px 0px 9px 0px ${COLORS.shadow};
   }
 `;
-const CardInfo = styled.div`
-  margin: 10px 20px;
+const CardContent = styled.div`
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
 `;
+const CardInfo = styled.div``;
 
 const CardImage = styled(Image)`
   border-radius: 15px 15px 0 0;
@@ -82,11 +104,18 @@ const CardImage = styled(Image)`
   object-fit: cover;
 `;
 
-const CardTitle = styled.h2`
-  margin: 15px auto;
+const CardTitle = styled.h3`
+  margin: 8px 0;
+  /* Hide text when overflow more than N lines */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 
 const NavLink = styled(Link)`
   color: ${COLORS.darkgray};
   white-space: nowrap;
 `;
+const CardButton = styled(Button)``;
