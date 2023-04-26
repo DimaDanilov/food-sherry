@@ -27,16 +27,19 @@ export const AddPhotoBlock = observer(() => {
               ) !== undefined
             )
         );
-        if (newPhotos.length > 0) {
-          giveProductStore.updateProductImages([
-            ...giveProductStore.productImages,
-            ...newPhotos.slice(
-              0,
-              MAX_PHOTO_COUNT - giveProductStore.productImages.length
-            ),
-          ]);
-        } else {
+        const imgAmountRequired =
+          MAX_PHOTO_COUNT - giveProductStore.productImages.length;
+        if (newPhotos.length <= 0) {
           alert(`No new files added.`);
+        } else {
+          if (newPhotos.length <= imgAmountRequired) {
+            giveProductStore.updateProductImages([
+              ...giveProductStore.productImages,
+              ...newPhotos,
+            ]);
+          } else {
+            alert(`You can add only ${imgAmountRequired} more images.`);
+          }
         }
       }
     },
@@ -82,6 +85,7 @@ export const AddPhotoBlock = observer(() => {
       <InputImage
         type="file"
         id="addImage"
+        value=""
         name="addImage"
         accept="image/png, image/gif, image/jpeg"
         multiple
