@@ -15,7 +15,27 @@ export default function App({ Component, pageProps }: AppProps) {
   const authStore = useAuthStore();
 
   useEffect(() => {
-    const checkAuth = async () => {
+    const requestFrequency = 2000; //milliseconds
+
+    const lastRequestTime = sessionStorage.getItem("lastRequestTime");
+    const currentTime = Date.now();
+
+    // If time from last request less than requestFrequency than setTimer
+    if (
+      lastRequestTime &&
+      currentTime - Number(lastRequestTime) < requestFrequency
+    ) {
+      const timeLeft =
+        requestFrequency - (currentTime - Number(lastRequestTime));
+      const timerId = setTimeout(checkAuth, timeLeft);
+
+      // return func to cancel timer if component unmount
+      return () => clearTimeout(timerId);
+    }
+
+    checkAuth();
+
+    async function checkAuth() {
       const token = localStorage.getItem("token");
       if (token) {
         const user: IUser = await auth(token);
@@ -24,8 +44,8 @@ export default function App({ Component, pageProps }: AppProps) {
         }
       }
       authStore.setFirstLoadStatus(true);
-    };
-    checkAuth();
+      sessionStorage.setItem("lastRequestTime", String(currentTime));
+    }
   }, []);
 
   return (
