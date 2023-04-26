@@ -23,9 +23,8 @@ export default function ProductCard({ product }: { product: IProduct }) {
       <CardImage
         src={product.imagesSrc[0] || "/icons/product_placeholder.svg"}
         alt={product.title}
-        width={150}
-        height={150}
-        style={{ width: "100%", height: "auto" }}
+        width={200}
+        height={200}
         onClick={handleClick}
       />
       <CardInfo>
@@ -57,11 +56,20 @@ export default function ProductCard({ product }: { product: IProduct }) {
 }
 
 const Card = styled.div`
+  transition: 0.15s;
   border-radius: 15px;
+  background-color: ${COLORS.white};
   -webkit-box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
   -moz-box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
   box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
   overflow-wrap: anywhere;
+  &:hover {
+    z-index: 1;
+    transform: scale(1.005);
+    -webkit-box-shadow: 0px 0px 9px 0px ${COLORS.shadow};
+    -moz-box-shadow: 0px 0px 9px 0px ${COLORS.shadow};
+    box-shadow: 0px 0px 9px 0px ${COLORS.shadow};
+  }
 `;
 const CardInfo = styled.div`
   margin: 10px 20px;
@@ -70,6 +78,8 @@ const CardInfo = styled.div`
 const CardImage = styled(Image)`
   border-radius: 15px 15px 0 0;
   cursor: pointer;
+  width: 100%;
+  object-fit: cover;
 `;
 
 const CardTitle = styled.h2`

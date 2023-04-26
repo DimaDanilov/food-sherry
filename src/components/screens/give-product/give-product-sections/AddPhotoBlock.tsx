@@ -70,6 +70,11 @@ export const AddPhotoBlock = observer(() => {
             ? COLORS.placeholderMain
             : COLORS.mainColor
         }
+        bgHoverColor={
+          giveProductStore.productImages.length >= MAX_PHOTO_COUNT
+            ? COLORS.placeholderMain
+            : COLORS.mainHoverLight
+        }
       >
         <HiOutlineCamera color={COLORS.white} size={150} />
       </PhotoLabel>
@@ -114,6 +119,8 @@ const PhotosContainer = styled.div`
 
 const Photo = styled.img`
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 15px;
   -webkit-box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
   -moz-box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
@@ -129,18 +136,24 @@ const InputRequireMark = styled.input`
   width: 100%;
   height: 0px;
 `;
-const PhotoLabel = styled.label<{ bgColor: string }>`
+const PhotoLabel = styled.label<{ bgColor: string; bgHoverColor: string }>`
+  transition: 0.4s;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 250px;
   background-color: ${(props) => props.bgColor};
   cursor: pointer;
+  &:hover {
+    background-color: ${(props) => props.bgHoverColor};
+  }
 `;
 
 const PhotoEl = styled.div`
   position: relative;
   border-radius: 15px;
+  height: 100%;
+  cursor: pointer;
   ::after {
     transition: 0.3s;
     content: "";

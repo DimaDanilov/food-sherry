@@ -1,6 +1,7 @@
 import { useAuthStore } from "@/store/AuthStore";
 import { COLORS } from "@/styles/globalStyles";
 import Button from "@/ui/Button";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
@@ -15,7 +16,12 @@ export default function HomeScreen() {
 
   return (
     <>
-      <Background />
+      <Background
+        alt=""
+        src={"/images/landing_background.jpg"}
+        width={200}
+        height={200}
+      />
       <PageContent>
         <FoodSharingInfoContainer>
           <Title>ФУДШЕРИНГ</Title>
@@ -37,17 +43,10 @@ export default function HomeScreen() {
   );
 }
 
-const Background = styled.div`
-  content: "";
+const Background = styled(Image)`
   position: fixed;
-  z-index: -1;
   width: 100%;
   height: 100%;
-  background-image: url("/images/landing_background.jpg");
-  box-shadow: inset 0 0 0 2000px ${COLORS.shadowLanding};
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
   -webkit-filter: blur(5px);
   -moz-filter: blur(5px);
   -o-filter: blur(5px);

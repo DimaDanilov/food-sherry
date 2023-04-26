@@ -25,8 +25,8 @@ const GallerySmallImage = memo(
       <CustomSmallImage
         alt=""
         src={imageUrl || "/icons/product_placeholder.svg"}
-        width={100}
-        height={100}
+        width={200}
+        height={200}
         onClick={() => onImageClick(index)}
         border={border}
         borderhover={borderHover}
@@ -81,7 +81,7 @@ const GalleryContainer = styled.div`
 const CustomSmallImage = styled(Image)<ICustomSmallImageProps>`
   transition: 0.2s ease-out;
   width: 100%;
-  height: 100%;
+  object-fit: cover;
   border: ${(props) => props.border};
   cursor: ${(props) => props.cursor};
   &:hover {
@@ -98,4 +98,5 @@ const GridImages = styled.div`
 `;
 const CustomBigImage = styled(Image)`
   width: 100%;
+  object-fit: contain;
 `;
