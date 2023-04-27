@@ -1,22 +1,29 @@
 import Paginator from "../../common/paginator/Paginator";
-import { COLORS } from "@/styles/globalStyles";
+import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
 import { Container } from "@/ui/Container";
 import SearchInput from "@/ui/SearchInput";
-import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
+import {
+  HiArrowLongDown,
+  HiArrowLongUp,
+  HiOutlineMagnifyingGlass,
+} from "react-icons/hi2";
 import styled from "styled-components";
 import ProductCard from "./ProductCard/ProductCard";
 import { ProductsData } from "@/api/ProductAdapter";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { ProductSort } from "@/models/Product";
 
 export default function SaveProductScreen({
   productsData,
   page,
   search,
+  sort,
 }: {
   productsData: ProductsData;
   page: number;
   search: string;
+  sort: ProductSort;
 }) {
   const router = useRouter();
 
@@ -46,6 +53,18 @@ export default function SaveProductScreen({
     setSearchField(e.target.value);
   };
 
+  const onFilterClick = (sort: ProductSort) => {
+    if (ProductSort[sort].toString() === ProductSort.datedown.toString()) {
+      router.replace({
+        query: { ...router.query, sort: "dateup" },
+      });
+    } else {
+      router.replace({
+        query: { ...router.query, sort: "datedown" },
+      });
+    }
+  };
+
   return (
     <Container>
       <form action="" onSubmit={onSearchSubmit}>
@@ -58,6 +77,16 @@ export default function SaveProductScreen({
           iconScale={1.3}
         />
       </form>
+      <span>Сортировать по:</span>
+      <SortBtn onClick={() => onFilterClick(sort)}>
+        {ProductSort[sort].toString() === ProductSort.datedown.toString() && (
+          <HiArrowLongDown size={16} />
+        )}
+        {ProductSort[sort].toString() === ProductSort.dateup.toString() && (
+          <HiArrowLongUp size={16} />
+        )}
+        <span>Дате</span>
+      </SortBtn>
       <CardsContainer>
         {productsData.products?.map((p) => (
           <ProductCard key={p.id} product={p} />
@@ -76,6 +105,17 @@ const CardsContainer = styled.div`
   display: grid;
   width: 100%;
   grid-template-columns: repeat(4, 1fr);
-  margin: 3% 0;
   gap: 10vh 6vh;
+`;
+const SortBtn = styled.button`
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 1.5% 0;
+  background-color: transparent;
+  color: ${COLORS.mainColor};
+  border: 0;
+  padding: 0 5px;
+  &:hover {
+    color: ${COLORS.mainHoverLight};
+  }
 `;

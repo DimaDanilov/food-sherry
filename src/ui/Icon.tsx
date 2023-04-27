@@ -16,7 +16,7 @@ export function Icon({
   );
 }
 
-const Container = styled.div<{ iconScale?: number }>`
+const Container = styled.span<{ iconScale?: number }>`
   display: flex;
   justify-content: center;
   align-items: center;

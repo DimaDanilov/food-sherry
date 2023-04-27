@@ -17,10 +17,11 @@ export const API_URL = "http://localhost:5000";
 export async function loadProducts(
   page?: number,
   search?: string,
+  sort?: string,
   status?: string
 ): Promise<ProductsData> {
   const response = await axios.get<ProductsData>(`${API_URL}/api/product`, {
-    params: { page, search, status },
+    params: { page, search, sort, status },
   });
   return ProductAdapter.transformArray(response.data);
 }

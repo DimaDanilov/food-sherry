@@ -3,6 +3,10 @@ import { IUser } from "./User";
 
 export type ProductStatus = "open" | "reserved" | "closed";
 export type ProductProfileFilter = "current" | "closed" | "taken";
+export enum ProductSort {
+  datedown,
+  dateup,
+}
 
 export interface IProduct {
   id: number;
