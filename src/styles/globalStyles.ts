@@ -17,6 +17,7 @@ export const FONT_SIZE = {
   input: "18px",
   button: "18px",
   select: "18px",
+  label: "18px",
 };
 
 export const FONT_WEIGHT = {
@@ -32,6 +33,7 @@ export const FONT_WEIGHT = {
   input: "400",
   button: "400",
   select: "400",
+  label: "400",
 };
 
 export const COLORS = {

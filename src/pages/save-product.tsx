@@ -3,17 +3,23 @@ import SaveProductScreen from "@/components/screens/save-product/SaveProduct";
 import { loadProducts } from "../api/ProductApi";
 import { ProductsData } from "../api/ProductAdapter";
 import { ProductSort } from "@/models/Product";
+import { loadCategories } from "@/api/CategoryApi";
+import { ICategory } from "@/models/Category";
 
 export default function SaveProduct({
   productsData,
   page,
   search,
   sort,
+  availableCategories,
+  categoriesQuery,
 }: {
   productsData: ProductsData;
   page: number;
   search: string;
   sort: ProductSort;
+  availableCategories: ICategory[];
+  categoriesQuery: string[];
 }) {
   return (
     <Layout
@@ -25,6 +31,8 @@ export default function SaveProduct({
         page={page}
         search={search}
         sort={sort}
+        availableCategories={availableCategories}
+        categoriesQuery={categoriesQuery}
       />
     </Layout>
   );
@@ -34,6 +42,11 @@ export async function getServerSideProps({ query }: { query: any }) {
   let page: number = Number(query["page"]);
   let search = query["search"];
   let sort: string = query["sort"];
+  let categoriesQuery: string[] = Array.isArray(query["category"])
+    ? query["category"] // If array
+    : query["category"] // If it's only one item
+    ? [query["category"]]
+    : []; // If no items
   if (!page || page <= 0 || !(sort in ProductSort)) {
     return {
       redirect: {
@@ -42,7 +55,14 @@ export async function getServerSideProps({ query }: { query: any }) {
       },
     };
   }
-  const productsData = await loadProducts(page, search, sort);
+
+  const productsData: ProductsData = await loadProducts(
+    page,
+    search,
+    sort,
+    categoriesQuery
+  );
+  const availableCategories: ICategory[] = await loadCategories();
 
   return {
     props: {
@@ -50,6 +70,8 @@ export async function getServerSideProps({ query }: { query: any }) {
       page,
       search: search || "",
       sort,
+      availableCategories,
+      categoriesQuery,
     },
   };
 }

@@ -108,6 +108,11 @@ export default function App({ Component, pageProps }: AppProps) {
           font-weight: ${FONT_WEIGHT.select};
           font-family: ${montserrat.style.fontFamily};
         }
+        label {
+          font-size: ${FONT_SIZE.label};
+          font-weight: ${FONT_WEIGHT.label};
+          font-family: ${montserrat.style.fontFamily};
+        }
         button {
           font-size: ${FONT_SIZE.button};
           font-weight: ${FONT_WEIGHT.button};

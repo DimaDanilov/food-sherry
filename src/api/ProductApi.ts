@@ -18,10 +18,11 @@ export async function loadProducts(
   page?: number,
   search?: string,
   sort?: string,
+  categories?: string[],
   status?: string
 ): Promise<ProductsData> {
   const response = await axios.get<ProductsData>(`${API_URL}/api/product`, {
-    params: { page, search, sort, status },
+    params: { page, search, sort, status, categories },
   });
   return ProductAdapter.transformArray(response.data);
 }
