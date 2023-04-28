@@ -96,6 +96,7 @@ const Window = styled.div<{ isActive: boolean }>`
   flex-direction: column;
   gap: 20px;
   background-color: ${COLORS.mainColor};
+  position: relative;
   z-index: 1;
 `;
 

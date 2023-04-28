@@ -80,7 +80,6 @@ const Card = styled.div`
   box-shadow: 0px 0px 4px 0px ${COLORS.shadow};
   overflow-wrap: anywhere;
   box-sizing: border-box;
-  z-index: -1;
   &:hover {
     transform: scale(1.005);
     -webkit-box-shadow: 0px 0px 9px 0px ${COLORS.shadow};
