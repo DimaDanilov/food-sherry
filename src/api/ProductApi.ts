@@ -19,7 +19,7 @@ export async function loadProducts(
   search?: string,
   sort?: string,
   categories?: string[],
-  status?: string
+  status?: ProductStatus
 ): Promise<ProductsData> {
   const response = await axios.get<ProductsData>(`${API_URL}/api/product`, {
     params: { page, search, sort, status, categories },

@@ -60,7 +60,8 @@ export async function getServerSideProps({ query }: { query: any }) {
     page,
     search,
     sort,
-    categoriesQuery
+    categoriesQuery,
+    "open"
   );
   const availableCategories: ICategory[] = await loadCategories();
 
