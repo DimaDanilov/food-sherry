@@ -5,5 +5,6 @@ export interface UserModel {
   surname: string;
   companyName: string;
   phone: string;
+  avatar: string;
   timeCreated: string;
 }

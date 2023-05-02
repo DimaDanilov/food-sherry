@@ -31,6 +31,7 @@ export class ProductAdapter {
         companyName: productItem.author.company_name,
         email: productItem.author.email,
         phone: productItem.author.phone,
+        avatar: productItem.author.avatar,
         timeCreated: productItem.author.time_created,
       },
       clientId: productItem.client_id,

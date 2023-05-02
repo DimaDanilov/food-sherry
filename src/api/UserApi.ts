@@ -46,3 +46,29 @@ export async function updateUser({
 
   return response.data;
 }
+
+export async function updateUserPhoto(id: number, avatarPhoto: any) {
+  const formData = new FormData();
+  formData.append("id", id.toString());
+  formData.append("avatar", avatarPhoto);
+
+  const token = localStorage.getItem("token");
+  const response = await axios.put(`${API_URL}/api/user_avatar`, formData, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+
+  return UserAdapter.imageUrlTransform(response.data);
+}
+
+export async function deleteUserPhoto(userId: number): Promise<UserModel> {
+  const token = localStorage.getItem("token");
+  const response = await axios.delete(`${API_URL}/api/user_avatar/${userId}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
