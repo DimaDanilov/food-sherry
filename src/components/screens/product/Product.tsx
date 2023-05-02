@@ -146,11 +146,14 @@ export const ProductScreen = observer(({ product }: IProductScreenProps) => {
           </IconWithText>
         )}
 
-        <IconWithText icon={<HiOutlineClock />} iconScale={1.3}>
-          {parseTakeDate(product.timeToTake)
-            ? `Можно забрать: ${parseTakeDate(product.timeToTake)}`
-            : "Outdated"}
-        </IconWithText>
+        <BlockWithTooltip>
+          <IconWithText icon={<HiOutlineClock />} iconScale={1.3}>
+            {parseTakeDate(product.timeToTake)
+              ? `Можно забрать: ${parseTakeDate(product.timeToTake)}`
+              : "Outdated"}
+          </IconWithText>
+          <Tooltip>{new Date(product.timeToTake).toLocaleString()}</Tooltip>
+        </BlockWithTooltip>
 
         {product.location && isEditMode ? (
           <InputUpdate
@@ -248,6 +251,24 @@ const FlexTitleContainer = styled.div`
 const RegularText = styled.p<IRegularTextProps>`
   margin: 10px auto;
   color: ${(props) => props.fontColor};
+`;
+const Tooltip = styled.div`
+  display: none;
+  position: absolute;
+  top: 120%;
+  z-index: 2;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: ${COLORS.white};
+  background-color: ${COLORS.mainColor};
+`;
+const BlockWithTooltip = styled.div`
+  position: relative;
+  cursor: pointer;
+  text-decoration: underline dotted;
+  &:hover > ${Tooltip} {
+    display: block;
+  }
 `;
 const ProductStatusDesc = styled.h4`
   margin: 15px auto;
