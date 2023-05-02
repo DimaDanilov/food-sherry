@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import { ProductSort } from "@/models/Product";
 import { ICategory } from "@/models/Category";
 import FilterWindow from "./FilterWindow/FilterWindow";
+import { ButtonIcon } from "@/ui/ButtonIcon";
 
 export default function SaveProductScreen({
   productsData,
@@ -103,17 +104,12 @@ export default function SaveProductScreen({
         </span>
 
         <FilterContainer>
-          <FilterBtn
+          <ButtonIcon
+            icon={<HiAdjustmentsHorizontal size={16} />}
+            iconScale={1.7}
             onClick={() => setFilterWindowActive(!filterWindowActive)}
             active={filterWindowActive}
-          >
-            <HiAdjustmentsHorizontal
-              size={16}
-              style={{
-                scale: "1.7",
-              }}
-            />
-          </FilterBtn>
+          />
           <FilterWindowContainer>
             <FilterWindow
               availableCategories={availableCategories}
@@ -152,23 +148,6 @@ const SortBtn = styled.button`
   padding: 0 5px;
   &:hover {
     color: ${COLORS.mainHoverLight};
-  }
-`;
-const FilterBtn = styled.button<{ active: boolean }>`
-  transition: 0.3s;
-  color: ${(props) => (props.active ? COLORS.white : COLORS.mainColor)};
-  border: 1px solid;
-  border-radius: 10px;
-  border-color: ${(props) =>
-    props.active ? COLORS.mainHoverLight : "transparent"};
-  background-color: ${(props) =>
-    props.active ? COLORS.mainHoverLight : "transparent"};
-  padding: 8px 11px;
-  cursor: pointer;
-  &:hover {
-    color: ${COLORS.white};
-    background-color: ${COLORS.mainHoverLight};
-    border-color: ${COLORS.mainHoverLight};
   }
 `;
 const FilterSortContainer = styled.div`

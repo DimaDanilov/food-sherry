@@ -18,10 +18,12 @@ import {
   HiOutlineMapPin,
   HiOutlinePhone,
   HiOutlineEnvelope,
+  HiOutlinePencilSquare,
 } from "react-icons/hi2";
 import styled from "styled-components";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
 import { InputUpdate } from "@/ui/InputUpdate";
+import { ButtonIcon } from "@/ui/ButtonIcon";
 
 interface IProductScreenProps {
   product: IProduct;
@@ -89,13 +91,20 @@ export const ProductScreen = observer(({ product }: IProductScreenProps) => {
         <ImageGallery imageUrls={product.imagesSrc} />
       </FlexItem>
       <FlexItem>
-        {product.author.id === authStore.user.id && (
-          <Button onClick={onEditClick} styleType="primary" padding="8px 0">
-            {isEditMode ? "Сохранить редактирование" : "Редактировать"}
-          </Button>
-        )}
+        <FlexTitleContainer>
+          <h1>{product.title}</h1>
+          {/* Edit button */}
+          {product.author.id === authStore.user.id &&
+            productStatus !== "closed" && (
+              <ButtonIcon
+                icon={<HiOutlinePencilSquare size={16} />}
+                iconScale={1.7}
+                onClick={onEditClick}
+                active={isEditMode}
+              />
+            )}
+        </FlexTitleContainer>
 
-        <h1>{product.title}</h1>
         <RegularText fontColor={COLORS.gray}>
           Добавлено: {parseCreateDate(product.timeCreated)}
         </RegularText>
@@ -166,20 +175,20 @@ export const ProductScreen = observer(({ product }: IProductScreenProps) => {
 
         {/* Status info */}
         {productStatus === "closed" && (
-          <ProductStatus>Данный товар спасен</ProductStatus>
+          <ProductStatusDesc>Данный товар спасен</ProductStatusDesc>
         )}
         {productStatus === "reserved" &&
           authStore.firstLoadCompleted &&
           authStore.user.id !== clientId &&
           (authStore.user.id !== product.author.id ? (
-            <ProductStatus>
+            <ProductStatusDesc>
               Данный товар уже кем-то зерезервирован
-            </ProductStatus>
+            </ProductStatusDesc>
           ) : (
-            <ProductStatus>
+            <ProductStatusDesc>
               Данный товар ваш, он зерезервирован{" "}
               <NavLink href={"/profile/" + clientId}>другим человеком</NavLink>
-            </ProductStatus>
+            </ProductStatusDesc>
           ))}
 
         {/* Buttons */}
@@ -232,11 +241,15 @@ const FlexContainer = styled(Container)`
 const FlexItem = styled.div`
   width: 45%;
 `;
+const FlexTitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 const RegularText = styled.p<IRegularTextProps>`
   margin: 10px auto;
   color: ${(props) => props.fontColor};
 `;
-const ProductStatus = styled.h4`
+const ProductStatusDesc = styled.h4`
   margin: 15px auto;
   color: ${COLORS.darkgray};
   & a {
@@ -247,15 +260,4 @@ const ProductStatus = styled.h4`
 const NavLink = styled(Link)`
   color: ${COLORS.darkgray};
   white-space: nowrap;
-`;
-const Input = styled.input`
-  transition: 0.2s ease-in;
-  width: 100%;
-  margin: 5px auto;
-  border-radius: 5px;
-  border: 1px solid ${COLORS.mainColor};
-  padding: 7px;
-  &:focus {
-    outline-color: ${COLORS.mainColor};
-  }
 `;
