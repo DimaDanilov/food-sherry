@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { updateUser } from "@/api/UserApi";
 import { useAuthStore } from "@/store/AuthStore";
 import Button from "@/ui/Button";
+import { InputUpdate } from "@/ui/InputUpdate";
 
 interface ProfileScreenProps {
   user: IUser;
@@ -71,17 +72,15 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileScreenProps) => {
 
         {user.name && isEditMode ? (
           <>
-            <Input
+            <InputUpdate
               autoFocus={true}
-              type="name"
-              id="name"
+              type="text"
               name="name"
               value={name}
               onChange={onNameChange}
             />
-            <Input
-              type="surname"
-              id="surname"
+            <InputUpdate
+              type="text"
               name="surname"
               value={surname}
               onChange={onSurnameChange}
@@ -95,10 +94,9 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileScreenProps) => {
         )}
 
         {user.companyName && isEditMode ? (
-          <Input
+          <InputUpdate
             autoFocus={true}
-            type="companyName"
-            id="companyName"
+            type="text"
             name="companyName"
             value={companyName}
             onChange={onCompanyNameChange}
@@ -111,9 +109,8 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileScreenProps) => {
       <InfoDetails>
         <h5>Телефон:</h5>
         {isEditMode ? (
-          <Input
-            type="phone"
-            id="phone"
+          <InputUpdate
+            type="tel"
             name="phone"
             value={phone}
             onChange={onPhoneChange}
@@ -126,9 +123,8 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileScreenProps) => {
       <InfoDetails>
         <h5>Почта:</h5>
         {isEditMode ? (
-          <Input
+          <InputUpdate
             type="email"
-            id="email"
             name="email"
             value={email}
             onChange={onEmailChange}
@@ -175,15 +171,4 @@ const InfoDetails = styled.div`
     color: ${COLORS.mainColor};
   }
   margin: 10px auto;
-`;
-const Input = styled.input`
-  transition: 0.2s ease-in;
-  width: 100%;
-  margin: 5px auto;
-  border-radius: 5px;
-  border: 1px solid ${COLORS.mainColor};
-  padding: 7px;
-  &:focus {
-    outline-color: ${COLORS.mainColor};
-  }
 `;

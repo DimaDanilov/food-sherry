@@ -74,6 +74,30 @@ export async function postProduct(product: any) {
   });
 }
 
+export async function updateProduct(
+  productId: number,
+  description: string,
+  amount: string,
+  location: string
+) {
+  const token = localStorage.getItem("token");
+  const response = await axios.put(
+    `${API_URL}/api/product`,
+    {
+      id: productId,
+      description,
+      amount,
+      location,
+    },
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+}
+
 export async function updateProductStatus(
   productId: number,
   status: ProductStatus
