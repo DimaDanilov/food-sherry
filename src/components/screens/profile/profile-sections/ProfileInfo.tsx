@@ -89,9 +89,11 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
         {/* Avatar Image */}
         {user.id === authStore.user.id ? (
           <ImageContainerForButtons>
-            <DeletePhotoBtn onClick={onPhotoDelete}>
-              <HiOutlineXCircle color={COLORS.mainHoverDark} size={30} />
-            </DeletePhotoBtn>
+            {avatarUrl && (
+              <DeletePhotoBtn onClick={onPhotoDelete}>
+                <HiOutlineXCircle color={COLORS.mainHoverDark} size={30} />
+              </DeletePhotoBtn>
+            )}
             <FileInput
               type="file"
               id="addAvatar"
@@ -251,6 +253,7 @@ const AvatarImageContainer = styled.div`
     content: "";
     display: block;
     padding-bottom: 100%;
+    margin: 20px;
   }
 `;
 
