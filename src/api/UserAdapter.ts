@@ -1,7 +1,7 @@
-import { IUser } from "@/models/User";
+import { UserModel } from "@/models/User";
 
 export class UserAdapter {
-  static transform(userItem: any): IUser {
+  static transform(userItem: any): UserModel {
     return {
       id: userItem.id,
       email: userItem.email,

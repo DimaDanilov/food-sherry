@@ -1,21 +1,21 @@
 import styled from "styled-components";
-import Button from "./Button";
+import { Button } from "./Button";
 import { PropsWithChildren } from "react";
 
-interface IAuthForm {
+type FormProps = {
   action: string;
   btnText: string;
   styleType: "secondary" | "primary";
   onFormSubmit: (arg0: any) => void;
-}
+};
 
-export function Form({
+export const Form = ({
   action,
   btnText,
   styleType,
   children,
   onFormSubmit,
-}: PropsWithChildren<IAuthForm>) {
+}: PropsWithChildren<FormProps>) => {
   return (
     <CustomForm action={action} onSubmit={onFormSubmit}>
       {children}
@@ -24,7 +24,7 @@ export function Form({
       </Button>
     </CustomForm>
   );
-}
+};
 
 const CustomForm = styled.form`
   display: flex;

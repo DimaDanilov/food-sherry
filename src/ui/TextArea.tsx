@@ -1,14 +1,14 @@
 import { COLORS } from "@/styles/globalStyles";
 import styled from "styled-components";
 
-interface ITextArea {
+type TextAreaProps = {
   name: string;
   rows: number;
   placeholder: string;
   inputValue?: string;
   inputOnChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   styleType: "primary" | "secondary";
-}
+};
 
 export const TextArea = ({
   name,
@@ -17,7 +17,7 @@ export const TextArea = ({
   inputValue,
   inputOnChange,
   styleType,
-}: ITextArea) => {
+}: TextAreaProps) => {
   return (
     <CustomTextArea
       name={name}
@@ -35,10 +35,12 @@ export const TextArea = ({
   );
 };
 
-const CustomTextArea = styled.textarea<{
+type CustomTextAreaProps = {
   mainColor: string;
   placeholderColor: string;
-}>`
+};
+
+const CustomTextArea = styled.textarea<CustomTextAreaProps>`
   resize: vertical;
   padding: 15px;
   color: ${(props) => props.mainColor};

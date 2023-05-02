@@ -1,19 +1,19 @@
-import { IUser } from "@/models/User";
+import { UserModel } from "@/models/User";
 import { COLORS } from "@/styles/globalStyles";
 import { useState, useEffect } from "react";
 import { HiUserCircle } from "react-icons/hi2";
 import styled from "styled-components";
 import { updateUser } from "@/api/UserApi";
 import { useAuthStore } from "@/store/AuthStore";
-import Button from "@/ui/Button";
+import { Button } from "@/ui/Button";
 import { InputUpdate } from "@/ui/InputUpdate";
 
-interface ProfileScreenProps {
-  user: IUser;
+type ProfileInfoProps = {
+  user: UserModel;
   totalProducts: number;
-}
+};
 
-export const ProfileInfo = ({ user, totalProducts }: ProfileScreenProps) => {
+export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
   const authStore = useAuthStore();
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [phone, setPhone] = useState<string>(user.phone);
@@ -163,9 +163,11 @@ const ProfileBriefData = styled.div`
   margin: 0 auto 20px;
   text-align: center;
 `;
+
 const Title = styled.h1`
   color: ${COLORS.mainColor};
 `;
+
 const InfoDetails = styled.div`
   & > h5 {
     color: ${COLORS.mainColor};

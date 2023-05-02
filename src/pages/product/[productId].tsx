@@ -1,9 +1,13 @@
 import { loadOneProduct, loadProducts } from "@/api/ProductApi";
-import Layout from "@/components/layout/Layout";
+import { Layout } from "@/components/layout/Layout";
 import { ProductScreen } from "@/components/screens/product/Product";
-import { IProduct } from "@/models/Product";
+import { ProductModel } from "@/models/Product";
 
-export default function Product({ product }: { product: IProduct }) {
+type ProductProps = {
+  product: ProductModel;
+};
+
+export default function Product({ product }: ProductProps) {
   return (
     <Layout
       pageTitle={product.title}
@@ -31,13 +35,13 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps({
-  params,
-}: {
+type GetStaticPropsProps = {
   params: {
     productId: string;
   };
-}) {
+};
+
+export async function getStaticProps({ params }: GetStaticPropsProps) {
   const product = await loadOneProduct(params.productId);
   return {
     props: {

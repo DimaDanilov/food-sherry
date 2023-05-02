@@ -22,7 +22,11 @@ export const ButtonIcon = ({
   );
 };
 
-const StyledButton = styled.button<{ active: boolean }>`
+type StyledButtonProps = {
+  active: boolean;
+};
+
+const StyledButton = styled.button<StyledButtonProps>`
   transition: 0.3s;
   color: ${(props) => (props.active ? COLORS.white : COLORS.mainColor)};
   border: 1px solid;

@@ -1,14 +1,14 @@
-import { IProductProfile } from "@/models/Product";
+import { ProfileProductModel } from "@/models/Product";
 import { COLORS } from "@/styles/globalStyles";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 
-export const ProfileProductCard = ({
-  product,
-}: {
-  product: IProductProfile;
-}) => {
+type ProfileProductCardProps = {
+  product: ProfileProductModel;
+};
+
+export const ProfileProductCard = ({ product }: ProfileProductCardProps) => {
   return (
     <Card href={`/product/${product.id}`}>
       <CardImage
@@ -41,18 +41,21 @@ const Card = styled(Link)`
     box-shadow: 0px 3px 4px 0px ${COLORS.shadow};
   }
 `;
+
 const TitleContainer = styled.div`
   flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
+
 const CardImage = styled(Image)`
   width: 100%;
   height: 150px;
   object-fit: cover;
   border-radius: 15px 15px 0 0;
 `;
+
 const CardTitle = styled.h4`
   width: 100%;
   margin: 10px 0;

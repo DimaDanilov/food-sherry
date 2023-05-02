@@ -1,16 +1,16 @@
 import {
-  IProduct,
-  IProductProfile,
-  IProductStatusInfo,
+  ProductModel,
+  ProfileProductModel,
+  ProductStatusModel,
 } from "@/models/Product";
 import { API_URL } from "./ProductApi";
 
 export interface ProductsData {
-  products: IProduct[];
+  products: ProductModel[];
   totalCount: number;
 }
 export interface ProductsProfileData {
-  products: IProductProfile[];
+  products: ProfileProductModel[];
   totalCount: number;
 }
 
@@ -20,7 +20,7 @@ export class ProductAdapter {
       images?.map((imageUrl) => `${API_URL}/food_images/${imageUrl}`) || ""
     );
   }
-  static transform(productItem: any): IProduct {
+  static transform(productItem: any): ProductModel {
     return {
       id: productItem.id,
       title: productItem.title,
@@ -45,7 +45,7 @@ export class ProductAdapter {
     };
   }
   static transformArray(data: any): {
-    products: IProduct[];
+    products: ProductModel[];
     totalCount: number;
   } {
     return {
@@ -53,14 +53,14 @@ export class ProductAdapter {
       totalCount: data.count,
     };
   }
-  static transformUpdatedStatus(newStatusInfo: any): IProductStatusInfo {
+  static transformUpdatedStatus(newStatusInfo: any): ProductStatusModel {
     return {
       id: newStatusInfo.id,
       clientId: newStatusInfo.client_id,
       status: newStatusInfo.status,
     };
   }
-  static transformProfileProduct(product: any): IProductProfile {
+  static transformProfileProduct(product: any): ProfileProductModel {
     return {
       id: product.id,
       title: product.title,

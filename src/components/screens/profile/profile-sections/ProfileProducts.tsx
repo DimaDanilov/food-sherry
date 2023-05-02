@@ -4,15 +4,15 @@ import { useEffect, useState, useCallback } from "react";
 import { loadUserProducts } from "@/api/ProductApi";
 import { ProfileProductCard } from "./ProfileProductCard/ProfileProductCard";
 import { useRouter } from "next/router";
-import Paginator from "../../../common/paginator/Paginator";
+import { Paginator } from "../../../common/paginator/Paginator";
 import { ProductsProfileData } from "@/api/ProductAdapter";
-import { ProductProfileFilter } from "@/models/Product";
+import { ProfileProductFilterType } from "@/models/Product";
 
-interface ProfileProductsProps {
+type ProfileProductsProps = {
   userId: number;
-  queryAds: ProductProfileFilter | undefined;
+  queryAds: ProfileProductFilterType | undefined;
   queryPage: string | undefined;
-}
+};
 
 export const ProfileProducts = ({
   userId,
@@ -25,7 +25,7 @@ export const ProfileProducts = ({
     {} as ProductsProfileData
   );
 
-  const onAdsClick = (filter: ProductProfileFilter) => {
+  const onAdsClick = (filter: ProfileProductFilterType) => {
     if (filter === "current") {
       // When ads = "" remove query from url
       const { ads, ...routerQuery } = router.query;
@@ -40,7 +40,7 @@ export const ProfileProducts = ({
   };
 
   const fetchProducts = useCallback(
-    async (filter: ProductProfileFilter | undefined) => {
+    async (filter: ProfileProductFilterType | undefined) => {
       if (filter) {
         const newProducts: ProductsProfileData = await loadUserProducts(
           userId,
@@ -96,9 +96,11 @@ export const ProfileProducts = ({
   );
 };
 
-const ProductsHeader = styled.div<{
-  activeItem?: ProductProfileFilter | undefined;
-}>`
+type ProductsHeaderProps = {
+  activeItem?: ProfileProductFilterType | undefined;
+};
+
+const ProductsHeader = styled.div<ProductsHeaderProps>`
   display: flex;
   align-items: end;
   div:nth-child(1) {
@@ -119,7 +121,12 @@ const ProductsHeader = styled.div<{
     border-radius: 11px 11px 0 0;
   }
 `;
-const HeaderEl = styled.div<{ active?: boolean }>`
+
+type HeaderElProps = {
+  active?: boolean;
+};
+
+const HeaderEl = styled.div<HeaderElProps>`
   border: 2px solid ${COLORS.mainColor};
   border-bottom-style: none;
   padding: ${(props) => (props.active ? "10px 5px" : "5px")};
@@ -140,6 +147,7 @@ const HeaderEl = styled.div<{ active?: boolean }>`
     color: ${COLORS.white};
   }
 `;
+
 const ProductsBlock = styled.div`
   border: 2px solid ${COLORS.mainColor};
   border-radius: 0 0 11px 11px;
@@ -149,6 +157,7 @@ const ProductsBlock = styled.div`
   flex-direction: column;
   gap: 20px;
 `;
+
 const ProductsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);

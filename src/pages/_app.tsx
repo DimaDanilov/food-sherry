@@ -9,7 +9,7 @@ import type { AppProps } from "next/app";
 import { auth } from "@/api/AuthApi";
 import { useEffect } from "react";
 import { useAuthStore } from "@/store/AuthStore";
-import { IUser } from "@/models/User";
+import { UserModel } from "@/models/User";
 
 export default function App({ Component, pageProps }: AppProps) {
   const authStore = useAuthStore();
@@ -38,7 +38,7 @@ export default function App({ Component, pageProps }: AppProps) {
     async function checkAuth() {
       const token = localStorage.getItem("token");
       if (token) {
-        const user: IUser = await auth(token);
+        const user: UserModel = await auth(token);
         if (user.email) {
           authStore.setUser(user);
         }

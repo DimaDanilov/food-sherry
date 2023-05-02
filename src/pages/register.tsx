@@ -1,4 +1,4 @@
-import Layout from "@/components/layout/Layout";
+import { Layout } from "@/components/layout/Layout";
 import { RegisterScreen } from "@/components/screens/register/Register";
 
 export default function Register() {

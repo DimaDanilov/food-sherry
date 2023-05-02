@@ -2,24 +2,19 @@ import { COLORS } from "@/styles/globalStyles";
 import Link from "next/link";
 import styled from "styled-components";
 
-interface ILoginSwitchProps {
+type FormSwitchProps = {
   activeBtn: "left" | "right";
   leftText: string;
   rightText: string;
   link: string;
-}
+};
 
-interface ISwitchElementProps {
-  bgColor: string;
-  borderRadius: string;
-}
-
-export function FormSwitch({
+export const FormSwitch = ({
   activeBtn,
   leftText,
   rightText,
   link,
-}: ILoginSwitchProps) {
+}: FormSwitchProps) => {
   let leftMainColor: string =
     activeBtn == "left" ? COLORS.white : COLORS.mainColor;
   let rightMainColor: string =
@@ -35,7 +30,7 @@ export function FormSwitch({
       </SwitchElement>
     </ContainerLink>
   );
-}
+};
 
 const ContainerLink = styled(Link)`
   height: 50px;
@@ -43,7 +38,12 @@ const ContainerLink = styled(Link)`
   text-decoration: none;
 `;
 
-const SwitchElement = styled.div<ISwitchElementProps>`
+interface SwitchElementProps {
+  bgColor: string;
+  borderRadius: string;
+}
+
+const SwitchElement = styled.div<SwitchElementProps>`
   border: 2px solid ${COLORS.white};
   width: 100%;
   display: flex;
@@ -52,7 +52,12 @@ const SwitchElement = styled.div<ISwitchElementProps>`
   background-color: ${(props) => props.bgColor};
   border-radius: ${(props) => props.borderRadius};
 `;
-const Text = styled.p<{ textColor: string }>`
+
+interface TextProps {
+  textColor: string;
+}
+
+const Text = styled.p<TextProps>`
   margin: auto;
   color: ${(props) => props.textColor};
 `;

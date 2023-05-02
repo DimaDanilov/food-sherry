@@ -2,7 +2,7 @@ import { COLORS } from "@/styles/globalStyles";
 import styled from "styled-components";
 import { Icon } from "./Icon";
 
-interface IInputIcon {
+type SearchInputProps = {
   type: string;
   name: string;
   searchValue?: string;
@@ -11,9 +11,9 @@ interface IInputIcon {
   icon: JSX.Element;
   iconScale?: number;
   required?: boolean;
-}
+};
 
-export default function SearchInput({
+export const SearchInput = ({
   type,
   name,
   searchValue,
@@ -22,7 +22,7 @@ export default function SearchInput({
   icon,
   iconScale,
   required,
-}: IInputIcon) {
+}: SearchInputProps) => {
   return (
     <Container>
       <StyledIcon icon={icon} iconScale={iconScale} />
@@ -37,7 +37,7 @@ export default function SearchInput({
       />
     </Container>
   );
-}
+};
 
 const Container = styled.div`
   position: relative;

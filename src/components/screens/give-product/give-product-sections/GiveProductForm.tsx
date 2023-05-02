@@ -7,12 +7,12 @@ import {
 } from "react-icons/hi2";
 import { TextArea } from "@/ui/TextArea";
 import { FormSelect } from "@/ui/FormSelect";
-import Button from "@/ui/Button";
+import { Button } from "@/ui/Button";
 import styled from "styled-components";
 import { useGiveProductStore } from "../store/GiveProductStore";
 import { observer } from "mobx-react";
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { ICategory } from "@/models/Category";
+import { CategoryModel } from "@/models/Category";
 import { loadCategories } from "@/api/CategoryApi";
 import { DateTimeInput } from "@/ui/DateTimeInput";
 
@@ -23,7 +23,7 @@ const dateToInput = new Date(Date.now() - tzoffset).toISOString().slice(0, 16);
 export const GiveProductForm = observer(() => {
   const giveProductStore = useGiveProductStore();
 
-  const [categoriesList, setCategories] = useState<ICategory[]>([]);
+  const [categoriesList, setCategories] = useState<CategoryModel[]>([]);
 
   const fetchCategories = async () => {
     try {

@@ -1,10 +1,10 @@
 import axios from "axios";
 import {
-  IProduct,
-  IProductProfile,
-  IProductStatusInfo,
-  ProductProfileFilter,
-  ProductStatus,
+  ProductModel,
+  ProfileProductModel,
+  ProductStatusModel,
+  ProfileProductFilterType,
+  ProductStatusType,
 } from "@/models/Product";
 import {
   ProductAdapter,
@@ -19,7 +19,7 @@ export async function loadProducts(
   search?: string,
   sort?: string,
   categories?: string[],
-  status?: ProductStatus
+  status?: ProductStatusType
 ): Promise<ProductsData> {
   const response = await axios.get<ProductsData>(`${API_URL}/api/product`, {
     params: { page, search, sort, status, categories },
@@ -29,18 +29,18 @@ export async function loadProducts(
 
 export async function loadUserProducts(
   id: number,
-  filter: ProductProfileFilter,
+  filter: ProfileProductFilterType,
   page: string
 ): Promise<ProductsProfileData> {
-  const response = await axios.get<IProductProfile[]>(
+  const response = await axios.get<ProfileProductModel[]>(
     `${API_URL}/api/product_user/${id}`,
     { params: { page, filter } }
   );
   return ProductAdapter.transformProfileProductArray(response.data);
 }
 
-export async function loadOneProduct(productId: string): Promise<IProduct> {
-  const response = await axios.get<IProduct>(
+export async function loadOneProduct(productId: string): Promise<ProductModel> {
+  const response = await axios.get<ProductModel>(
     `${API_URL}/api/product/${productId}`
   );
   return ProductAdapter.transform(response.data);
@@ -100,8 +100,8 @@ export async function updateProduct(
 
 export async function updateProductStatus(
   productId: number,
-  status: ProductStatus
-): Promise<IProductStatusInfo> {
+  status: ProductStatusType
+): Promise<ProductStatusModel> {
   const token = localStorage.getItem("token");
   const response = await axios.put(
     `${API_URL}/api/product_status`,

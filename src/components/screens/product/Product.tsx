@@ -1,8 +1,8 @@
 import { updateProduct, updateProductStatus } from "@/api/ProductApi";
-import { IProduct, ProductStatus } from "@/models/Product";
+import { ProductModel, ProductStatusType } from "@/models/Product";
 import { useAuthStore } from "@/store/AuthStore";
 import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
-import Button from "@/ui/Button";
+import { Button } from "@/ui/Button";
 import { Container } from "@/ui/Container";
 import { IconWithText } from "@/ui/IconWithText";
 import { parseCreateDate } from "@/utils/parseCreateDate";
@@ -25,20 +25,16 @@ import { ImageGallery } from "./ImageGallery/ImageGallery";
 import { InputUpdate } from "@/ui/InputUpdate";
 import { ButtonIcon } from "@/ui/ButtonIcon";
 
-interface IProductScreenProps {
-  product: IProduct;
-}
+type ProductScreenProps = {
+  product: ProductModel;
+};
 
-interface IRegularTextProps {
-  fontColor?: string;
-}
-
-export const ProductScreen = observer(({ product }: IProductScreenProps) => {
+export const ProductScreen = observer(({ product }: ProductScreenProps) => {
   const authStore = useAuthStore();
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
   const [clientId, setClientId] = useState<number>(product.clientId);
-  const [productStatus, setProductStatus] = useState<ProductStatus>(
+  const [productStatus, setProductStatus] = useState<ProductStatusType>(
     product.status
   );
 
@@ -78,7 +74,7 @@ export const ProductScreen = observer(({ product }: IProductScreenProps) => {
 
   const onReservingChange = async (
     productId: number,
-    status: ProductStatus
+    status: ProductStatusType
   ) => {
     const newStatusInfo = await updateProductStatus(productId, status);
     setProductStatus(newStatusInfo.status);
@@ -178,20 +174,22 @@ export const ProductScreen = observer(({ product }: IProductScreenProps) => {
 
         {/* Status info */}
         {productStatus === "closed" && (
-          <ProductStatusDesc>Данный товар спасен</ProductStatusDesc>
+          <ProductStatusDescription>
+            Данный товар спасен
+          </ProductStatusDescription>
         )}
         {productStatus === "reserved" &&
           authStore.firstLoadCompleted &&
           authStore.user.id !== clientId &&
           (authStore.user.id !== product.author.id ? (
-            <ProductStatusDesc>
+            <ProductStatusDescription>
               Данный товар уже кем-то зерезервирован
-            </ProductStatusDesc>
+            </ProductStatusDescription>
           ) : (
-            <ProductStatusDesc>
+            <ProductStatusDescription>
               Данный товар ваш, он зерезервирован{" "}
               <NavLink href={"/profile/" + clientId}>другим человеком</NavLink>
-            </ProductStatusDesc>
+            </ProductStatusDescription>
           ))}
 
         {/* Buttons */}
@@ -241,17 +239,30 @@ const FlexContainer = styled(Container)`
   display: flex;
   justify-content: space-between;
 `;
+
 const FlexItem = styled.div`
   width: 45%;
 `;
+
 const FlexTitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const RegularText = styled.p<IRegularTextProps>`
+
+type RegularTextProps = {
+  fontColor?: string;
+};
+
+const RegularText = styled.p<RegularTextProps>`
   margin: 10px auto;
   color: ${(props) => props.fontColor};
 `;
+
+const NavLink = styled(Link)`
+  color: ${COLORS.darkgray};
+  white-space: nowrap;
+`;
+
 const Tooltip = styled.div`
   display: none;
   position: absolute;
@@ -262,6 +273,7 @@ const Tooltip = styled.div`
   color: ${COLORS.white};
   background-color: ${COLORS.mainColor};
 `;
+
 const BlockWithTooltip = styled.div`
   position: relative;
   cursor: pointer;
@@ -270,15 +282,12 @@ const BlockWithTooltip = styled.div`
     display: block;
   }
 `;
-const ProductStatusDesc = styled.h4`
+
+const ProductStatusDescription = styled.h4`
   margin: 15px auto;
   color: ${COLORS.darkgray};
   & a {
     font-size: ${FONT_SIZE.h4};
     text-decoration: dashed underline;
   }
-`;
-const NavLink = styled(Link)`
-  color: ${COLORS.darkgray};
-  white-space: nowrap;
 `;

@@ -14,7 +14,7 @@ import {
 } from "react-icons/hi2";
 import { useAuthStore } from "@/store/AuthStore";
 import { observer } from "mobx-react";
-import Loader from "@/components/layout/Loader";
+import { Loader } from "@/components/layout/Loader";
 import { registerCompany } from "@/api/AuthApi";
 
 export const RegisterCompanyScreen = observer(() => {

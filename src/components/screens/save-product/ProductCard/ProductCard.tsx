@@ -1,6 +1,6 @@
-import { IProduct } from "@/models/Product";
+import { ProductModel } from "@/models/Product";
 import { COLORS } from "@/styles/globalStyles";
-import Button from "@/ui/Button";
+import { Button } from "@/ui/Button";
 import { IconWithText } from "@/ui/IconWithText";
 import { parseTakeDate } from "@/utils/parseTakeDate";
 import Image from "next/image";
@@ -13,7 +13,11 @@ import {
 } from "react-icons/hi2";
 import styled from "styled-components";
 
-export default function ProductCard({ product }: { product: IProduct }) {
+type ProductCardProps = {
+  product: ProductModel;
+};
+
+export const ProductCard = ({ product }: ProductCardProps) => {
   const router = useRouter();
 
   const handleClick = () => router.push(`/product/${product.id}`);
@@ -67,7 +71,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
       </CardContent>
     </Card>
   );
-}
+};
 
 const Card = styled.div`
   display: flex;
@@ -87,6 +91,7 @@ const Card = styled.div`
     box-shadow: 0px 0px 9px 0px ${COLORS.shadow};
   }
 `;
+
 const CardContent = styled.div`
   padding: 10px 20px;
   display: flex;
@@ -94,6 +99,7 @@ const CardContent = styled.div`
   justify-content: space-between;
   flex-grow: 1;
 `;
+
 const CardInfo = styled.div``;
 
 const CardImage = styled(Image)`
@@ -116,4 +122,5 @@ const CardTitle = styled.h3`
 const NavLink = styled(Link)`
   color: ${COLORS.darkgray};
 `;
+
 const CardButton = styled(Button)``;

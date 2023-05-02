@@ -1,7 +1,7 @@
 import { COLORS } from "@/styles/globalStyles";
 import styled from "styled-components";
 
-interface DateTimeInput {
+type DateTimeInputProps = {
   name: string;
   styleType: "primary" | "secondary";
   min?: string;
@@ -9,7 +9,7 @@ interface DateTimeInput {
   value?: string;
   required?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
 export const DateTimeInput = ({
   name,
@@ -19,7 +19,7 @@ export const DateTimeInput = ({
   value,
   required,
   onChange,
-}: DateTimeInput) => {
+}: DateTimeInputProps) => {
   return (
     <Input
       id={name}
@@ -41,11 +41,13 @@ export const DateTimeInput = ({
   );
 };
 
-const Input = styled.input<{
+type InputProps = {
   mainColor: string;
   iconColor: string;
   placeholderColor: string;
-}>`
+};
+
+const Input = styled.input<InputProps>`
   transition: 0.3s;
   color: ${(props) => props.placeholderColor};
   width: 100%;

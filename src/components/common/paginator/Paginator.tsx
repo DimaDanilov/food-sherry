@@ -3,17 +3,17 @@ import { fillPaginatorValues } from "./utils";
 import { COLORS } from "@/styles/globalStyles";
 import { useRouter } from "next/router";
 
-export interface IPaginatorProps {
+export type PaginatorProps = {
   totalItems: number;
   currentPage: number;
   itemsPerPage: number;
-}
+};
 
-export default function Paginator({
+export const Paginator = ({
   totalItems,
   currentPage,
   itemsPerPage,
-}: IPaginatorProps) {
+}: PaginatorProps) => {
   const router = useRouter();
 
   function onPaginatorBtnClick(pageNum: string) {
@@ -47,7 +47,7 @@ export default function Paginator({
       {pageElements.length > 1 && pageElements}
     </PaginationContainer>
   );
-}
+};
 
 const PaginationContainer = styled.div`
   width: 20%;
@@ -55,7 +55,13 @@ const PaginationContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
 `;
-const PageBtn = styled.span<{ active: boolean; isNum: boolean }>`
+
+type PageBtnProps = {
+  active: boolean;
+  isNum: boolean;
+};
+
+const PageBtn = styled.span<PageBtnProps>`
   background-color: ${(props) => props.active && COLORS.mainColor};
   color: ${(props) => props.active && COLORS.white};
   padding: 7px;

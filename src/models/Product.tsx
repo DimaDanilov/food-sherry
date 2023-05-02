@@ -1,37 +1,37 @@
-import { ICategory } from "./Category";
-import { IUser } from "./User";
+import { CategoryModel } from "./Category";
+import { UserModel } from "./User";
 
-export type ProductStatus = "open" | "reserved" | "closed";
-export type ProductProfileFilter = "current" | "closed" | "taken";
-export enum ProductSort {
+export type ProductStatusType = "open" | "reserved" | "closed";
+export type ProfileProductFilterType = "current" | "closed" | "taken";
+export enum ProductSortType {
   datedown,
   dateup,
 }
 
-export interface IProduct {
+export interface ProductModel {
   id: number;
   title: string;
-  author: IUser;
+  author: UserModel;
   clientId: number;
-  category: ICategory;
+  category: CategoryModel;
   description: string;
   amount: string;
   timeCreated: string;
   timeToTake: string;
   location: string;
   imagesSrc: Array<string>;
-  status: ProductStatus;
+  status: ProductStatusType;
 }
 
-export interface IProductStatusInfo {
+export interface ProductStatusModel {
   id: number;
   clientId: number;
-  status: ProductStatus;
+  status: ProductStatusType;
 }
 
-export interface IProductProfile {
+export interface ProfileProductModel {
   id: number;
   title: string;
   imagesSrc: Array<string>;
-  status: ProductStatus;
+  status: ProductStatusType;
 }

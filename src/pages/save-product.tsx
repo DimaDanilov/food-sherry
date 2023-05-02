@@ -1,10 +1,19 @@
-import Layout from "@/components/layout/Layout";
-import SaveProductScreen from "@/components/screens/save-product/SaveProduct";
+import { Layout } from "@/components/layout/Layout";
+import { SaveProductScreen } from "@/components/screens/save-product/SaveProduct";
 import { loadProducts } from "../api/ProductApi";
 import { ProductsData } from "../api/ProductAdapter";
-import { ProductSort } from "@/models/Product";
+import { ProductSortType } from "@/models/Product";
 import { loadCategories } from "@/api/CategoryApi";
-import { ICategory } from "@/models/Category";
+import { CategoryModel } from "@/models/Category";
+
+type SaveProductProps = {
+  productsData: ProductsData;
+  page: number;
+  search: string;
+  sort: ProductSortType;
+  availableCategories: CategoryModel[];
+  categoriesQuery: string[];
+};
 
 export default function SaveProduct({
   productsData,
@@ -13,14 +22,7 @@ export default function SaveProduct({
   sort,
   availableCategories,
   categoriesQuery,
-}: {
-  productsData: ProductsData;
-  page: number;
-  search: string;
-  sort: ProductSort;
-  availableCategories: ICategory[];
-  categoriesQuery: string[];
-}) {
+}: SaveProductProps) {
   return (
     <Layout
       pageTitle="Food catalog"
@@ -38,7 +40,11 @@ export default function SaveProduct({
   );
 }
 
-export async function getServerSideProps({ query }: { query: any }) {
+type GetServerSidePropsProps = {
+  query: any;
+};
+
+export async function getServerSideProps({ query }: GetServerSidePropsProps) {
   let page: number = Number(query["page"]);
   let search = query["search"];
   let sort: string = query["sort"];
@@ -47,7 +53,7 @@ export async function getServerSideProps({ query }: { query: any }) {
     : query["category"] // If it's only one item
     ? [query["category"]]
     : []; // If no items
-  if (!page || page <= 0 || !(sort in ProductSort)) {
+  if (!page || page <= 0 || !(sort in ProductSortType)) {
     return {
       redirect: {
         destination: "/save-product?page=1&sort=dateup",
@@ -63,7 +69,7 @@ export async function getServerSideProps({ query }: { query: any }) {
     categoriesQuery,
     "open"
   );
-  const availableCategories: ICategory[] = await loadCategories();
+  const availableCategories: CategoryModel[] = await loadCategories();
 
   return {
     props: {

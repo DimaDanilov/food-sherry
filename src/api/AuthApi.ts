@@ -1,33 +1,39 @@
-import { IUser } from "@/models/User";
+import { UserModel } from "@/models/User";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { UserAdapter } from "./UserAdapter";
 
-interface IToken {
+type AuthResponse = {
   token: string;
-}
+};
 
-export async function auth(token: string): Promise<IUser> {
+export async function auth(token: string): Promise<UserModel> {
   const url = `http://localhost:5000/api/auth`;
   try {
-    const response = await axios.get<IToken>(url, {
+    const { data } = await axios.get<AuthResponse>(url, {
       headers: {
         authorization: `Bearer ${token}`,
       },
     });
-    localStorage.setItem("token", response.data.token);
-    return jwt_decode(response.data.token);
+    localStorage.setItem("token", data.token);
+    return jwt_decode(data.token);
   } catch (error) {
     console.error(error);
-    return {} as IUser;
+    return {} as UserModel;
   }
 }
 
-export async function login(email: string, password: string): Promise<IUser> {
-  const { data } = await axios.post("http://localhost:5000/api/login", {
-    email,
-    password,
-  });
+export async function login(
+  email: string,
+  password: string
+): Promise<UserModel> {
+  const { data } = await axios.post<AuthResponse>(
+    "http://localhost:5000/api/login",
+    {
+      email,
+      password,
+    }
+  );
   localStorage.setItem("token", data.token);
   return UserAdapter.transform(jwt_decode(data.token));
 }

@@ -7,7 +7,7 @@ import { useGiveProductStore } from "./store/GiveProductStore";
 import { useRouter } from "next/router";
 import { useAuthStore } from "@/store/AuthStore";
 import { useEffect } from "react";
-import Loader from "@/components/layout/Loader";
+import { Loader } from "@/components/layout/Loader";
 import { observer } from "mobx-react";
 
 export const GiveProductScreen = observer(() => {
@@ -62,14 +62,17 @@ const PageContainer = styled(Container)`
   display: flex;
   justify-content: space-between;
 `;
+
 const Form = styled.form`
   width: 100%;
   display: flex;
   justify-content: space-between;
 `;
+
 const FieldsContainer = styled.div`
   width: 50%;
 `;
+
 const PhotosContainer = styled.div`
   width: 40%;
 `;

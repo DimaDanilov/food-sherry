@@ -1,7 +1,7 @@
-import Paginator from "../../common/paginator/Paginator";
+import { Paginator } from "../../common/paginator/Paginator";
 import { COLORS } from "@/styles/globalStyles";
 import { Container } from "@/ui/Container";
-import SearchInput from "@/ui/SearchInput";
+import { SearchInput } from "@/ui/SearchInput";
 import {
   HiAdjustmentsHorizontal,
   HiArrowLongDown,
@@ -9,30 +9,32 @@ import {
   HiOutlineMagnifyingGlass,
 } from "react-icons/hi2";
 import styled from "styled-components";
-import ProductCard from "./ProductCard/ProductCard";
+import { ProductCard } from "./ProductCard/ProductCard";
 import { ProductsData } from "@/api/ProductAdapter";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { ProductSort } from "@/models/Product";
-import { ICategory } from "@/models/Category";
-import FilterWindow from "./FilterWindow/FilterWindow";
+import { ProductSortType } from "@/models/Product";
+import { CategoryModel } from "@/models/Category";
+import { FilterWindow } from "./FilterWindow/FilterWindow";
 import { ButtonIcon } from "@/ui/ButtonIcon";
 
-export default function SaveProductScreen({
+type SaveProductScreenProps = {
+  productsData: ProductsData;
+  page: number;
+  search: string;
+  sort: ProductSortType;
+  availableCategories: CategoryModel[];
+  categoriesQuery: string[];
+};
+
+export const SaveProductScreen = ({
   productsData,
   page,
   search,
   sort,
   availableCategories,
   categoriesQuery,
-}: {
-  productsData: ProductsData;
-  page: number;
-  search: string;
-  sort: ProductSort;
-  availableCategories: ICategory[];
-  categoriesQuery: string[];
-}) {
+}: SaveProductScreenProps) => {
   const router = useRouter();
 
   const [searchField, setSearchField] = useState<string>("");
@@ -66,8 +68,10 @@ export default function SaveProductScreen({
     setSearchField(e.target.value);
   };
 
-  const onSortClick = (sort: ProductSort) => {
-    if (ProductSort[sort].toString() === ProductSort.datedown.toString()) {
+  const onSortClick = (sort: ProductSortType) => {
+    if (
+      ProductSortType[sort].toString() === ProductSortType.datedown.toString()
+    ) {
       router.replace({
         query: { ...router.query, sort: "dateup" },
       });
@@ -94,11 +98,12 @@ export default function SaveProductScreen({
         <span>
           <span>Сортировать по:</span>
           <SortBtn onClick={() => onSortClick(sort)}>
-            {ProductSort[sort].toString() ===
-              ProductSort.datedown.toString() && <HiArrowLongDown size={16} />}
-            {ProductSort[sort].toString() === ProductSort.dateup.toString() && (
-              <HiArrowLongUp size={16} />
+            {ProductSortType[sort].toString() ===
+              ProductSortType.datedown.toString() && (
+              <HiArrowLongDown size={16} />
             )}
+            {ProductSortType[sort].toString() ===
+              ProductSortType.dateup.toString() && <HiArrowLongUp size={16} />}
             <span>Дате</span>
           </SortBtn>
         </span>
@@ -131,7 +136,7 @@ export default function SaveProductScreen({
       />
     </Container>
   );
-}
+};
 
 const CardsContainer = styled.div`
   display: grid;
@@ -139,6 +144,7 @@ const CardsContainer = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 10vh 6vh;
 `;
+
 const SortBtn = styled.button`
   cursor: pointer;
   transition: 0.3s;
@@ -150,15 +156,18 @@ const SortBtn = styled.button`
     color: ${COLORS.mainHoverLight};
   }
 `;
+
 const FilterSortContainer = styled.div`
   display: flex;
   margin: 1.5% 0;
   justify-content: space-between;
   align-items: center;
 `;
+
 const FilterContainer = styled.span`
   position: relative;
 `;
+
 const FilterWindowContainer = styled.span`
   position: absolute;
   overflow: hidden;

@@ -1,23 +1,23 @@
 import { COLORS } from "@/styles/globalStyles";
 import styled from "styled-components";
 
-interface InputUpdateProps {
+type InputUpdateProps = {
   autoFocus?: boolean;
   type: string;
   name: string;
   placeholder?: string;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+};
 
-export function InputUpdate({
+export const InputUpdate = ({
   autoFocus,
   type,
   name,
   placeholder,
   value,
   onChange,
-}: InputUpdateProps) {
+}: InputUpdateProps) => {
   return (
     <Input
       autoFocus={autoFocus}
@@ -29,7 +29,7 @@ export function InputUpdate({
       onChange={onChange}
     />
   );
-}
+};
 
 const Input = styled.input`
   transition: 0.2s ease-in;

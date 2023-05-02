@@ -2,7 +2,7 @@ import { COLORS } from "@/styles/globalStyles";
 import React from "react";
 import styled from "styled-components";
 
-type TButton = {
+type ButtonProps = {
   width?: string;
   margin?: string;
   padding?: string;
@@ -13,14 +13,14 @@ type TButton = {
   [x: string]: any;
 };
 
-export default function Button({
+export const Button = ({
   width,
   margin,
   padding,
   styleType,
   children,
   ...props
-}: TButton) {
+}: ButtonProps) => {
   return (
     <StyledButton
       width={width || "100%"}
@@ -36,18 +36,18 @@ export default function Button({
       {children}
     </StyledButton>
   );
-}
+};
 
-interface IStyledBtnProps {
+type StyledButtonProps = {
   width: string;
   margin: string;
   padding?: string;
   bgColor: string;
   bgColorHover: string;
   color: string;
-}
+};
 
-const StyledButton = styled.button<IStyledBtnProps>`
+const StyledButton = styled.button<StyledButtonProps>`
   transition: 0.3s;
   background-color: ${(props) => props.bgColor};
   color: ${(props) => props.color};

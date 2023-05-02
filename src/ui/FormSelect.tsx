@@ -2,20 +2,20 @@ import styled from "styled-components";
 import { PropsWithChildren } from "react";
 import { COLORS } from "@/styles/globalStyles";
 
-interface IFormSelect {
+type FormSelectProps = {
   name: string;
   styleType: "primary" | "secondary";
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   required?: boolean;
-}
+};
 
-export function FormSelect({
+export const FormSelect = ({
   name,
   styleType,
   children,
   onChange,
   required,
-}: PropsWithChildren<IFormSelect>) {
+}: PropsWithChildren<FormSelectProps>) => {
   return (
     <Container
       mainColor={styleType === "primary" ? COLORS.mainColor : COLORS.white}
@@ -39,16 +39,23 @@ export function FormSelect({
       </CustomFormSelect>
     </Container>
   );
-}
+};
 
-const Container = styled.div<{ mainColor: string }>`
+type ContainerProps = {
+  mainColor: string;
+};
+
+const Container = styled.div<ContainerProps>`
   border: 2px solid ${(props) => props.mainColor};
   border-radius: 10px;
 `;
-const CustomFormSelect = styled.select<{
+
+type CustomFormSelectProps = {
   mainColor: string;
   placeholderColor: string;
-}>`
+};
+
+const CustomFormSelect = styled.select<CustomFormSelectProps>`
   color: ${(props) => props.placeholderColor};
   width: 100%;
   padding: 10px;

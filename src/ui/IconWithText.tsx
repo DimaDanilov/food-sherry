@@ -1,26 +1,26 @@
 import styled from "styled-components";
 import { Icon } from "./Icon";
 
-type TIconWithText = {
+type IconWithText = {
   icon: JSX.Element;
   iconScale?: number;
   children: React.ReactNode;
   hideStringsExcept?: number;
 };
 
-export function IconWithText({
+export const IconWithText = ({
   icon,
   iconScale,
   children,
   hideStringsExcept,
-}: TIconWithText) {
+}: IconWithText) => {
   return (
     <Container>
       <Icon icon={icon} iconScale={iconScale} />
       <Text hideStringsExcept={hideStringsExcept}>{children}</Text>
     </Container>
   );
-}
+};
 
 const Container = styled.div`
   display: flex;
@@ -29,7 +29,11 @@ const Container = styled.div`
   margin: 10px auto;
 `;
 
-const Text = styled.p<{ hideStringsExcept?: number }>`
+type TextProps = {
+  hideStringsExcept?: number;
+};
+
+const Text = styled.p<TextProps>`
   /* Hide text when overflow more than N lines */
   overflow: ${(props) => props.hideStringsExcept && "hidden"};
   display: ${(props) => props.hideStringsExcept && "-webkit-box"};

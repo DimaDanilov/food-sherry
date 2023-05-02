@@ -3,16 +3,16 @@ import styled from "styled-components";
 import Image from "next/image";
 import { COLORS } from "@/styles/globalStyles";
 
-interface IProductImageProps {
+type SmallImageProps = {
   imageUrl: string;
   index: number;
   currentImageID: number;
   onImageClick: (id: number) => void;
-}
+};
 
 // Small image of product under main image
-const GallerySmallImage = memo(
-  ({ imageUrl, index, currentImageID, onImageClick }: IProductImageProps) => {
+const SmallImage = memo(
+  ({ imageUrl, index, currentImageID, onImageClick }: SmallImageProps) => {
     const border =
       index === currentImageID ? `6px double ${COLORS.mainColor}` : "none";
     const borderHover =
@@ -36,7 +36,11 @@ const GallerySmallImage = memo(
   }
 );
 
-export const ImageGallery = ({ imageUrls }: { imageUrls: string[] }) => {
+type ImageGalleryProps = {
+  imageUrls: string[];
+};
+
+export const ImageGallery = ({ imageUrls }: ImageGalleryProps) => {
   const [currentImageID, setCurrentImageID] = useState<number>(0);
   const onImageClick = useCallback((id: number) => {
     setCurrentImageID(id);
@@ -44,7 +48,7 @@ export const ImageGallery = ({ imageUrls }: { imageUrls: string[] }) => {
 
   return (
     <GalleryContainer>
-      <CustomBigImage
+      <BigImage
         alt=""
         src={imageUrls[currentImageID] || "/icons/product_placeholder.svg"}
         width={400}
@@ -53,7 +57,7 @@ export const ImageGallery = ({ imageUrls }: { imageUrls: string[] }) => {
       <GridImages>
         {imageUrls &&
           imageUrls.map((imageUrl, index) => (
-            <GallerySmallImage
+            <SmallImage
               key={index}
               imageUrl={imageUrl}
               index={index}
@@ -66,27 +70,15 @@ export const ImageGallery = ({ imageUrls }: { imageUrls: string[] }) => {
   );
 };
 
-interface ICustomSmallImageProps {
-  border: string;
-  borderhover: string;
-  cursor: string;
-}
-
 const GalleryContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
 `;
 
-const CustomSmallImage = styled(Image)<ICustomSmallImageProps>`
-  transition: 0.2s ease-out;
+const BigImage = styled(Image)`
   width: 100%;
-  object-fit: cover;
-  border: ${(props) => props.border};
-  cursor: ${(props) => props.cursor};
-  &:hover {
-    border: ${(props) => props.borderhover};
-  }
+  object-fit: contain;
 `;
 
 const GridImages = styled.div`
@@ -96,7 +88,20 @@ const GridImages = styled.div`
   justify-items: center;
   gap: 10px;
 `;
-const CustomBigImage = styled(Image)`
+
+interface CustomSmallImageProps {
+  border: string;
+  borderhover: string;
+  cursor: string;
+}
+
+const CustomSmallImage = styled(Image)<CustomSmallImageProps>`
+  transition: 0.2s ease-out;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  border: ${(props) => props.border};
+  cursor: ${(props) => props.cursor};
+  &:hover {
+    border: ${(props) => props.borderhover};
+  }
 `;

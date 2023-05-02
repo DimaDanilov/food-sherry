@@ -1,22 +1,24 @@
 import styled from "styled-components";
 
-export function Icon({
-  className,
-  icon,
-  iconScale,
-}: {
+type IconProps = {
   className?: string;
   icon: React.ReactNode;
   iconScale?: number;
-}) {
+};
+
+export const Icon = ({ className, icon, iconScale }: IconProps) => {
   return (
     <Container iconScale={iconScale} className={className}>
       {icon}
     </Container>
   );
-}
+};
 
-const Container = styled.span<{ iconScale?: number }>`
+type ContainerProps = {
+  iconScale?: number;
+};
+
+const Container = styled.span<ContainerProps>`
   display: flex;
   justify-content: center;
   align-items: center;

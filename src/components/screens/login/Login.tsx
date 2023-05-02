@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 import { login } from "@/api/AuthApi";
 import { useAuthStore } from "@/store/AuthStore";
 import { observer } from "mobx-react";
-import Loader from "@/components/layout/Loader";
+import { Loader } from "@/components/layout/Loader";
 
 export const LoginScreen = observer(() => {
   const router = useRouter();

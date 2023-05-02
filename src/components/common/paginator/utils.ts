@@ -1,14 +1,10 @@
-import { IPaginatorProps } from "./Paginator";
+import { PaginatorProps } from "./Paginator";
 
-interface IPaginatorFillFuncProps extends IPaginatorProps {
-  itemsPerPage: number;
-}
-
-export const fillPaginatorValues = ({
+export function fillPaginatorValues({
   totalItems,
   currentPage,
   itemsPerPage,
-}: IPaginatorFillFuncProps): Array<string> => {
+}: PaginatorProps): Array<string> {
   const totalPages: number = Math.ceil(totalItems / itemsPerPage);
   switch (true) {
     case !Number(totalPages):
@@ -55,4 +51,4 @@ export const fillPaginatorValues = ({
     default:
       return [];
   }
-};
+}

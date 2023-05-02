@@ -134,13 +134,20 @@ const Photo = styled.img`
 const InputImage = styled.input`
   display: none;
 `;
+
 const InputRequireMark = styled.input`
   // Component to make images required
   opacity: 0;
   width: 100%;
   height: 0px;
 `;
-const PhotoLabel = styled.label<{ bgColor: string; bgHoverColor: string }>`
+
+type PhotoLabelProps = {
+  bgColor: string;
+  bgHoverColor: string;
+};
+
+const PhotoLabel = styled.label<PhotoLabelProps>`
   transition: 0.4s;
   display: flex;
   justify-content: center;
@@ -179,6 +186,7 @@ const PhotoEl = styled.div`
     }
   }
 `;
+
 const DeleteIcon = styled(HiXMark)`
   display: none;
   position: absolute;

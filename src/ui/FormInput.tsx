@@ -2,7 +2,7 @@ import { COLORS } from "@/styles/globalStyles";
 import styled from "styled-components";
 import { Icon } from "./Icon";
 
-interface IInputIcon {
+type FormInputProps = {
   type: string;
   name: string;
   placeholder?: string;
@@ -13,9 +13,9 @@ interface IInputIcon {
   inputRef?: React.RefObject<HTMLInputElement>;
   styleType: "primary" | "secondary";
   required?: boolean;
-}
+};
 
-export function FormInput({
+export const FormInput = ({
   type,
   name,
   placeholder,
@@ -26,7 +26,7 @@ export function FormInput({
   inputRef,
   styleType,
   required,
-}: IInputIcon) {
+}: FormInputProps) => {
   return (
     <Container>
       <StyledIcon icon={icon} iconScale={iconScale} />
@@ -48,7 +48,7 @@ export function FormInput({
       />
     </Container>
   );
-}
+};
 
 const Container = styled.div`
   position: relative;
@@ -63,7 +63,12 @@ const StyledIcon = styled(Icon)`
   pointer-events: none;
 `;
 
-const Input = styled.input<{ mainColor: string; placeholderColor: string }>`
+type InputProps = {
+  mainColor: string;
+  placeholderColor: string;
+};
+
+const Input = styled.input<InputProps>`
   background: transparent;
   border: none;
   color: ${(props) => props.mainColor};

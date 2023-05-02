@@ -8,7 +8,7 @@ import { useAuthStore } from "@/store/AuthStore";
 import { unlogin } from "@/api/AuthApi";
 import { useRouter } from "next/router";
 import { observer } from "mobx-react";
-import { IUser } from "@/models/User";
+import { UserModel } from "@/models/User";
 
 export const Header = observer(() => {
   const router = useRouter();
@@ -16,9 +16,10 @@ export const Header = observer(() => {
 
   const onExitBtn = () => {
     unlogin();
-    authStore.setUser({} as IUser);
+    authStore.setUser({} as UserModel);
     router.push("/login");
   };
+
   return (
     <Container>
       <LeftContainer>
@@ -103,27 +104,32 @@ const Container = styled.header`
   height: 8vh;
   z-index: 1;
 `;
+
 const LeftContainer = styled.div`
   display: flex;
   gap: 5vw;
   height: 100%;
 `;
+
 const Nav = styled.nav`
   display: flex;
   align-items: center;
 `;
+
 const NavUl = styled.ul`
   display: flex;
   gap: 30px;
   list-style: none;
   height: 100%;
 `;
+
 const MainNavUl = styled(NavUl)`
   display: flex;
   gap: 0;
   list-style: none;
   height: 100%;
 `;
+
 const NavLi = styled.li`
   margin: auto;
   height: 100%;
@@ -131,6 +137,7 @@ const NavLi = styled.li`
   align-items: center;
   cursor: pointer;
 `;
+
 const NavLink = styled(Link)`
   color: ${COLORS.white};
   white-space: nowrap;
@@ -140,7 +147,13 @@ const NavLink = styled(Link)`
   justify-content: center;
   transition: 0.3s;
 `;
-const MainNavLi = styled(NavLi)<{ activeColor: string; hoverColor: string }>`
+
+type MainNavLiProps = {
+  activeColor: string;
+  hoverColor: string;
+};
+
+const MainNavLi = styled(NavLi)<MainNavLiProps>`
   background-color: ${(props) => props.activeColor};
   & :hover {
     background-color: ${(props) => props.hoverColor};

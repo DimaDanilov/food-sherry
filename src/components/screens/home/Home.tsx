@@ -1,11 +1,11 @@
 import { useAuthStore } from "@/store/AuthStore";
 import { COLORS } from "@/styles/globalStyles";
-import Button from "@/ui/Button";
+import { Button } from "@/ui/Button";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
-export default function HomeScreen() {
+export const HomeScreen = () => {
   const router = useRouter();
   const authStore = useAuthStore();
 
@@ -42,7 +42,7 @@ export default function HomeScreen() {
       </PageContent>
     </>
   );
-}
+};
 
 const Background = styled(Image)`
   position: fixed;
@@ -71,6 +71,7 @@ const PageContent = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 const FoodSharingInfoContainer = styled.div`
   width: 50%;
   display: flex;
@@ -80,9 +81,11 @@ const FoodSharingInfoContainer = styled.div`
   text-align: center;
   color: ${COLORS.white};
 `;
+
 const Title = styled.h1`
   font-size: 54px;
 `;
+
 const Description = styled.h2`
   font-size: 24px;
 `;

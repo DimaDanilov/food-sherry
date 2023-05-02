@@ -1,11 +1,11 @@
 import Head from "next/head";
 
-interface IMeta {
+type MetaProps = {
   title: string;
   description?: string;
-}
+};
 
-export function Meta({ title, description }: IMeta) {
+export const Meta = ({ title, description }: MetaProps) => {
   return (
     <Head>
       <meta charSet="utf-8" />
@@ -27,4 +27,4 @@ export function Meta({ title, description }: IMeta) {
       )}
     </Head>
   );
-}
+};

@@ -1,5 +1,5 @@
-import Layout from "@/components/layout/Layout";
-import HomeScreen from "@/components/screens/home/Home";
+import { Layout } from "@/components/layout/Layout";
+import { HomeScreen } from "@/components/screens/home/Home";
 
 export default function Home() {
   return (
