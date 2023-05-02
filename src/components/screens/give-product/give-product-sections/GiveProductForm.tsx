@@ -1,20 +1,20 @@
 import { COLORS } from "@/styles/globalStyles";
-import { FormInput } from "@/ui/FormInput";
+import { FormInput } from "@/ui/forms/inputs/FormInput";
 import {
   HiOutlineCake,
   HiOutlineMapPin,
   HiOutlineSquares2X2,
 } from "react-icons/hi2";
-import { TextArea } from "@/ui/TextArea";
-import { FormSelect } from "@/ui/FormSelect";
-import { Button } from "@/ui/Button";
+import { TextArea } from "@/ui/forms/inputs/TextArea";
+import { FormSelect } from "@/ui/forms/inputs/FormSelect";
+import { ButtonCommon } from "@/ui/forms/buttons/ButtonCommon";
 import styled from "styled-components";
 import { useGiveProductStore } from "../store/GiveProductStore";
 import { observer } from "mobx-react";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { CategoryModel } from "@/models/Category";
 import { loadCategories } from "@/api/CategoryApi";
-import { DateTimeInput } from "@/ui/DateTimeInput";
+import { InputDateTime } from "@/ui/forms/inputs/InputDateTime";
 
 const now = new Date();
 const tzoffset = now.getTimezoneOffset() * 60000;
@@ -141,7 +141,7 @@ export const GiveProductForm = observer(() => {
         inputOnChange={handleAddressChange}
         required
       />
-      <DateTimeInput
+      <InputDateTime
         name="takedate"
         styleType="primary"
         min={dateToInput}
@@ -150,9 +150,14 @@ export const GiveProductForm = observer(() => {
         onChange={handleDateTimeChange}
         required
       />
-      <Button type="submit" padding="10px" styleType="primary" value="Submit">
+      <ButtonCommon
+        type="submit"
+        padding="10px"
+        styleType="primary"
+        value="Submit"
+      >
         Создать объявление
-      </Button>
+      </ButtonCommon>
     </FieldsContainer>
   );
 });

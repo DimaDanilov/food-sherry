@@ -1,8 +1,8 @@
 import { COLORS } from "@/styles/globalStyles";
-import { Form } from "@/ui/Form";
-import { Container } from "@/ui/Container";
-import { FormInput } from "@/ui/FormInput";
-import { FormSwitch } from "@/ui/FormSwitch";
+import { AuthForm } from "@/ui/forms/AuthForm";
+import { Container } from "@/ui/layout/Container";
+import { FormInput } from "@/ui/forms/inputs/FormInput";
+import { ButtonSwitch } from "@/ui/forms/buttons/ButtonSwitch";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
@@ -75,19 +75,19 @@ export const RegisterCompanyScreen = observer(() => {
     <Container>
       <LoginFormContainer>
         <Title>Регистрация</Title>
-        <FormSwitch
+        <ButtonSwitch
           activeBtn="right"
           leftText="Вход"
           rightText="Регистрация"
           link="/login"
         />
-        <FormSwitch
+        <ButtonSwitch
           activeBtn="right"
           leftText="Человек"
           rightText="Компания"
           link="/register"
         />
-        <Form
+        <AuthForm
           action=""
           onFormSubmit={onFormSubmit()}
           btnText="Зарегистрироваться"
@@ -149,7 +149,7 @@ export const RegisterCompanyScreen = observer(() => {
             styleType="secondary"
             required
           />
-        </Form>
+        </AuthForm>
       </LoginFormContainer>
     </Container>
   );

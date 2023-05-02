@@ -1,4 +1,4 @@
-import { Container } from "@/ui/Container";
+import { Container } from "@/ui/layout/Container";
 import styled from "styled-components";
 import { GiveProductForm } from "./give-product-sections/GiveProductForm";
 import { AddPhotoBlock } from "./give-product-sections/AddPhotoBlock";

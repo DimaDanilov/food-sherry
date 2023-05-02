@@ -1,7 +1,7 @@
 import { COLORS } from "@/styles/globalStyles";
 import styled from "styled-components";
 
-type DateTimeInputProps = {
+type InputDateTimeProps = {
   name: string;
   styleType: "primary" | "secondary";
   min?: string;
@@ -11,7 +11,7 @@ type DateTimeInputProps = {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const DateTimeInput = ({
+export const InputDateTime = ({
   name,
   styleType,
   min,
@@ -19,7 +19,7 @@ export const DateTimeInput = ({
   value,
   required,
   onChange,
-}: DateTimeInputProps) => {
+}: InputDateTimeProps) => {
   return (
     <Input
       id={name}

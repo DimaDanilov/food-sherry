@@ -1,6 +1,6 @@
 import { useAuthStore } from "@/store/AuthStore";
 import { COLORS } from "@/styles/globalStyles";
-import { Button } from "@/ui/Button";
+import { ButtonCommon } from "@/ui/forms/buttons/ButtonCommon";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import styled from "styled-components";
@@ -30,14 +30,14 @@ export const HomeScreen = () => {
             Спасайте еду вместе с нами. Заботимся об окружающей среде и помогаем
             людям
           </Description>
-          <Button
+          <ButtonCommon
             padding="20px"
             width="70%"
             styleType="primary"
             onClick={handleClick}
           >
             Присоединиться
-          </Button>
+          </ButtonCommon>
         </FoodSharingInfoContainer>
       </PageContent>
     </>

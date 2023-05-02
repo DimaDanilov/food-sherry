@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
 import { COLORS } from "@/styles/globalStyles";
-import { Icon } from "@/ui/Icon";
+import { Icon } from "@/ui/layout/Icon";
 import { HiOutlineArrowLeftOnRectangle, HiUserCircle } from "react-icons/hi2";
 import { useAuthStore } from "@/store/AuthStore";
 import { unlogin } from "@/api/AuthApi";

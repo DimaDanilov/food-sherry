@@ -1,7 +1,7 @@
 import { COLORS } from "@/styles/globalStyles";
 import styled from "styled-components";
 
-type InputUpdateProps = {
+type InputUpdateDataProps = {
   autoFocus?: boolean;
   type: string;
   name: string;
@@ -10,14 +10,14 @@ type InputUpdateProps = {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const InputUpdate = ({
+export const InputUpdateData = ({
   autoFocus,
   type,
   name,
   placeholder,
   value,
   onChange,
-}: InputUpdateProps) => {
+}: InputUpdateDataProps) => {
   return (
     <Input
       autoFocus={autoFocus}

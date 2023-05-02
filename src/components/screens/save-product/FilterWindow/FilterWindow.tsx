@@ -1,7 +1,7 @@
 import { CategoryModel } from "@/models/Category";
 import { COLORS } from "@/styles/globalStyles";
-import { Button } from "@/ui/Button";
-import { Checkbox } from "@/ui/Checkbox";
+import { ButtonCommon } from "@/ui/forms/buttons/ButtonCommon";
+import { Checkbox } from "@/ui/forms/inputs/Checkbox";
 import { useRouter } from "next/router";
 import { useState, useCallback } from "react";
 import styled from "styled-components";
@@ -45,7 +45,7 @@ export const FilterWindow = ({
           );
         })}
       </Grid>
-      <Button
+      <ButtonCommon
         styleType="secondary"
         padding="10px 5px"
         onClick={() => {
@@ -55,7 +55,7 @@ export const FilterWindow = ({
         }}
       >
         Отфильтровать
-      </Button>
+      </ButtonCommon>
     </Window>
   );
 };

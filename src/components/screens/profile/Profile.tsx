@@ -1,4 +1,4 @@
-import { Container } from "@/ui/Container";
+import { Container } from "@/ui/layout/Container";
 import styled from "styled-components";
 import { ProfileProducts } from "./profile-sections/ProfileProducts";
 import { useMemo } from "react";

@@ -2,7 +2,7 @@ import { COLORS } from "@/styles/globalStyles";
 import React from "react";
 import styled from "styled-components";
 
-type ButtonProps = {
+type ButtonCommonProps = {
   width?: string;
   margin?: string;
   padding?: string;
@@ -13,14 +13,14 @@ type ButtonProps = {
   [x: string]: any;
 };
 
-export const Button = ({
+export const ButtonCommon = ({
   width,
   margin,
   padding,
   styleType,
   children,
   ...props
-}: ButtonProps) => {
+}: ButtonCommonProps) => {
   return (
     <StyledButton
       width={width || "100%"}

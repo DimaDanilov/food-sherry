@@ -2,19 +2,19 @@ import { COLORS } from "@/styles/globalStyles";
 import Link from "next/link";
 import styled from "styled-components";
 
-type FormSwitchProps = {
+type ButtonSwitchProps = {
   activeBtn: "left" | "right";
   leftText: string;
   rightText: string;
   link: string;
 };
 
-export const FormSwitch = ({
+export const ButtonSwitch = ({
   activeBtn,
   leftText,
   rightText,
   link,
-}: FormSwitchProps) => {
+}: ButtonSwitchProps) => {
   let leftMainColor: string =
     activeBtn == "left" ? COLORS.white : COLORS.mainColor;
   let rightMainColor: string =

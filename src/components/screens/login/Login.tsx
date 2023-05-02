@@ -1,8 +1,8 @@
 import { COLORS } from "@/styles/globalStyles";
-import { Form } from "@/ui/Form";
-import { Container } from "@/ui/Container";
-import { FormInput } from "@/ui/FormInput";
-import { FormSwitch } from "@/ui/FormSwitch";
+import { AuthForm } from "@/ui/forms/AuthForm";
+import { Container } from "@/ui/layout/Container";
+import { FormInput } from "@/ui/forms/inputs/FormInput";
+import { ButtonSwitch } from "@/ui/forms/buttons/ButtonSwitch";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { HiOutlineEnvelope, HiOutlineKey } from "react-icons/hi2";
@@ -44,13 +44,13 @@ export const LoginScreen = observer(() => {
     <Container>
       <LoginFormContainer>
         <Title>Вход</Title>
-        <FormSwitch
+        <ButtonSwitch
           activeBtn="left"
           leftText="Вход"
           rightText="Регистрация"
           link="/register"
         />
-        <Form
+        <AuthForm
           action=""
           onFormSubmit={onFormSubmit()}
           btnText="Войти"
@@ -78,7 +78,7 @@ export const LoginScreen = observer(() => {
             styleType="secondary"
             required
           />
-        </Form>
+        </AuthForm>
       </LoginFormContainer>
     </Container>
   );

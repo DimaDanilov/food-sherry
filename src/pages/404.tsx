@@ -1,5 +1,5 @@
 import { Layout } from "@/components/layout/Layout";
-import { Button } from "@/ui/Button";
+import { ButtonCommon } from "@/ui/forms/buttons/ButtonCommon";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import styled from "styled-components";
@@ -18,14 +18,14 @@ export default function NotFound() {
         <PageInfo>
           <Title>404</Title>
           <p>Looks like you missed a page!</p>
-          <Button
+          <ButtonCommon
             padding="10px"
             styleType="primary"
             value="Go_home"
             onClick={onGoHome}
           >
             Go Home
-          </Button>
+          </ButtonCommon>
         </PageInfo>
       </Container>
     </Layout>

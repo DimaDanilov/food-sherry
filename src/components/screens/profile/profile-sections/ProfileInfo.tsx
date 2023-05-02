@@ -5,8 +5,8 @@ import { HiUserCircle } from "react-icons/hi2";
 import styled from "styled-components";
 import { updateUser } from "@/api/UserApi";
 import { useAuthStore } from "@/store/AuthStore";
-import { Button } from "@/ui/Button";
-import { InputUpdate } from "@/ui/InputUpdate";
+import { ButtonCommon } from "@/ui/forms/buttons/ButtonCommon";
+import { InputUpdateData } from "@/ui/forms/inputs/InputUpdateData";
 
 type ProfileInfoProps = {
   user: UserModel;
@@ -72,14 +72,14 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
 
         {user.name && isEditMode ? (
           <>
-            <InputUpdate
+            <InputUpdateData
               autoFocus={true}
               type="text"
               name="name"
               value={name}
               onChange={onNameChange}
             />
-            <InputUpdate
+            <InputUpdateData
               type="text"
               name="surname"
               value={surname}
@@ -94,7 +94,7 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
         )}
 
         {user.companyName && isEditMode ? (
-          <InputUpdate
+          <InputUpdateData
             autoFocus={true}
             type="text"
             name="companyName"
@@ -109,7 +109,7 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
       <InfoDetails>
         <h5>Телефон:</h5>
         {isEditMode ? (
-          <InputUpdate
+          <InputUpdateData
             type="tel"
             name="phone"
             value={phone}
@@ -123,7 +123,7 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
       <InfoDetails>
         <h5>Почта:</h5>
         {isEditMode ? (
-          <InputUpdate
+          <InputUpdateData
             type="email"
             name="email"
             value={email}
@@ -151,9 +151,9 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
       )}
 
       {user.id === authStore.user.id && (
-        <Button onClick={onEditClick} styleType="primary" padding="8px 0">
+        <ButtonCommon onClick={onEditClick} styleType="primary" padding="8px 0">
           {isEditMode ? "Сохранить редактирование" : "Редактировать"}
-        </Button>
+        </ButtonCommon>
       )}
     </div>
   );

@@ -1,27 +1,32 @@
 import styled from "styled-components";
-import { Button } from "./Button";
+import { ButtonCommon } from "./buttons/ButtonCommon";
 import { PropsWithChildren } from "react";
 
-type FormProps = {
+type AuthFormProps = {
   action: string;
   btnText: string;
   styleType: "secondary" | "primary";
   onFormSubmit: (arg0: any) => void;
 };
 
-export const Form = ({
+export const AuthForm = ({
   action,
   btnText,
   styleType,
   children,
   onFormSubmit,
-}: PropsWithChildren<FormProps>) => {
+}: PropsWithChildren<AuthFormProps>) => {
   return (
     <CustomForm action={action} onSubmit={onFormSubmit}>
       {children}
-      <Button type="submit" padding="10px" styleType={styleType} value="Submit">
+      <ButtonCommon
+        type="submit"
+        padding="10px"
+        styleType={styleType}
+        value="Submit"
+      >
         {btnText}
-      </Button>
+      </ButtonCommon>
     </CustomForm>
   );
 };

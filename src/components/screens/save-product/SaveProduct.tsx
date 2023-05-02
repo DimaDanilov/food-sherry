@@ -1,7 +1,7 @@
 import { Paginator } from "../../common/paginator/Paginator";
 import { COLORS } from "@/styles/globalStyles";
-import { Container } from "@/ui/Container";
-import { SearchInput } from "@/ui/SearchInput";
+import { Container } from "@/ui/layout/Container";
+import { SearchInput } from "@/ui/forms/inputs/SearchInput";
 import {
   HiAdjustmentsHorizontal,
   HiArrowLongDown,
@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
 import { ProductSortType } from "@/models/Product";
 import { CategoryModel } from "@/models/Category";
 import { FilterWindow } from "./FilterWindow/FilterWindow";
-import { ButtonIcon } from "@/ui/ButtonIcon";
+import { ButtonIcon } from "@/ui/forms/buttons/ButtonIcon";
 
 type SaveProductScreenProps = {
   productsData: ProductsData;

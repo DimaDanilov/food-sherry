@@ -2,9 +2,9 @@ import { updateProduct, updateProductStatus } from "@/api/ProductApi";
 import { ProductModel, ProductStatusType } from "@/models/Product";
 import { useAuthStore } from "@/store/AuthStore";
 import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
-import { Button } from "@/ui/Button";
-import { Container } from "@/ui/Container";
-import { IconWithText } from "@/ui/IconWithText";
+import { ButtonCommon } from "@/ui/forms/buttons/ButtonCommon";
+import { Container } from "@/ui/layout/Container";
+import { IconWithText } from "@/ui/layout/IconWithText";
 import { parseCreateDate } from "@/utils/parseCreateDate";
 import { parseTakeDate } from "@/utils/parseTakeDate";
 import { observer } from "mobx-react";
@@ -22,8 +22,8 @@ import {
 } from "react-icons/hi2";
 import styled from "styled-components";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
-import { InputUpdate } from "@/ui/InputUpdate";
-import { ButtonIcon } from "@/ui/ButtonIcon";
+import { InputUpdateData } from "@/ui/forms/inputs/InputUpdateData";
+import { ButtonIcon } from "@/ui/forms/buttons/ButtonIcon";
 
 type ProductScreenProps = {
   product: ProductModel;
@@ -116,7 +116,7 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
         </IconWithText>
 
         {product.description && isEditMode ? (
-          <InputUpdate
+          <InputUpdateData
             autoFocus={true}
             type="text"
             name="description"
@@ -129,7 +129,7 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
         )}
 
         {product.amount && isEditMode ? (
-          <InputUpdate
+          <InputUpdateData
             type="text"
             name="amount"
             placeholder="Product Amount..."
@@ -152,7 +152,7 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
         </BlockWithTooltip>
 
         {product.location && isEditMode ? (
-          <InputUpdate
+          <InputUpdateData
             type="text"
             name="address"
             placeholder="Address to take food..."
@@ -197,14 +197,14 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
           authStore.firstLoadCompleted &&
           authStore.user.id &&
           authStore.user.id !== product.author.id && (
-            <Button
+            <ButtonCommon
               margin="10px auto"
               padding="10px"
               styleType="primary"
               onClick={() => onReservingChange(product.id, "reserved")}
             >
               Забронировать
-            </Button>
+            </ButtonCommon>
           )}
         {productStatus === "reserved" &&
           authStore.firstLoadCompleted &&
@@ -212,22 +212,22 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
           (authStore.user.id === product.author.id ||
             authStore.user.id === clientId) && (
             <>
-              <Button
+              <ButtonCommon
                 margin="10px auto"
                 padding="10px"
                 styleType="primary"
                 onClick={() => onReservingChange(product.id, "open")}
               >
                 Снять бронь
-              </Button>
-              <Button
+              </ButtonCommon>
+              <ButtonCommon
                 margin="10px auto"
                 padding="10px"
                 styleType="primary"
                 onClick={() => onReservingChange(product.id, "closed")}
               >
                 Закрыть бронь
-              </Button>
+              </ButtonCommon>
             </>
           )}
       </FlexItem>

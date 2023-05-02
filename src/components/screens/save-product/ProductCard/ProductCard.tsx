@@ -1,7 +1,7 @@
 import { ProductModel } from "@/models/Product";
 import { COLORS } from "@/styles/globalStyles";
-import { Button } from "@/ui/Button";
-import { IconWithText } from "@/ui/IconWithText";
+import { ButtonCommon } from "@/ui/forms/buttons/ButtonCommon";
+import { IconWithText } from "@/ui/layout/IconWithText";
 import { parseTakeDate } from "@/utils/parseTakeDate";
 import Image from "next/image";
 import Link from "next/link";
@@ -123,4 +123,4 @@ const NavLink = styled(Link)`
   color: ${COLORS.darkgray};
 `;
 
-const CardButton = styled(Button)``;
+const CardButton = styled(ButtonCommon)``;
