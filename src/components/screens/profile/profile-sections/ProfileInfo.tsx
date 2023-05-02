@@ -1,11 +1,7 @@
 import { UserModel } from "@/models/User";
 import { COLORS } from "@/styles/globalStyles";
 import { useState, useEffect } from "react";
-import {
-  HiOutlinePaintBrush,
-  HiOutlineXCircle,
-  HiUserCircle,
-} from "react-icons/hi2";
+import { HiOutlineXCircle, HiUserCircle } from "react-icons/hi2";
 import styled from "styled-components";
 import { deleteUserPhoto, updateUser, updateUserPhoto } from "@/api/UserApi";
 import { useAuthStore } from "@/store/AuthStore";
@@ -90,34 +86,42 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
   return (
     <div>
       <ProfileBriefData>
-        <ImageContainerForButtons>
-          {avatarUrl ? (
-            <AvatarImageContainer>
-              <AvatarImage width={400} height={400} alt="" src={avatarUrl} />
-            </AvatarImageContainer>
-          ) : (
-            <AvatarImagePlaceholder color={COLORS.mainColor} />
-          )}
-          <FileInput
-            type="file"
-            id="addAvatar"
-            value=""
-            name="addAvatar"
-            accept="image/png, image/gif, image/jpeg"
-            onChange={onPhotoUpdate}
-          />
-          {user.id === authStore.user.id && (
-            <EditPhotoBtn htmlFor="addAvatar">
-              <HiOutlinePaintBrush color={COLORS.mainHoverDark} size={30} />
-            </EditPhotoBtn>
-          )}
-
-          {avatarUrl && user.id === authStore.user.id && (
+        {/* Avatar Image */}
+        {user.id === authStore.user.id ? (
+          <ImageContainerForButtons>
             <DeletePhotoBtn onClick={onPhotoDelete}>
               <HiOutlineXCircle color={COLORS.mainHoverDark} size={30} />
             </DeletePhotoBtn>
-          )}
-        </ImageContainerForButtons>
+            <FileInput
+              type="file"
+              id="addAvatar"
+              value=""
+              name="addAvatar"
+              accept="image/png, image/gif, image/jpeg"
+              onChange={onPhotoUpdate}
+            />
+            <EditPhotoBtn htmlFor="addAvatar">
+              {avatarUrl ? (
+                <AvatarImageContainer>
+                  <AvatarImage
+                    width={400}
+                    height={400}
+                    alt=""
+                    src={avatarUrl}
+                  />
+                </AvatarImageContainer>
+              ) : (
+                <AvatarImagePlaceholder color={COLORS.mainColor} />
+              )}
+            </EditPhotoBtn>
+          </ImageContainerForButtons>
+        ) : avatarUrl ? (
+          <AvatarImageContainer>
+            <AvatarImage width={400} height={400} alt="" src={avatarUrl} />
+          </AvatarImageContainer>
+        ) : (
+          <AvatarImagePlaceholder color={COLORS.mainColor} />
+        )}
 
         {user.name && isEditMode ? (
           <>
@@ -223,9 +227,6 @@ const FileInput = styled.input`
 
 const EditPhotoBtn = styled.label`
   cursor: pointer;
-  position: absolute;
-  bottom: 0;
-  right: 0;
 `;
 
 const DeletePhotoBtn = styled.label`
@@ -234,6 +235,7 @@ const DeletePhotoBtn = styled.label`
   display: none;
   top: 0;
   right: 0;
+  z-index: 2;
 `;
 
 const ImageContainerForButtons = styled.div`
@@ -266,8 +268,8 @@ const AvatarImage = styled(Image)`
 `;
 
 const AvatarImagePlaceholder = styled(HiUserCircle)`
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
 `;
 
 const Title = styled.h1`
