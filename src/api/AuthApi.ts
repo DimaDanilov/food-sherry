@@ -8,7 +8,7 @@ type AuthResponse = {
 };
 
 export async function auth(): Promise<UserModel> {
-  const { data } = await axiosAuth.get<AuthResponse>(`api/auth`);
+  const { data } = await axiosAuth.get<AuthResponse>(`api/auth/check`);
   localStorage.setItem("token", data.token);
   return jwt_decode(data.token);
 }
@@ -18,7 +18,7 @@ export async function login(
   password: string
 ): Promise<UserModel> {
   try {
-    const { data } = await axiosBase.post<AuthResponse>(`api/login`, {
+    const { data } = await axiosBase.post<AuthResponse>(`api/auth/login`, {
       email,
       password,
     });
@@ -42,7 +42,7 @@ export async function registerUser(
   surname: string,
   phone: string
 ) {
-  await axiosBase.post(`api/register`, {
+  await axiosBase.post(`api/auth/register`, {
     email,
     password,
     name,
@@ -57,7 +57,7 @@ export async function registerCompany(
   companyName: string,
   phone: string
 ) {
-  await axiosBase.post(`api/register`, {
+  await axiosBase.post(`api/auth/register`, {
     email,
     password,
     company_name: companyName,

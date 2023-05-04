@@ -25,37 +25,11 @@ export async function loadProducts(
   return ProductAdapter.transformArray(response.data);
 }
 
-export async function loadUserProducts(
-  id: number,
-  filter: ProfileProductFilterType,
-  page: string
-): Promise<ProductsProfileData> {
-  try {
-    const response = await axiosBase.get<ProfileProductModel[]>(
-      `api/product_user/${id}`,
-      { params: { page, filter } }
-    );
-    return ProductAdapter.transformProfileProductArray(response.data);
-  } catch (e) {
-    console.error(e);
-    return {} as ProductsProfileData;
-  }
-}
-
 export async function loadOneProduct(productId: string): Promise<ProductModel> {
   const response = await axiosBase.get<ProductModel>(
     `api/product/${productId}`
   );
   return ProductAdapter.transform(response.data);
-}
-
-export async function loadUserTotalProducts(
-  productId: string
-): Promise<number> {
-  const response = await axiosBase.get<number>(
-    `api/product_created/${productId}`
-  );
-  return response.data;
 }
 
 export async function postProduct(product: any) {
@@ -87,11 +61,37 @@ export async function updateProduct(
   return response.data;
 }
 
+export async function loadUserProducts(
+  id: number,
+  filter: ProfileProductFilterType,
+  page: string
+): Promise<ProductsProfileData> {
+  try {
+    const response = await axiosBase.get<ProfileProductModel[]>(
+      `api/product/user_products/${id}`,
+      { params: { page, filter } }
+    );
+    return ProductAdapter.transformProfileProductArray(response.data);
+  } catch (e) {
+    console.error(e);
+    return {} as ProductsProfileData;
+  }
+}
+
+export async function loadUserTotalProducts(
+  productId: string
+): Promise<number> {
+  const response = await axiosBase.get<number>(
+    `api/product/user_products_total/${productId}`
+  );
+  return response.data;
+}
+
 export async function updateProductStatus(
   productId: number,
   status: ProductStatusType
 ): Promise<ProductStatusModel> {
-  const response = await axiosAuth.put(`api/product_status`, {
+  const response = await axiosAuth.put(`api/product/status`, {
     id: productId,
     status,
   });
