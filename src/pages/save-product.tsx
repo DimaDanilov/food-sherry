@@ -62,13 +62,20 @@ export async function getServerSideProps({ query }: GetServerSidePropsProps) {
     };
   }
 
-  const productsData: ProductsData = await loadProducts(
-    page,
-    search,
-    sort,
-    categoriesQuery,
-    "open"
-  );
+  let productsData: ProductsData;
+  try {
+    productsData = await loadProducts(
+      page,
+      search,
+      sort,
+      categoriesQuery,
+      "open"
+    );
+  } catch (e) {
+    console.error(e);
+    productsData = {} as ProductsData;
+  }
+
   const availableCategories: CategoryModel[] = await loadCategories();
 
   return {

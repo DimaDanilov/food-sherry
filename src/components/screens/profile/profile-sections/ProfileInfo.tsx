@@ -37,8 +37,9 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
         });
       }
       setIsEditMode(!isEditMode);
-    } catch (error) {
-      console.error(error);
+    } catch (e: any) {
+      alert(e.response.data.message);
+      console.error(e);
     }
   };
 
@@ -46,15 +47,25 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
     if (event.target.files) {
       const file = event.target.files[0];
       if (file) {
-        const newImageUrl: string = await updateUserPhoto(user.id, file);
-        setAvatarUrl(newImageUrl);
+        try {
+          const newImageUrl: string = await updateUserPhoto(user.id, file);
+          setAvatarUrl(newImageUrl);
+        } catch (e: any) {
+          alert(e.response.data.message);
+          console.error(e);
+        }
       }
     }
   };
 
   const onPhotoDelete = async () => {
-    await deleteUserPhoto(user.id);
-    setAvatarUrl("");
+    try {
+      await deleteUserPhoto(user.id);
+      setAvatarUrl("");
+    } catch (e: any) {
+      alert(e.response.data.message);
+      console.error(e);
+    }
   };
 
   const onPhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -198,10 +209,10 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
         </>
       )}
 
-      {!Number.isNaN(totalProducts) && (
+      {totalProducts !== null && (
         <InfoDetails>
           <h5>Создал объявлений:</h5>
-          <span>{totalProducts}</span>
+          <p>{totalProducts}</p>
         </InfoDetails>
       )}
 

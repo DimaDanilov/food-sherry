@@ -58,8 +58,9 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
         await updateProduct(product.id, description, amount, location);
       }
       setIsEditMode(!isEditMode);
-    } catch (error) {
-      console.error(error);
+    } catch (e: any) {
+      alert(e.response.data.message);
+      console.error(e);
     }
   };
 
@@ -76,9 +77,14 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
     productId: number,
     status: ProductStatusType
   ) => {
-    const newStatusInfo = await updateProductStatus(productId, status);
-    setProductStatus(newStatusInfo.status);
-    setClientId(newStatusInfo.clientId);
+    try {
+      const newStatusInfo = await updateProductStatus(productId, status);
+      setProductStatus(newStatusInfo.status);
+      setClientId(newStatusInfo.clientId);
+    } catch (e: any) {
+      alert(e.response.data.message);
+      console.error(e);
+    }
   };
 
   return (

@@ -26,12 +26,8 @@ export const GiveProductForm = observer(() => {
   const [categoriesList, setCategories] = useState<CategoryModel[]>([]);
 
   const fetchCategories = async () => {
-    try {
-      const categories = await loadCategories();
-      setCategories(categories);
-    } catch (error) {
-      console.error(error);
-    }
+    const categories = await loadCategories();
+    setCategories(categories);
   };
 
   useEffect(() => {

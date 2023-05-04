@@ -50,9 +50,14 @@ export const RegisterScreen = observer(() => {
 
   const onFormSubmit =
     () => async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      await registerUser(email, password, name, surname, phone);
-      router.push("/login");
+      try {
+        event.preventDefault();
+        await registerUser(email, password, name, surname, phone);
+        router.push("/login");
+      } catch (e: any) {
+        alert(e.response.data.message);
+        console.error(e);
+      }
     };
 
   useEffect(() => {

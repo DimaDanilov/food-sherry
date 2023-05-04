@@ -1,5 +1,5 @@
 import { loadUserTotalProducts } from "@/api/ProductApi";
-import { loadOneUser } from "@/api/UserApi";
+import { loadOneUser, loadUsers } from "@/api/UserApi";
 import { Layout } from "@/components/layout/Layout";
 import { ProfileScreen } from "@/components/screens/profile/Profile";
 import { UserModel } from "@/models/User";
@@ -23,20 +23,15 @@ export default function Profile({ user, totalProducts }: ProfileProps) {
 
 export async function getStaticPaths() {
   try {
-    const response = await axios.get<UserModel[]>(
-      "http://localhost:5000/api/user"
-    );
-
-    const paths = response.data.map((user) => ({
+    const data = await loadUsers();
+    const paths = data?.map((user) => ({
       params: { userId: user.id.toString() },
     }));
 
-    return {
-      paths,
-      fallback: false,
-    };
+    return { paths, fallback: false };
   } catch (e) {
-    console.log(e);
+    console.error(e);
+    return { paths: [], fallback: false };
   }
 }
 
@@ -47,8 +42,22 @@ type GetStaticPropsProps = {
 };
 
 export async function getStaticProps({ params }: GetStaticPropsProps) {
-  const user = await loadOneUser(params.userId);
-  const totalProducts = await loadUserTotalProducts(params.userId);
+  let user: UserModel;
+  try {
+    user = await loadOneUser(params.userId);
+  } catch (e) {
+    console.error(e);
+    return { notFound: true };
+  }
+
+  let totalProducts: number | null;
+  try {
+    totalProducts = await loadUserTotalProducts(params.userId);
+  } catch (e) {
+    console.error(e);
+    totalProducts = null;
+  }
+
   return {
     props: {
       user,

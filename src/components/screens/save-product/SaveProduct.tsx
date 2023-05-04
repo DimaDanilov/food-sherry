@@ -143,6 +143,7 @@ const CardsContainer = styled.div`
   width: 100%;
   grid-template-columns: repeat(4, 1fr);
   gap: 10vh 6vh;
+  margin: 20px auto;
 `;
 
 const SortBtn = styled.button`

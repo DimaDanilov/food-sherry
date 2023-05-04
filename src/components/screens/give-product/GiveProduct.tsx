@@ -30,8 +30,9 @@ export const GiveProductScreen = observer(() => {
       });
       giveProductStore.reset();
       router.push("/save-product");
-    } catch (error) {
-      console.log(error);
+    } catch (e: any) {
+      alert(e.response.data.message);
+      console.error(e);
     }
   };
 

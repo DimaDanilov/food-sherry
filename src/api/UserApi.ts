@@ -2,10 +2,17 @@ import axios from "axios";
 import { UserModel } from "@/models/User";
 import { UserAdapter } from "./UserAdapter";
 
-export const API_URL = "http://localhost:5000";
+export async function loadUsers(): Promise<UserModel[]> {
+  const response = await axios.get<UserModel[]>(
+    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/user`
+  );
+  return response.data;
+}
 
 export async function loadOneUser(userId: string): Promise<UserModel> {
-  const response = await axios.get<UserModel>(`${API_URL}/api/user/${userId}`);
+  const response = await axios.get<UserModel>(
+    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/user/${userId}`
+  );
   return UserAdapter.transform(response.data);
 }
 
@@ -28,7 +35,7 @@ export async function updateUser({
 }: UpdateUserParams): Promise<UserModel> {
   const token = localStorage.getItem("token");
   const response = await axios.put(
-    `${API_URL}/api/user`,
+    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/user`,
     {
       id: userId,
       name,
@@ -53,22 +60,29 @@ export async function updateUserPhoto(id: number, avatarPhoto: any) {
   formData.append("avatar", avatarPhoto);
 
   const token = localStorage.getItem("token");
-  const response = await axios.put(`${API_URL}/api/user_avatar`, formData, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await axios.put(
+    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/user_avatar`,
+    formData,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
   return UserAdapter.imageUrlTransform(response.data);
 }
 
 export async function deleteUserPhoto(userId: number): Promise<UserModel> {
   const token = localStorage.getItem("token");
-  const response = await axios.delete(`${API_URL}/api/user_avatar/${userId}`, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await axios.delete(
+    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/user_avatar/${userId}`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
   return response.data;
 }

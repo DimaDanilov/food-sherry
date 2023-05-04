@@ -38,9 +38,11 @@ export default function App({ Component, pageProps }: AppProps) {
     async function checkAuth() {
       const token = localStorage.getItem("token");
       if (token) {
-        const user: UserModel = await auth(token);
-        if (user.email) {
+        try {
+          const user: UserModel = await auth(token);
           authStore.setUser(user);
+        } catch (e) {
+          authStore.setUser({} as UserModel);
         }
       }
       authStore.setFirstLoadStatus(true);

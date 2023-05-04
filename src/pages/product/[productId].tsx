@@ -21,17 +21,14 @@ export default function Product({ product }: ProductProps) {
 export async function getStaticPaths() {
   try {
     const data = await loadProducts();
-
-    const paths = data.products.map((product) => ({
+    const paths = data.products?.map((product) => ({
       params: { productId: product.id.toString() },
     }));
 
-    return {
-      paths,
-      fallback: false,
-    };
+    return { paths, fallback: false };
   } catch (e) {
-    console.log(e);
+    console.error(e);
+    return { paths: [], fallback: false };
   }
 }
 
@@ -42,10 +39,15 @@ type GetStaticPropsProps = {
 };
 
 export async function getStaticProps({ params }: GetStaticPropsProps) {
-  const product = await loadOneProduct(params.productId);
-  return {
-    props: {
-      product,
-    },
-  };
+  try {
+    const product = await loadOneProduct(params.productId);
+    return {
+      props: {
+        product,
+      },
+    };
+  } catch (e) {
+    console.error(e);
+    return { notFound: true };
+  }
 }

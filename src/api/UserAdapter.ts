@@ -1,9 +1,10 @@
 import { UserModel } from "@/models/User";
-import { API_URL } from "./UserApi";
 
 export class UserAdapter {
   static imageUrlTransform(imageUrl: string) {
-    return imageUrl ? `${API_URL}/profile_avatars/${imageUrl}` : "";
+    return imageUrl
+      ? `${process.env.NEXT_PUBLIC_APP_API_URL}/profile_avatars/${imageUrl}`
+      : "";
   }
   static transform(userItem: any): UserModel {
     return {

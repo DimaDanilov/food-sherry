@@ -46,9 +46,14 @@ export const RegisterCompanyScreen = observer(() => {
 
   const onFormSubmit =
     () => async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      await registerCompany(email, password, companyName, phone);
-      router.push("/login");
+      try {
+        event.preventDefault();
+        await registerCompany(email, password, companyName, phone);
+        router.push("/login");
+      } catch (e: any) {
+        alert(e.response.data.message);
+        console.error(e);
+      }
     };
 
   useEffect(() => {

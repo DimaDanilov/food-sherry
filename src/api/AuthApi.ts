@@ -8,34 +8,35 @@ type AuthResponse = {
 };
 
 export async function auth(token: string): Promise<UserModel> {
-  const url = `http://localhost:5000/api/auth`;
-  try {
-    const { data } = await axios.get<AuthResponse>(url, {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
-    localStorage.setItem("token", data.token);
-    return jwt_decode(data.token);
-  } catch (error) {
-    console.error(error);
-    return {} as UserModel;
-  }
+  const url = `${process.env.NEXT_PUBLIC_APP_API_URL}/api/auth`;
+  const { data } = await axios.get<AuthResponse>(url, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+  localStorage.setItem("token", data.token);
+  return jwt_decode(data.token);
 }
 
 export async function login(
   email: string,
   password: string
 ): Promise<UserModel> {
-  const { data } = await axios.post<AuthResponse>(
-    "http://localhost:5000/api/login",
-    {
-      email,
-      password,
-    }
-  );
-  localStorage.setItem("token", data.token);
-  return UserAdapter.transform(jwt_decode(data.token));
+  try {
+    const { data } = await axios.post<AuthResponse>(
+      `${process.env.NEXT_PUBLIC_APP_API_URL}/api/login`,
+      {
+        email,
+        password,
+      }
+    );
+    localStorage.setItem("token", data.token);
+    return UserAdapter.transform(jwt_decode(data.token));
+  } catch (e: any) {
+    alert(e.response.data.message);
+    console.error(e);
+    return {} as UserModel;
+  }
 }
 
 export async function unlogin() {
@@ -49,7 +50,7 @@ export async function registerUser(
   surname: string,
   phone: string
 ) {
-  await axios.post("http://localhost:5000/api/register", {
+  await axios.post(`${process.env.NEXT_PUBLIC_APP_API_URL}/api/register`, {
     email,
     password,
     name,
@@ -64,7 +65,7 @@ export async function registerCompany(
   companyName: string,
   phone: string
 ) {
-  await axios.post("http://localhost:5000/api/register", {
+  await axios.post(`${process.env.NEXT_PUBLIC_APP_API_URL}/api/register`, {
     email,
     password,
     company_name: companyName,

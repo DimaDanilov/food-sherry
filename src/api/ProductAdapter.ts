@@ -3,7 +3,6 @@ import {
   ProfileProductModel,
   ProductStatusModel,
 } from "@/models/Product";
-import { API_URL } from "./ProductApi";
 
 export interface ProductsData {
   products: ProductModel[];
@@ -17,7 +16,10 @@ export interface ProductsProfileData {
 export class ProductAdapter {
   static imagesUrlTransform(images: Array<string>) {
     return (
-      images?.map((imageUrl) => `${API_URL}/food_images/${imageUrl}`) || ""
+      images?.map(
+        (imageUrl) =>
+          `${process.env.NEXT_PUBLIC_APP_API_URL}/food_images/${imageUrl}`
+      ) || ""
     );
   }
   static transform(productItem: any): ProductModel {

@@ -12,8 +12,6 @@ import {
   ProductsProfileData,
 } from "./ProductAdapter";
 
-export const API_URL = "http://localhost:5000";
-
 export async function loadProducts(
   page?: number,
   search?: string,
@@ -21,9 +19,12 @@ export async function loadProducts(
   categories?: string[],
   status?: ProductStatusType
 ): Promise<ProductsData> {
-  const response = await axios.get<ProductsData>(`${API_URL}/api/product`, {
-    params: { page, search, sort, status, categories },
-  });
+  const response = await axios.get<ProductsData>(
+    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/product`,
+    {
+      params: { page, search, sort, status, categories },
+    }
+  );
   return ProductAdapter.transformArray(response.data);
 }
 
@@ -32,16 +33,21 @@ export async function loadUserProducts(
   filter: ProfileProductFilterType,
   page: string
 ): Promise<ProductsProfileData> {
-  const response = await axios.get<ProfileProductModel[]>(
-    `${API_URL}/api/product_user/${id}`,
-    { params: { page, filter } }
-  );
-  return ProductAdapter.transformProfileProductArray(response.data);
+  try {
+    const response = await axios.get<ProfileProductModel[]>(
+      `${process.env.NEXT_PUBLIC_APP_API_URL}/api/product_user/${id}`,
+      { params: { page, filter } }
+    );
+    return ProductAdapter.transformProfileProductArray(response.data);
+  } catch (e) {
+    console.error(e);
+    return {} as ProductsProfileData;
+  }
 }
 
 export async function loadOneProduct(productId: string): Promise<ProductModel> {
   const response = await axios.get<ProductModel>(
-    `${API_URL}/api/product/${productId}`
+    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/product/${productId}`
   );
   return ProductAdapter.transform(response.data);
 }
@@ -50,7 +56,7 @@ export async function loadUserTotalProducts(
   productId: string
 ): Promise<number> {
   const response = await axios.get<number>(
-    `${API_URL}/api/product_created/${productId}`
+    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/product_created/${productId}`
   );
   return response.data;
 }
@@ -67,11 +73,15 @@ export async function postProduct(product: any) {
     }
   }
   const token = localStorage.getItem("token");
-  axios.post(`${API_URL}/api/product`, formData, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
+  await axios.post(
+    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/product`,
+    formData,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );
 }
 
 export async function updateProduct(
@@ -82,7 +92,7 @@ export async function updateProduct(
 ) {
   const token = localStorage.getItem("token");
   const response = await axios.put(
-    `${API_URL}/api/product`,
+    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/product`,
     {
       id: productId,
       description,
@@ -104,7 +114,7 @@ export async function updateProductStatus(
 ): Promise<ProductStatusModel> {
   const token = localStorage.getItem("token");
   const response = await axios.put(
-    `${API_URL}/api/product_status`,
+    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/product_status`,
     {
       id: productId,
       status,
