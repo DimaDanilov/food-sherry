@@ -1,13 +1,13 @@
 import { Layout } from "@/components/layout/Layout";
 import { SaveProductScreen } from "@/components/screens/save-product/SaveProduct";
 import { loadProducts } from "../api/ProductApi";
-import { ProductsData } from "../api/ProductAdapter";
+import { ProductsShortData } from "../api/ProductAdapter";
 import { ProductSortType } from "@/models/Product";
 import { loadCategories } from "@/api/CategoryApi";
 import { CategoryModel } from "@/models/Category";
 
 type SaveProductProps = {
-  productsData: ProductsData;
+  productsData: ProductsShortData;
   page: number;
   search: string;
   sort: ProductSortType;
@@ -62,7 +62,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsProps) {
     };
   }
 
-  let productsData: ProductsData;
+  let productsData: ProductsShortData;
   try {
     productsData = await loadProducts(
       page,
@@ -73,7 +73,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsProps) {
     );
   } catch (e) {
     console.error(e);
-    productsData = {} as ProductsData;
+    productsData = {} as ProductsShortData;
   }
 
   const availableCategories: CategoryModel[] = await loadCategories();

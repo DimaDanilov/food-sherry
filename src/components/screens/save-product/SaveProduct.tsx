@@ -10,7 +10,7 @@ import {
 } from "react-icons/hi2";
 import styled from "styled-components";
 import { ProductCard } from "./ProductCard/ProductCard";
-import { ProductsData } from "@/api/ProductAdapter";
+import { ProductsShortData } from "@/api/ProductAdapter";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ProductSortType } from "@/models/Product";
@@ -19,7 +19,7 @@ import { FilterWindow } from "./FilterWindow/FilterWindow";
 import { ButtonIcon } from "@/ui/forms/buttons/ButtonIcon";
 
 type SaveProductScreenProps = {
-  productsData: ProductsData;
+  productsData: ProductsShortData;
   page: number;
   search: string;
   sort: ProductSortType;

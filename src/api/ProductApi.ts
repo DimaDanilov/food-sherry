@@ -7,8 +7,8 @@ import {
 } from "@/models/Product";
 import {
   ProductAdapter,
-  ProductsData,
   ProductsProfileData,
+  ProductsShortData,
 } from "./ProductAdapter";
 import { axiosAuth, axiosBase } from ".";
 
@@ -18,11 +18,11 @@ export async function loadProducts(
   sort?: string,
   categories?: string[],
   status?: ProductStatusType
-): Promise<ProductsData> {
-  const response = await axiosBase.get<ProductsData>(`api/product`, {
+): Promise<ProductsShortData> {
+  const response = await axiosBase.get<ProductsShortData>(`api/product`, {
     params: { page, search, sort, status, categories },
   });
-  return ProductAdapter.transformArray(response.data);
+  return ProductAdapter.transformShortArray(response.data);
 }
 
 export async function loadOneProduct(productId: string): Promise<ProductModel> {

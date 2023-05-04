@@ -2,10 +2,11 @@ import {
   ProductModel,
   ProfileProductModel,
   ProductStatusModel,
+  ProductShortModel,
 } from "@/models/Product";
 
-export interface ProductsData {
-  products: ProductModel[];
+export interface ProductsShortData {
+  products: ProductShortModel[];
   totalCount: number;
 }
 export interface ProductsProfileData {
@@ -47,12 +48,31 @@ export class ProductAdapter {
       status: productItem.status,
     };
   }
-  static transformArray(data: any): {
-    products: ProductModel[];
+  static transformShort(productItem: any): ProductShortModel {
+    return {
+      id: productItem.id,
+      title: productItem.title,
+      author: {
+        id: productItem.author.id,
+        name: productItem.author.name,
+        surname: productItem.author.surname,
+        companyName: productItem.author.company_name,
+        email: productItem.author.email,
+        phone: productItem.author.phone,
+        avatar: productItem.author.avatar,
+        timeCreated: productItem.author.time_created,
+      },
+      timeToTake: productItem.time_to_take,
+      location: productItem.location,
+      imagesSrc: this.imagesUrlTransform(productItem.images),
+    };
+  }
+  static transformShortArray(data: any): {
+    products: ProductShortModel[];
     totalCount: number;
   } {
     return {
-      products: data.rows.map((item: any) => this.transform(item)),
+      products: data.rows.map((item: any) => this.transformShort(item)),
       totalCount: data.count,
     };
   }

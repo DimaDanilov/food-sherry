@@ -1,4 +1,4 @@
-import { ProductModel } from "@/models/Product";
+import { ProductShortModel } from "@/models/Product";
 import { COLORS } from "@/styles/globalStyles";
 import { ButtonCommon } from "@/ui/forms/buttons/ButtonCommon";
 import { IconWithText } from "@/ui/layout/IconWithText";
@@ -14,7 +14,7 @@ import {
 import styled from "styled-components";
 
 type ProductCardProps = {
-  product: ProductModel;
+  product: ProductShortModel;
 };
 
 export const ProductCard = ({ product }: ProductCardProps) => {

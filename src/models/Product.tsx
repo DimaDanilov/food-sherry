@@ -23,6 +23,15 @@ export interface ProductModel {
   status: ProductStatusType;
 }
 
+export interface ProductShortModel {
+  id: number;
+  title: string;
+  author: UserModel;
+  timeToTake: string;
+  location: string;
+  imagesSrc: Array<string>;
+}
+
 export interface ProductStatusModel {
   id: number;
   clientId: number;
