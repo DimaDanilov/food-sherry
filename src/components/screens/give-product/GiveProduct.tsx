@@ -9,55 +9,62 @@ import { useAuthStore } from "@/store/AuthStore";
 import { useEffect } from "react";
 import { Loader } from "@/components/layout/Loader";
 import { observer } from "mobx-react";
+import { CategoryModel } from "@/models/Category";
 
-export const GiveProductScreen = observer(() => {
-  const authStore = useAuthStore();
-  const giveProductStore = useGiveProductStore();
-  const router = useRouter();
+type GiveProductScreenProps = {
+  categories: CategoryModel[];
+};
 
-  const onFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      await postProduct({
-        title: giveProductStore.productTitle,
-        category_id: giveProductStore.productSelect,
-        description: giveProductStore.productDescription,
-        amount: giveProductStore.productAmount,
-        time_to_take: giveProductStore.productDatetimeToTake,
-        location: giveProductStore.productAddress,
-        images: giveProductStore.productImages,
-        status: "open",
-      });
-      giveProductStore.reset();
-      router.push("/save-product");
-    } catch (e: any) {
-      alert(e.response.data.message);
-      console.error(e);
-    }
-  };
+export const GiveProductScreen = observer(
+  ({ categories }: GiveProductScreenProps) => {
+    const authStore = useAuthStore();
+    const giveProductStore = useGiveProductStore();
+    const router = useRouter();
 
-  useEffect(() => {
-    if (authStore.firstLoadCompleted && !authStore.user.id) {
-      router.replace("/login");
-    }
-  }, [authStore.user]);
+    const onFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      try {
+        await postProduct({
+          title: giveProductStore.productTitle,
+          category_id: giveProductStore.productSelect,
+          description: giveProductStore.productDescription,
+          amount: giveProductStore.productAmount,
+          time_to_take: giveProductStore.productDatetimeToTake,
+          location: giveProductStore.productAddress,
+          images: giveProductStore.productImages,
+          status: "open",
+        });
+        giveProductStore.reset();
+        router.push("/save-product");
+      } catch (e: any) {
+        alert(e.response.data.message);
+        console.error(e);
+      }
+    };
 
-  return !authStore.firstLoadCompleted || !authStore.user.id ? (
-    <Loader />
-  ) : (
-    <PageContainer>
-      <Form action="" method="post" onSubmit={onFormSubmit}>
-        <FieldsContainer>
-          <GiveProductForm />
-        </FieldsContainer>
+    useEffect(() => {
+      if (authStore.firstLoadCompleted && !authStore.user.id) {
+        router.replace("/login");
+      }
+    }, [authStore.user]);
 
-        <PhotosContainer>
-          <AddPhotoBlock />
-        </PhotosContainer>
-      </Form>
-    </PageContainer>
-  );
-});
+    return !authStore.firstLoadCompleted || !authStore.user.id ? (
+      <Loader />
+    ) : (
+      <PageContainer>
+        <Form action="" method="post" onSubmit={onFormSubmit}>
+          <FieldsContainer>
+            <GiveProductForm categories={categories} />
+          </FieldsContainer>
+
+          <PhotosContainer>
+            <AddPhotoBlock />
+          </PhotosContainer>
+        </Form>
+      </PageContainer>
+    );
+  }
+);
 
 const PageContainer = styled(Container)`
   display: flex;

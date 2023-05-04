@@ -1,5 +1,4 @@
 import { UserModel } from "@/models/User";
-import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { UserAdapter } from "./UserAdapter";
 import { axiosAuth, axiosBase } from ".";
