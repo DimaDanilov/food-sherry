@@ -1,18 +1,14 @@
-import axios from "axios";
 import { UserModel } from "@/models/User";
 import { UserAdapter } from "./UserAdapter";
+import { axiosBase, axiosAuth } from ".";
 
 export async function loadUsers(): Promise<UserModel[]> {
-  const response = await axios.get<UserModel[]>(
-    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/user`
-  );
+  const response = await axiosBase.get<UserModel[]>(`api/user`);
   return response.data;
 }
 
 export async function loadOneUser(userId: string): Promise<UserModel> {
-  const response = await axios.get<UserModel>(
-    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/user/${userId}`
-  );
+  const response = await axiosBase.get<UserModel>(`api/user/${userId}`);
   return UserAdapter.transform(response.data);
 }
 
@@ -33,23 +29,14 @@ export async function updateUser({
   phone,
   email,
 }: UpdateUserParams): Promise<UserModel> {
-  const token = localStorage.getItem("token");
-  const response = await axios.put(
-    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/user`,
-    {
-      id: userId,
-      name,
-      surname,
-      company_name: companyName,
-      phone,
-      email,
-    },
-    {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await axiosAuth.put(`api/user`, {
+    id: userId,
+    name,
+    surname,
+    company_name: companyName,
+    phone,
+    email,
+  });
 
   return response.data;
 }
@@ -59,30 +46,13 @@ export async function updateUserPhoto(id: number, avatarPhoto: any) {
   formData.append("id", id.toString());
   formData.append("avatar", avatarPhoto);
 
-  const token = localStorage.getItem("token");
-  const response = await axios.put(
-    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/user_avatar`,
-    formData,
-    {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await axiosAuth.put(`api/user_avatar`, formData);
 
   return UserAdapter.imageUrlTransform(response.data);
 }
 
 export async function deleteUserPhoto(userId: number): Promise<UserModel> {
-  const token = localStorage.getItem("token");
-  const response = await axios.delete(
-    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/user_avatar/${userId}`,
-    {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await axiosAuth.delete(`api/user_avatar/${userId}`);
 
   return response.data;
 }

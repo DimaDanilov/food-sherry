@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   ProductModel,
   ProfileProductModel,
@@ -11,6 +10,7 @@ import {
   ProductsData,
   ProductsProfileData,
 } from "./ProductAdapter";
+import { axiosAuth, axiosBase } from ".";
 
 export async function loadProducts(
   page?: number,
@@ -19,12 +19,9 @@ export async function loadProducts(
   categories?: string[],
   status?: ProductStatusType
 ): Promise<ProductsData> {
-  const response = await axios.get<ProductsData>(
-    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/product`,
-    {
-      params: { page, search, sort, status, categories },
-    }
-  );
+  const response = await axiosBase.get<ProductsData>(`api/product`, {
+    params: { page, search, sort, status, categories },
+  });
   return ProductAdapter.transformArray(response.data);
 }
 
@@ -34,8 +31,8 @@ export async function loadUserProducts(
   page: string
 ): Promise<ProductsProfileData> {
   try {
-    const response = await axios.get<ProfileProductModel[]>(
-      `${process.env.NEXT_PUBLIC_APP_API_URL}/api/product_user/${id}`,
+    const response = await axiosBase.get<ProfileProductModel[]>(
+      `api/product_user/${id}`,
       { params: { page, filter } }
     );
     return ProductAdapter.transformProfileProductArray(response.data);
@@ -46,8 +43,8 @@ export async function loadUserProducts(
 }
 
 export async function loadOneProduct(productId: string): Promise<ProductModel> {
-  const response = await axios.get<ProductModel>(
-    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/product/${productId}`
+  const response = await axiosBase.get<ProductModel>(
+    `api/product/${productId}`
   );
   return ProductAdapter.transform(response.data);
 }
@@ -55,8 +52,8 @@ export async function loadOneProduct(productId: string): Promise<ProductModel> {
 export async function loadUserTotalProducts(
   productId: string
 ): Promise<number> {
-  const response = await axios.get<number>(
-    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/product_created/${productId}`
+  const response = await axiosBase.get<number>(
+    `api/product_created/${productId}`
   );
   return response.data;
 }
@@ -72,16 +69,7 @@ export async function postProduct(product: any) {
       formData.append(key, product[key]);
     }
   }
-  const token = localStorage.getItem("token");
-  await axios.post(
-    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/product`,
-    formData,
-    {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  await axiosAuth.post(`api/product`, formData);
 }
 
 export async function updateProduct(
@@ -90,21 +78,12 @@ export async function updateProduct(
   amount: string,
   location: string
 ) {
-  const token = localStorage.getItem("token");
-  const response = await axios.put(
-    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/product`,
-    {
-      id: productId,
-      description,
-      amount,
-      location,
-    },
-    {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await axiosAuth.put(`api/product`, {
+    id: productId,
+    description,
+    amount,
+    location,
+  });
   return response.data;
 }
 
@@ -112,18 +91,9 @@ export async function updateProductStatus(
   productId: number,
   status: ProductStatusType
 ): Promise<ProductStatusModel> {
-  const token = localStorage.getItem("token");
-  const response = await axios.put(
-    `${process.env.NEXT_PUBLIC_APP_API_URL}/api/product_status`,
-    {
-      id: productId,
-      status,
-    },
-    {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await axiosAuth.put(`api/product_status`, {
+    id: productId,
+    status,
+  });
   return ProductAdapter.transformUpdatedStatus(response.data[1]);
 }

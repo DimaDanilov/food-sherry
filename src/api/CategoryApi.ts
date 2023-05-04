@@ -1,10 +1,9 @@
-import axios from "axios";
 import { CategoryModel } from "@/models/Category";
+import { axiosBase } from ".";
 
 export async function loadCategories(): Promise<CategoryModel[]> {
   try {
-    const url = `${process.env.NEXT_PUBLIC_APP_API_URL}/api/category`;
-    const response = await axios.get<CategoryModel[]>(url);
+    const response = await axiosBase.get<CategoryModel[]>(`api/category`);
     return response.data;
   } catch (e) {
     console.error(e);

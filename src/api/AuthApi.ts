@@ -2,18 +2,14 @@ import { UserModel } from "@/models/User";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { UserAdapter } from "./UserAdapter";
+import { axiosAuth, axiosBase } from ".";
 
 type AuthResponse = {
   token: string;
 };
 
-export async function auth(token: string): Promise<UserModel> {
-  const url = `${process.env.NEXT_PUBLIC_APP_API_URL}/api/auth`;
-  const { data } = await axios.get<AuthResponse>(url, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
+export async function auth(): Promise<UserModel> {
+  const { data } = await axiosAuth.get<AuthResponse>(`api/auth`);
   localStorage.setItem("token", data.token);
   return jwt_decode(data.token);
 }
@@ -23,13 +19,10 @@ export async function login(
   password: string
 ): Promise<UserModel> {
   try {
-    const { data } = await axios.post<AuthResponse>(
-      `${process.env.NEXT_PUBLIC_APP_API_URL}/api/login`,
-      {
-        email,
-        password,
-      }
-    );
+    const { data } = await axiosBase.post<AuthResponse>(`api/login`, {
+      email,
+      password,
+    });
     localStorage.setItem("token", data.token);
     return UserAdapter.transform(jwt_decode(data.token));
   } catch (e: any) {
@@ -50,7 +43,7 @@ export async function registerUser(
   surname: string,
   phone: string
 ) {
-  await axios.post(`${process.env.NEXT_PUBLIC_APP_API_URL}/api/register`, {
+  await axiosBase.post(`api/register`, {
     email,
     password,
     name,
@@ -65,7 +58,7 @@ export async function registerCompany(
   companyName: string,
   phone: string
 ) {
-  await axios.post(`${process.env.NEXT_PUBLIC_APP_API_URL}/api/register`, {
+  await axiosBase.post(`api/register`, {
     email,
     password,
     company_name: companyName,
