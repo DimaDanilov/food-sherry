@@ -9,6 +9,7 @@ import { ButtonCommon } from "@/ui/forms/buttons/ButtonCommon";
 import { InputUpdateData } from "@/ui/forms/inputs/InputUpdateData";
 import Image from "next/image";
 import { InputUpdateMask } from "@/ui/forms/inputs/InputUpdateMask";
+import { auth } from "@/api/AuthApi";
 
 type ProfileInfoProps = {
   user: UserModel;
@@ -38,6 +39,12 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
             phone,
             email,
           });
+          try {
+            const user: UserModel = await auth();
+            authStore.setUser(user);
+          } catch (e) {
+            authStore.setUser({} as UserModel);
+          }
         }
         setIsEditMode(!isEditMode);
       } catch (e: any) {
