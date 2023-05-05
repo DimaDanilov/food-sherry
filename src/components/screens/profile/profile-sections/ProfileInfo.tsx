@@ -8,6 +8,7 @@ import { useAuthStore } from "@/store/AuthStore";
 import { ButtonCommon } from "@/ui/forms/buttons/ButtonCommon";
 import { InputUpdateData } from "@/ui/forms/inputs/InputUpdateData";
 import Image from "next/image";
+import { InputUpdateMask } from "@/ui/forms/inputs/InputUpdateMask";
 
 type ProfileInfoProps = {
   user: UserModel;
@@ -175,8 +176,8 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
       <InfoDetails>
         <h5>Телефон:</h5>
         {isEditMode ? (
-          <InputUpdateData
-            type="tel"
+          <InputUpdateMask
+            mask="+7 (999) 999-99-99"
             name="phone"
             value={phone}
             onChange={onPhoneChange}
