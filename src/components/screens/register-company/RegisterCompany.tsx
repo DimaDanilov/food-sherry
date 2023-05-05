@@ -16,6 +16,7 @@ import { useAuthStore } from "@/store/AuthStore";
 import { observer } from "mobx-react";
 import { Loader } from "@/components/layout/Loader";
 import { registerCompany } from "@/api/AuthApi";
+import { FormMask } from "@/ui/forms/inputs/FormMask";
 
 export const RegisterCompanyScreen = observer(() => {
   const router = useRouter();
@@ -35,6 +36,12 @@ export const RegisterCompanyScreen = observer(() => {
     setEmail(e.target.value);
   };
   const onPhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const shortPhone = e.target.value.replace(/\D/g, "");
+    if (shortPhone.length < 11) {
+      e.currentTarget.setCustomValidity("Enter full phone number.");
+    } else {
+      e.currentTarget.setCustomValidity("");
+    }
     setPhone(e.target.value);
   };
   const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,9 +127,9 @@ export const RegisterCompanyScreen = observer(() => {
             styleType="secondary"
             required
           />
-          <FormInput
-            type="tel"
+          <FormMask
             name="tel"
+            mask="+7 (999) 999-99-99"
             placeholder="Телефон"
             inputValue={phone}
             inputOnChange={onPhoneChange}
