@@ -8,6 +8,7 @@ type InputUpdateDataProps = {
   placeholder?: string;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
 };
 
 export const InputUpdateData = ({
@@ -17,6 +18,7 @@ export const InputUpdateData = ({
   placeholder,
   value,
   onChange,
+  required,
 }: InputUpdateDataProps) => {
   return (
     <Input
@@ -27,6 +29,7 @@ export const InputUpdateData = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      required={required}
     />
   );
 };

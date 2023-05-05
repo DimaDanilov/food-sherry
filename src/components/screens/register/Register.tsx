@@ -16,7 +16,6 @@ import { useAuthStore } from "@/store/AuthStore";
 import { observer } from "mobx-react";
 import { Loader } from "@/components/layout/Loader";
 import { registerUser } from "@/api/AuthApi";
-import InputMask from "react-input-mask";
 import { FormMask } from "@/ui/forms/inputs/FormMask";
 
 export const RegisterScreen = observer(() => {

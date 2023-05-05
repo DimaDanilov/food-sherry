@@ -25,24 +25,26 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
   const [surname, setSurname] = useState<string>(user.surname);
   const [companyName, setCompanyName] = useState<string>(user.companyName);
 
-  const onUserEditClick = async () => {
-    try {
-      if (isEditMode) {
-        await updateUser({
-          userId: user.id,
-          name,
-          surname,
-          companyName,
-          phone,
-          email,
-        });
+  const onFormSubmit =
+    () => async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      try {
+        if (isEditMode) {
+          await updateUser({
+            userId: user.id,
+            name,
+            surname,
+            companyName,
+            phone,
+            email,
+          });
+        }
+        setIsEditMode(!isEditMode);
+      } catch (e: any) {
+        alert(e.response.data.message);
+        console.error(e);
       }
-      setIsEditMode(!isEditMode);
-    } catch (e: any) {
-      alert(e.response.data.message);
-      console.error(e);
-    }
-  };
+    };
 
   const onPhotoUpdate = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -70,6 +72,12 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
   };
 
   const onPhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const shortPhone = e.target.value.replace(/\D/g, "");
+    if (shortPhone.length < 11) {
+      e.currentTarget.setCustomValidity("Enter full phone number.");
+    } else {
+      e.currentTarget.setCustomValidity("");
+    }
     setPhone(e.target.value);
   };
   const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,135 +105,141 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
 
   return (
     <div>
-      <ProfileBriefData>
-        {/* Avatar Image */}
-        {user.id === authStore.user.id ? (
-          <ImageContainerForButtons>
-            {avatarUrl && (
-              <DeletePhotoBtn onClick={onPhotoDelete}>
-                <HiOutlineXCircle color={COLORS.mainHoverDark} size={30} />
-              </DeletePhotoBtn>
-            )}
-            <FileInput
-              type="file"
-              id="addAvatar"
-              value=""
-              name="addAvatar"
-              accept="image/png, image/gif, image/jpeg"
-              onChange={onPhotoUpdate}
-            />
-            <EditPhotoBtn htmlFor="addAvatar">
-              {avatarUrl ? (
-                <AvatarImageContainer>
-                  <AvatarImage
-                    width={400}
-                    height={400}
-                    alt=""
-                    src={avatarUrl}
-                  />
-                </AvatarImageContainer>
-              ) : (
-                <AvatarImagePlaceholder color={COLORS.mainColor} />
+      <form onSubmit={onFormSubmit()}>
+        <ProfileBriefData>
+          {/* Avatar Image */}
+          {user.id === authStore.user.id ? (
+            <ImageContainerForButtons>
+              {avatarUrl && (
+                <DeletePhotoBtn onClick={onPhotoDelete}>
+                  <HiOutlineXCircle color={COLORS.mainHoverDark} size={30} />
+                </DeletePhotoBtn>
               )}
-            </EditPhotoBtn>
-          </ImageContainerForButtons>
-        ) : avatarUrl ? (
-          <AvatarImageContainer>
-            <AvatarImage width={400} height={400} alt="" src={avatarUrl} />
-          </AvatarImageContainer>
-        ) : (
-          <AvatarImagePlaceholder color={COLORS.mainColor} />
-        )}
+              <FileInput
+                type="file"
+                id="addAvatar"
+                value=""
+                name="addAvatar"
+                accept="image/png, image/gif, image/jpeg"
+                onChange={onPhotoUpdate}
+              />
+              <EditPhotoBtn htmlFor="addAvatar">
+                {avatarUrl ? (
+                  <AvatarImageContainer>
+                    <AvatarImage
+                      width={400}
+                      height={400}
+                      alt=""
+                      src={avatarUrl}
+                    />
+                  </AvatarImageContainer>
+                ) : (
+                  <AvatarImagePlaceholder color={COLORS.mainColor} />
+                )}
+              </EditPhotoBtn>
+            </ImageContainerForButtons>
+          ) : avatarUrl ? (
+            <AvatarImageContainer>
+              <AvatarImage width={400} height={400} alt="" src={avatarUrl} />
+            </AvatarImageContainer>
+          ) : (
+            <AvatarImagePlaceholder color={COLORS.mainColor} />
+          )}
 
-        {user.name && isEditMode ? (
-          <>
+          {(user.name || user.surname) && isEditMode ? (
+            <>
+              <InputUpdateData
+                autoFocus={true}
+                type="text"
+                name="name"
+                value={name}
+                onChange={onNameChange}
+                required
+              />
+              <InputUpdateData
+                type="text"
+                name="surname"
+                value={surname}
+                onChange={onSurnameChange}
+                required
+              />
+            </>
+          ) : (
+            <>
+              <Title>{name}</Title>
+              <Title>{surname}</Title>
+            </>
+          )}
+
+          {user.companyName && isEditMode ? (
             <InputUpdateData
               autoFocus={true}
               type="text"
-              name="name"
-              value={name}
-              onChange={onNameChange}
+              name="companyName"
+              value={companyName}
+              onChange={onCompanyNameChange}
             />
-            <InputUpdateData
-              type="text"
-              name="surname"
-              value={surname}
-              onChange={onSurnameChange}
-            />
-          </>
-        ) : (
-          <>
-            <Title>{name}</Title>
-            <Title>{surname}</Title>
-          </>
-        )}
+          ) : (
+            <Title>{companyName}</Title>
+          )}
+        </ProfileBriefData>
 
-        {user.companyName && isEditMode ? (
-          <InputUpdateData
-            autoFocus={true}
-            type="text"
-            name="companyName"
-            value={companyName}
-            onChange={onCompanyNameChange}
-          />
-        ) : (
-          <Title>{companyName}</Title>
-        )}
-      </ProfileBriefData>
-
-      <InfoDetails>
-        <h5>Телефон:</h5>
-        {isEditMode ? (
-          <InputUpdateMask
-            mask="+7 (999) 999-99-99"
-            name="phone"
-            value={phone}
-            onChange={onPhoneChange}
-          />
-        ) : (
-          <span>{phone}</span>
-        )}
-      </InfoDetails>
-
-      <InfoDetails>
-        <h5>Почта:</h5>
-        {isEditMode ? (
-          <InputUpdateData
-            type="email"
-            name="email"
-            value={email}
-            onChange={onEmailChange}
-          />
-        ) : (
-          <span>{email}</span>
-        )}
-      </InfoDetails>
-
-      {user.timeCreated && (
-        <>
-          <InfoDetails>
-            <h5>Помогает с:</h5>
-            <span>{new Date(user.timeCreated).toLocaleDateString()}</span>
-          </InfoDetails>
-        </>
-      )}
-
-      {totalProducts !== null && (
         <InfoDetails>
-          <h5>Создал объявлений:</h5>
-          <p>{totalProducts}</p>
+          <h5>Телефон:</h5>
+          {isEditMode ? (
+            <InputUpdateMask
+              mask="+7 (999) 999-99-99"
+              name="phone"
+              value={phone}
+              onChange={onPhoneChange}
+            />
+          ) : (
+            <span>{phone}</span>
+          )}
         </InfoDetails>
-      )}
 
-      {user.id === authStore.user.id && (
-        <ButtonCommon
-          onClick={onUserEditClick}
-          styleType="primary"
-          padding="8px 0"
-        >
-          {isEditMode ? "Сохранить редактирование" : "Редактировать"}
-        </ButtonCommon>
-      )}
+        <InfoDetails>
+          <h5>Почта:</h5>
+          {isEditMode ? (
+            <InputUpdateData
+              type="email"
+              name="email"
+              value={email}
+              onChange={onEmailChange}
+              required
+            />
+          ) : (
+            <span>{email}</span>
+          )}
+        </InfoDetails>
+
+        {user.timeCreated && (
+          <>
+            <InfoDetails>
+              <h5>Помогает с:</h5>
+              <span>{new Date(user.timeCreated).toLocaleDateString()}</span>
+            </InfoDetails>
+          </>
+        )}
+
+        {totalProducts !== null && (
+          <InfoDetails>
+            <h5>Создал объявлений:</h5>
+            <p>{totalProducts}</p>
+          </InfoDetails>
+        )}
+
+        {user.id === authStore.user.id && (
+          <ButtonCommon
+            type="submit"
+            // onClick={onUserEditClick}
+            styleType="primary"
+            padding="8px 0"
+          >
+            {isEditMode ? "Сохранить редактирование" : "Редактировать"}
+          </ButtonCommon>
+        )}
+      </form>
     </div>
   );
 };
