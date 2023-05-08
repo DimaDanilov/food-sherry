@@ -4,7 +4,7 @@ import { RegisterCompanyScreen } from "@/components/screens/register-company/Reg
 export default function RegisterCompany() {
   return (
     <Layout
-      pageTitle="Register"
+      pageTitle="Register Company"
       pageDescription="Connect with companies who care about reducing food waste and making a difference. Register with our foodsharing website today."
     >
       <RegisterCompanyScreen />
