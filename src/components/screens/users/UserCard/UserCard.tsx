@@ -1,7 +1,7 @@
 import { UserShortModel } from "@/api/UserAdapter";
 import { COLORS } from "@/styles/globalStyles";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import Link from "next/link";
 import styled from "styled-components";
 
 type UserCardProps = {
@@ -9,34 +9,36 @@ type UserCardProps = {
 };
 
 export const UserCard = ({ user }: UserCardProps) => {
-  const router = useRouter();
-
-  const handleClick = () => router.push(`/profile/${user.id}`);
-
   return (
-    <Card>
-      <CardImage
-        src={user.avatar || "/icons/product_placeholder.svg"}
-        alt={user.surname || user.companyName}
-        width={200}
-        height={200}
-        onClick={handleClick}
-      />
-      {user.name || user.surname ? (
-        <>
-          <span>{user.name} </span>
-          <span>{user.surname}</span>
-        </>
-      ) : (
-        <span>{user.companyName}</span>
-      )}
-    </Card>
+    <CardLink href={`/profile/${user.id}`}>
+      <Card>
+        <CardImage
+          src={user.avatar || "/icons/product_placeholder.svg"}
+          alt={user.surname || user.companyName}
+          width={100}
+          height={100}
+        />
+        <CardContent>
+          {user.name || user.surname ? (
+            <h4>
+              {user.name} {user.surname}
+            </h4>
+          ) : (
+            <h4>{user.companyName}</h4>
+          )}
+        </CardContent>
+      </Card>
+    </CardLink>
   );
 };
 
+const CardLink = styled(Link)``;
+
 const Card = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  gap: 20px;
+  padding: 10px;
   transition: 0.15s;
   border-radius: 15px;
   background-color: ${COLORS.white};
@@ -54,8 +56,14 @@ const Card = styled.div`
 `;
 
 const CardImage = styled(Image)`
-  border-radius: 15px 15px 0 0;
-  cursor: pointer;
-  width: 100%;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
+`;
+
+const CardContent = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

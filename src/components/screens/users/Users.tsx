@@ -58,7 +58,7 @@ export const UsersScreen = ({ usersData, page, search }: UsersScreenProps) => {
       </form>
       <CardsContainer>
         {usersData.users?.map((user) => (
-          <UserCard user={user} />
+          <UserCard key={user.id} user={user} />
         ))}
       </CardsContainer>
       <Paginator
@@ -73,7 +73,7 @@ export const UsersScreen = ({ usersData, page, search }: UsersScreenProps) => {
 const CardsContainer = styled.div`
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10vh 6vh;
-  margin: 20px auto;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3vh;
+  margin: 30px auto;
 `;
