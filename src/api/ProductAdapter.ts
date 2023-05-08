@@ -67,10 +67,7 @@ export class ProductAdapter {
       imagesSrc: this.imagesUrlTransform(productItem.images),
     };
   }
-  static transformShortArray(data: any): {
-    products: ProductShortModel[];
-    totalCount: number;
-  } {
+  static transformShortArray(data: any): ProductsShortData {
     return {
       products: data.rows.map((item: any) => this.transformShort(item)),
       totalCount: data.count,

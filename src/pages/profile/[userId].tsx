@@ -3,7 +3,6 @@ import { loadOneUser, loadUsers } from "@/api/UserApi";
 import { Layout } from "@/components/layout/Layout";
 import { ProfileScreen } from "@/components/screens/profile/Profile";
 import { UserModel } from "@/models/User";
-import axios from "axios";
 
 type ProfileProps = {
   user: UserModel;
@@ -24,7 +23,7 @@ export default function Profile({ user, totalProducts }: ProfileProps) {
 export async function getStaticPaths() {
   try {
     const data = await loadUsers();
-    const paths = data?.map((user) => ({
+    const paths = data.users?.map((user) => ({
       params: { userId: user.id.toString() },
     }));
 

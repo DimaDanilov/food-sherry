@@ -1,10 +1,15 @@
 import { UserModel } from "@/models/User";
-import { UserAdapter } from "./UserAdapter";
+import { UserAdapter, UserShortData } from "./UserAdapter";
 import { axiosBase, axiosAuth } from ".";
 
-export async function loadUsers(): Promise<UserModel[]> {
-  const response = await axiosBase.get<UserModel[]>(`api/user`);
-  return response.data;
+export async function loadUsers(
+  page?: number,
+  search?: string
+): Promise<UserShortData> {
+  const response = await axiosBase.get<UserShortData>(`api/user`, {
+    params: { page, search },
+  });
+  return UserAdapter.transformShortArray(response.data);
 }
 
 export async function loadOneUser(userId: string): Promise<UserModel> {

@@ -63,6 +63,20 @@ export const Header = observer(() => {
                 <NavLink href="/give-product">Отдать еду</NavLink>
               </MainNavLi>
             )}
+            <MainNavLi
+              activeColor={
+                router.pathname === "/users"
+                  ? COLORS.mainActive
+                  : COLORS.mainColor
+              }
+              hoverColor={
+                router.pathname === "/users"
+                  ? COLORS.mainActive
+                  : COLORS.mainHoverDark
+              }
+            >
+              <NavLink href="/users">Пользователи</NavLink>
+            </MainNavLi>
           </MainNavUl>
         </Nav>
       </LeftContainer>
