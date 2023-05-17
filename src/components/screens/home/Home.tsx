@@ -32,7 +32,7 @@ export const HomeScreen = () => {
           </Description>
           <ButtonCommon
             padding="20px"
-            width="70%"
+            width="100%"
             styleType="primary"
             onClick={handleClick}
           >
@@ -48,6 +48,7 @@ const Background = styled(Image)`
   position: fixed;
   width: 100%;
   height: 100%;
+  object-fit: cover;
   -webkit-filter: blur(5px);
   -moz-filter: blur(5px);
   -o-filter: blur(5px);
@@ -56,7 +57,7 @@ const Background = styled(Image)`
 `;
 
 const BackgroundOverlay = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;

@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { Loader } from "@/components/layout/Loader";
 import { observer } from "mobx-react";
 import { CategoryModel } from "@/models/Category";
+import { SIZES } from "@/styles/globalStyles";
 
 type GiveProductScreenProps = {
   categories: CategoryModel[];
@@ -51,7 +52,7 @@ export const GiveProductScreen = observer(
     return !authStore.firstLoadCompleted || !authStore.user.id ? (
       <Loader />
     ) : (
-      <PageContainer>
+      <Container>
         <Form action="" method="post" onSubmit={onFormSubmit}>
           <FieldsContainer>
             <GiveProductForm categories={categories} />
@@ -61,26 +62,31 @@ export const GiveProductScreen = observer(
             <AddPhotoBlock />
           </PhotosContainer>
         </Form>
-      </PageContainer>
+      </Container>
     );
   }
 );
 
-const PageContainer = styled(Container)`
-  display: flex;
-  justify-content: space-between;
-`;
-
 const Form = styled.form`
   width: 100%;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  @media (max-width: ${SIZES.tablet}) {
+    flex-direction: column-reverse;
+  }
 `;
 
 const FieldsContainer = styled.div`
   width: 50%;
+  @media (max-width: ${SIZES.tablet}) {
+    width: 100%;
+  }
 `;
 
 const PhotosContainer = styled.div`
   width: 40%;
+  @media (max-width: ${SIZES.tablet}) {
+    width: 100%;
+  }
 `;

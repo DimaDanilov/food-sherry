@@ -130,7 +130,7 @@ const Container = styled.header`
   align-items: center;
   padding: 0 3%;
   height: 8vh;
-  z-index: 1;
+  z-index: 1000;
 `;
 
 const LeftContainer = styled.div`

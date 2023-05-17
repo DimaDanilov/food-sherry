@@ -23,7 +23,7 @@ export const ButtonCommon = ({
 }: ButtonCommonProps) => {
   return (
     <StyledButton
-      width={width || "100%"}
+      width={width}
       margin={margin || "0 auto"}
       padding={padding}
       bgColor={styleType === "primary" ? COLORS.mainColor : COLORS.white}
@@ -39,7 +39,7 @@ export const ButtonCommon = ({
 };
 
 type StyledButtonProps = {
-  width: string;
+  width?: string;
   margin: string;
   padding?: string;
   bgColor: string;

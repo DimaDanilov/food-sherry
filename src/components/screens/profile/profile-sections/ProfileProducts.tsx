@@ -1,4 +1,4 @@
-import { COLORS } from "@/styles/globalStyles";
+import { COLORS, SIZES } from "@/styles/globalStyles";
 import styled from "styled-components";
 import { useEffect, useState, useCallback } from "react";
 import { loadUserProducts } from "@/api/ProductApi";
@@ -103,22 +103,9 @@ type ProductsHeaderProps = {
 const ProductsHeader = styled.div<ProductsHeaderProps>`
   display: flex;
   align-items: end;
-  div:nth-child(1) {
-    border-radius: ${(props) =>
-      props.activeItem === "current" ? "11px 11px 0 0" : "11px 0 0 0"};
-  }
   div:nth-child(2) {
-    border-radius: ${(props) =>
-      props.activeItem === "closed" && "11px 11px 0 0"};
     border-left-style: none;
     border-right-style: none;
-  }
-  div:nth-last-child(1) {
-    border-radius: ${(props) =>
-      props.activeItem === "taken" ? "11px 11px 0 0" : "0 11px 0 0"};
-  }
-  & > div:hover {
-    border-radius: 11px 11px 0 0;
   }
 `;
 
@@ -129,6 +116,7 @@ type HeaderElProps = {
 const HeaderEl = styled.div<HeaderElProps>`
   border: 2px solid ${COLORS.mainColor};
   border-bottom-style: none;
+  border-radius: 11px 11px 0 0;
   padding: ${(props) => (props.active ? "10px 5px" : "5px")};
   background-color: ${(props) =>
     props.active ? COLORS.mainColor : "transparent"};
@@ -160,6 +148,15 @@ const ProductsBlock = styled.div`
 
 const ProductsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   gap: 30px;
+  grid-template-columns: repeat(4, 1fr);
+  @media (max-width: ${SIZES.laptop}) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: ${SIZES.tablet}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: ${SIZES.mobileL}) {
+    grid-template-columns: 1fr;
+  }
 `;

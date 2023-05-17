@@ -21,6 +21,7 @@ export const AuthForm = ({
       {children}
       <ButtonCommon
         type="submit"
+        width="100%"
         padding="10px"
         styleType={styleType}
         value="Submit"

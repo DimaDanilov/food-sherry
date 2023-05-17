@@ -6,6 +6,7 @@ import { ProfileInfo } from "./profile-sections/ProfileInfo";
 import { UserModel } from "@/models/User";
 import { useRouter } from "next/router";
 import { ProfileProductFilterType } from "@/models/Product";
+import { SIZES } from "@/styles/globalStyles";
 
 type ProfileScreenProps = {
   user: UserModel;
@@ -54,13 +55,24 @@ export const ProfileScreen = ({ user, totalProducts }: ProfileScreenProps) => {
 
 const PageContainer = styled(Container)`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  gap: 30px;
+  @media (max-width: ${SIZES.tablet}) {
+    flex-direction: column;
+  }
 `;
 
 const ProfileInfoContainer = styled.div`
   width: 25%;
+  @media (max-width: ${SIZES.tablet}) {
+    width: 100%;
+  }
 `;
 
 const ProfileProductsContainer = styled.div`
   width: 65%;
+  @media (max-width: ${SIZES.tablet}) {
+    width: 100%;
+  }
 `;

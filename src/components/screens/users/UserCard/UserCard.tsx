@@ -15,8 +15,8 @@ export const UserCard = ({ user }: UserCardProps) => {
         <CardImage
           src={user.avatar || "/icons/product_placeholder.svg"}
           alt={user.surname || user.companyName}
-          width={100}
-          height={100}
+          width={80}
+          height={80}
         />
         <CardContent>
           {user.name || user.surname ? (
@@ -57,8 +57,8 @@ const Card = styled.div`
 
 const CardImage = styled(Image)`
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
 `;
 

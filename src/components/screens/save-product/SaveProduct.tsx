@@ -1,5 +1,5 @@
 import { Paginator } from "../../common/paginator/Paginator";
-import { COLORS } from "@/styles/globalStyles";
+import { COLORS, SIZES } from "@/styles/globalStyles";
 import { Container } from "@/ui/layout/Container";
 import { SearchInput } from "@/ui/forms/inputs/SearchInput";
 import {
@@ -139,11 +139,20 @@ export const SaveProductScreen = ({
 };
 
 const CardsContainer = styled.div`
-  display: grid;
   width: 100%;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10vh 6vh;
   margin: 20px auto;
+  display: grid;
+  gap: 10vh 6vh;
+  grid-template-columns: repeat(4, 1fr);
+  @media (max-width: ${SIZES.laptop}) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: ${SIZES.tablet}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: ${SIZES.mobileL}) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const SortBtn = styled.button`

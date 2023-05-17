@@ -1,5 +1,5 @@
 import { UserModel } from "@/models/User";
-import { COLORS } from "@/styles/globalStyles";
+import { COLORS, SIZES } from "@/styles/globalStyles";
 import { useState, useEffect } from "react";
 import { HiOutlineXCircle, HiUserCircle } from "react-icons/hi2";
 import styled from "styled-components";
@@ -239,7 +239,7 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
         {user.id === authStore.user.id && (
           <ButtonCommon
             type="submit"
-            // onClick={onUserEditClick}
+            width="100%"
             styleType="primary"
             padding="8px 0"
           >
@@ -254,6 +254,9 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
 const ProfileBriefData = styled.div`
   margin: 0 auto 20px;
   text-align: center;
+  @media (max-width: ${SIZES.tablet}) {
+    width: 45%;
+  }
 `;
 
 const FileInput = styled.input`

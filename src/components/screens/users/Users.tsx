@@ -1,5 +1,5 @@
 import { UserShortData } from "@/api/UserAdapter";
-import { COLORS } from "@/styles/globalStyles";
+import { COLORS, SIZES } from "@/styles/globalStyles";
 import { SearchInput } from "@/ui/forms/inputs/SearchInput";
 import { Container } from "@/ui/layout/Container";
 import { useRouter } from "next/router";
@@ -71,9 +71,15 @@ export const UsersScreen = ({ usersData, page, search }: UsersScreenProps) => {
 };
 
 const CardsContainer = styled.div`
-  display: grid;
   width: 100%;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 3vh;
   margin: 30px auto;
+  display: grid;
+  gap: 3vh;
+  grid-template-columns: repeat(3, 1fr);
+  @media (max-width: ${SIZES.laptop}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: ${SIZES.tablet}) {
+    grid-template-columns: 1fr;
+  }
 `;

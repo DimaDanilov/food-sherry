@@ -1,7 +1,7 @@
 import { useState, useCallback, memo } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { COLORS } from "@/styles/globalStyles";
+import { COLORS, SIZES } from "@/styles/globalStyles";
 
 type SmallImageProps = {
   imageUrl: string;
@@ -87,6 +87,9 @@ const GridImages = styled.div`
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
   gap: 10px;
+  @media (max-width: ${SIZES.mobileL}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 interface CustomSmallImageProps {

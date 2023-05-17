@@ -1,5 +1,5 @@
 import { CategoryModel } from "@/models/Category";
-import { COLORS } from "@/styles/globalStyles";
+import { COLORS, SIZES } from "@/styles/globalStyles";
 import { ButtonCommon } from "@/ui/forms/buttons/ButtonCommon";
 import { Checkbox } from "@/ui/forms/inputs/Checkbox";
 import { useRouter } from "next/router";
@@ -76,10 +76,16 @@ const Window = styled.div<WindowProps>`
   background-color: ${COLORS.mainColor};
   position: relative;
   z-index: 1;
+  @media (max-width: ${SIZES.tablet}) {
+    width: 80vw;
+  }
 `;
 
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
+  @media (max-width: ${SIZES.tablet}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;

@@ -1,3 +1,4 @@
+import { SIZES } from "@/styles/globalStyles";
 import { Container } from "@/ui/layout/Container";
 import Image from "next/image";
 import styled from "styled-components";
@@ -44,13 +45,7 @@ export const AboutUsScreen = () => {
         />
       </FlexBlock>
 
-      <FlexBlock>
-        <BlockImage
-          width={360}
-          height={240}
-          src={"/images/about_us_companies.jpg"}
-          alt="About Us Image"
-        />
+      <FlexBlock isReversed>
         <BlockContent>
           <BlockTitle>Сотрудничество с компаниями</BlockTitle>
           <BlockDescription>
@@ -69,6 +64,12 @@ export const AboutUsScreen = () => {
             готовы отдавать свои продукты питания, с теми, кто нуждается в них.
           </BlockDescription>
         </BlockContent>
+        <BlockImage
+          width={360}
+          height={240}
+          src={"/images/about_us_companies.jpg"}
+          alt="About Us Image"
+        />
       </FlexBlock>
 
       <FlexBlock>
@@ -108,26 +109,33 @@ const MainContent = styled.div`
   justify-content: center;
   gap: 15px;
   margin: 0 auto;
-  width: 60%;
+  width: 80%;
 `;
 const Title = styled.h1`
   text-align: center;
 `;
 const Description = styled.p`
-  text-align: center;
+  text-align: justify;
 `;
-const FlexBlock = styled.div`
+
+type FlexBlockProps = {
+  isReversed?: boolean;
+};
+
+const FlexBlock = styled.div<FlexBlockProps>`
   display: flex;
-  flex-direction: row;
+  flex-direction: ${({ isReversed }) => (isReversed ? "row-reverse" : "row")};
   justify-content: space-between;
   gap: 30px;
+  @media (max-width: ${SIZES.tablet}) {
+    flex-direction: column;
+  }
 `;
 const BlockContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 15px;
-  width: 60%;
 `;
 const BlockTitle = styled.h2``;
 const BlockDescription = styled.p`
@@ -135,4 +143,9 @@ const BlockDescription = styled.p`
 `;
 const BlockImage = styled(Image)`
   border-radius: 15px;
+  max-width: 100%;
+  object-fit: cover;
+  @media (max-width: ${SIZES.tablet}) {
+    margin: 0 auto;
+  }
 `;

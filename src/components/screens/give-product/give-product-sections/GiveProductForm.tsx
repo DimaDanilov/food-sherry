@@ -11,9 +11,8 @@ import { ButtonCommon } from "@/ui/forms/buttons/ButtonCommon";
 import styled from "styled-components";
 import { useGiveProductStore } from "../store/GiveProductStore";
 import { observer } from "mobx-react";
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { CategoryModel } from "@/models/Category";
-import { loadCategories } from "@/api/CategoryApi";
 import { InputDateTime } from "@/ui/forms/inputs/InputDateTime";
 
 const now = new Date();
@@ -142,6 +141,7 @@ export const GiveProductForm = observer(
         />
         <ButtonCommon
           type="submit"
+          width="100%"
           padding="10px"
           styleType="primary"
           value="Submit"

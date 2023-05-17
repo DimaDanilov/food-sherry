@@ -1,4 +1,4 @@
-import { COLORS } from "@/styles/globalStyles";
+import { COLORS, SIZES } from "@/styles/globalStyles";
 import { AuthForm } from "@/ui/forms/AuthForm";
 import { Container } from "@/ui/layout/Container";
 import { FormInput } from "@/ui/forms/inputs/FormInput";
@@ -85,7 +85,7 @@ export const LoginScreen = observer(() => {
 });
 
 const LoginFormContainer = styled.div`
-  width: 40%;
+  width: 600px;
   margin: 0 auto;
   padding: 40px;
   background-color: ${COLORS.mainColor};
@@ -93,6 +93,15 @@ const LoginFormContainer = styled.div`
   flex-direction: column;
   gap: 30px;
   border-radius: 15px;
+  @media (max-width: ${SIZES.laptop}) {
+    width: 60%;
+  }
+  @media (max-width: ${SIZES.tablet}) {
+    width: 80%;
+  }
+  @media (max-width: ${SIZES.mobileL}) {
+    width: 100%;
+  }
 `;
 
 const Title = styled.h1`

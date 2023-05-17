@@ -1,4 +1,4 @@
-import { COLORS } from "@/styles/globalStyles";
+import { COLORS, SIZES } from "@/styles/globalStyles";
 import { useCallback, useEffect, useRef } from "react";
 import { HiOutlineCamera, HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
@@ -79,7 +79,7 @@ export const AddPhotoBlock = observer(() => {
             : COLORS.mainHoverLight
         }
       >
-        <HiOutlineCamera color={COLORS.white} size={150} />
+        <HiOutlineCamera color={COLORS.white} size="60%" />
       </PhotoLabel>
 
       <InputImage
@@ -114,11 +114,14 @@ export const AddPhotoBlock = observer(() => {
 });
 
 const PhotosContainer = styled.div`
+  margin: 5px auto 25px;
   display: grid;
+  gap: 10px;
   align-items: center;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin: 40px auto;
+  @media (max-width: ${SIZES.mobileL}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 const Photo = styled.img`
@@ -152,7 +155,8 @@ const PhotoLabel = styled.label<PhotoLabelProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 250px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   background-color: ${(props) => props.bgColor};
   cursor: pointer;
   &:hover {

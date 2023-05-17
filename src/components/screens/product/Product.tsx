@@ -1,7 +1,7 @@
 import { updateProduct, updateProductStatus } from "@/api/ProductApi";
 import { ProductModel, ProductStatusType } from "@/models/Product";
 import { useAuthStore } from "@/store/AuthStore";
-import { COLORS, FONT_SIZE } from "@/styles/globalStyles";
+import { COLORS, FONT_SIZE, SIZES } from "@/styles/globalStyles";
 import { ButtonCommon } from "@/ui/forms/buttons/ButtonCommon";
 import { Container } from "@/ui/layout/Container";
 import { IconWithText } from "@/ui/layout/IconWithText";
@@ -245,11 +245,19 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
 
 const FlexContainer = styled(Container)`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  gap: 20px;
+  @media (max-width: ${SIZES.tablet}) {
+    flex-direction: column-reverse;
+  }
 `;
 
 const FlexItem = styled.div`
   width: 45%;
+  @media (max-width: ${SIZES.tablet}) {
+    width: 100%;
+  }
 `;
 
 const FlexTitleContainer = styled.div`

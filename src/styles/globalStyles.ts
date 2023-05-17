@@ -5,6 +5,12 @@ export const montserrat = Montserrat({
   weight: ["200", "300", "400"],
 });
 
+export const SIZES = {
+  mobileL: "425px",
+  tablet: "768px",
+  laptop: "1024px",
+};
+
 export const FONT_SIZE = {
   h1: "28px",
   h2: "24px",

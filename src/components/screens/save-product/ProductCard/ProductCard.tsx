@@ -60,6 +60,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             {product.location}
           </IconWithText>
           <CardButton
+            width="100%"
             margin="10px auto"
             padding="10px"
             styleType="primary"
