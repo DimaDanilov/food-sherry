@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
-import { COLORS } from "@/styles/globalStyles";
+import { COLORS, SIZES } from "@/styles/globalStyles";
 import { Icon } from "@/ui/layout/Icon";
 import { HiOutlineArrowLeftOnRectangle, HiUserCircle } from "react-icons/hi2";
 import { useAuthStore } from "@/store/AuthStore";
@@ -31,7 +31,8 @@ export const Header = observer(() => {
             height={40}
           />
         </NavLink>
-        <Nav>
+        <Nav burgerHoverColor={COLORS.mainHoverDark}>
+          <DropDownText>Меню</DropDownText>
           <MainNavUl>
             <MainNavLi
               activeColor={
@@ -139,9 +140,13 @@ const LeftContainer = styled.div`
   height: 100%;
 `;
 
-const Nav = styled.nav`
-  display: flex;
-  align-items: center;
+const DropDownText = styled.span`
+  display: none;
+  color: white;
+  height: 100%;
+  padding: 0 20px;
+  cursor: pointer;
+  transition: 0.3s;
 `;
 
 const NavUl = styled.ul`
@@ -174,6 +179,37 @@ const NavLink = styled(Link)`
   align-items: center;
   justify-content: center;
   transition: 0.3s;
+`;
+
+type NavProps = {
+  burgerHoverColor: string;
+};
+
+const Nav = styled.nav<NavProps>`
+  display: flex;
+  align-items: center;
+  @media (max-width: 820px) {
+    & > ${MainNavUl} {
+      display: none;
+    }
+    & ${NavLink} {
+      width: 100%;
+    }
+    & > ${DropDownText} {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &:hover > ${DropDownText} {
+      background-color: ${(props) => props.burgerHoverColor};
+    }
+    &:hover > ${MainNavUl} {
+      display: block;
+      position: absolute;
+      top: 100%;
+    }
+  }
 `;
 
 type MainNavLiProps = {

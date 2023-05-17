@@ -206,6 +206,7 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
           authStore.user.id &&
           authStore.user.id !== product.author.id && (
             <ButtonCommon
+              width="100%"
               margin="10px auto"
               padding="10px"
               styleType="primary"
@@ -221,6 +222,7 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
             authStore.user.id === clientId) && (
             <>
               <ButtonCommon
+                width="100%"
                 margin="10px auto"
                 padding="10px"
                 styleType="primary"
@@ -229,6 +231,7 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
                 Снять бронь
               </ButtonCommon>
               <ButtonCommon
+                width="100%"
                 margin="10px auto"
                 padding="10px"
                 styleType="primary"
