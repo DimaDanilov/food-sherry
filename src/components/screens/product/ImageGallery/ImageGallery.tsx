@@ -36,6 +36,8 @@ const SmallImage = memo(
   }
 );
 
+SmallImage.displayName = "SmallImage";
+
 type ImageGalleryProps = {
   imageUrls: string[];
 };
