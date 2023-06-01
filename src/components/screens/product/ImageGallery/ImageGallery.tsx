@@ -36,8 +36,6 @@ const SmallImage = memo(
   }
 );
 
-SmallImage.displayName = "SmallImage";
-
 type ImageGalleryProps = {
   imageUrls: string[];
 };
@@ -47,6 +45,8 @@ export const ImageGallery = ({ imageUrls }: ImageGalleryProps) => {
   const onImageClick = useCallback((id: number) => {
     setCurrentImageID(id);
   }, []);
+
+  SmallImage.displayName = "SmallImage";
 
   return (
     <GalleryContainer>
