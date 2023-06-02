@@ -5,7 +5,15 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    domains: ["localhost"],
+    domains: ["*"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+        port: "",
+        pathname: "**",
+      },
+    ],
   },
 };
 

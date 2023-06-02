@@ -62,5 +62,6 @@ export async function getStaticProps({ params }: GetStaticPropsProps) {
       user,
       totalProducts,
     },
+    revalidate: 5,
   };
 }
