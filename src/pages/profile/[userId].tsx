@@ -46,7 +46,7 @@ export async function getStaticProps({ params }: GetStaticPropsProps) {
     user = await loadOneUser(params.userId);
   } catch (e) {
     console.error(e);
-    return { notFound: true };
+    return { notFound: false };
   }
 
   let totalProducts: number | null;
