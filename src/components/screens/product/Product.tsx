@@ -41,7 +41,8 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
   const [description, setDescription] = useState<string>(product.description);
   const [amount, setAmount] = useState<string>(product.amount);
   const [location, setLocation] = useState<string>(product.location);
-  const [date, setDate] = useState<string>("");
+  const [dateCreated, setDateCreated] = useState<string>("");
+  const [dateToTake, setDateToTake] = useState<string>("");
 
   const onDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDescription(e.target.value);
@@ -72,7 +73,8 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
     setDescription(product.description);
     setAmount(product.amount);
     setLocation(product.location);
-    setDate(parseCreateDate(product.timeCreated));
+    setDateCreated(parseCreateDate(product.timeCreated));
+    setDateToTake(parseTakeDate(product.timeToTake));
   }, [product]);
 
   const onReservingChange = async (
@@ -109,7 +111,9 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
             )}
         </FlexTitleContainer>
 
-        <RegularText fontColor={COLORS.gray}>Добавлено: {date}</RegularText>
+        <RegularText fontColor={COLORS.gray}>
+          Добавлено: {dateCreated}
+        </RegularText>
         <NavLink href={`/profile/${product.author.id}`} color="red">
           <IconWithText icon={<HiOutlineUser />} iconScale={1.3}>
             {product.author.name
@@ -151,12 +155,12 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
         <BlockWithTooltip>
           <IconWithText icon={<HiOutlineClock />} iconScale={1.3}>
             {productStatus !== "closed"
-              ? new Date(product.timeToTake).toString()
-                ? `Можно забрать: ${new Date(product.timeToTake).toString()}`
+              ? dateToTake
+                ? `Можно забрать: ${dateToTake}`
                 : "Outdated"
               : "Closed"}
           </IconWithText>
-          <Tooltip>{new Date(product.timeToTake).toString()}</Tooltip>
+          <Tooltip>{new Date(product.timeToTake).toLocaleString()}</Tooltip>
         </BlockWithTooltip>
 
         {product.location && isEditMode ? (

@@ -20,12 +20,21 @@ export function parseTakeDate(dateString: string): string {
     return ``;
   } else if (isToday) {
     // between TODAY 00:00:00 - 23:59:59
-    return `Today ${date.toTimeString()}`;
+    return `Today ${date.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hourCycle: "h23",
+    })}`;
   } else if (date <= startOfNextWeek) {
     // between TOMORROW 00:00:00 and NEXT SAMEDAYOFTHEWEEK 00:00:00
-    return `${date.toString()}`;
+    return `${date.toLocaleString("en-US", {
+      weekday: "long",
+      hour: "numeric",
+      minute: "numeric",
+      hourCycle: "h23",
+    })}`;
   } else {
     // after NEXT SAMEDAYOFTHEWEEK 00:00:00
-    return `${date.toDateString()} ${date.toTimeString()}`;
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
   }
 }

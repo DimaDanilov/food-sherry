@@ -13,11 +13,20 @@ export function parseCreateDate(dateString: string): string {
     todayStart.getDate() + 1
   );
 
+  const options: Intl.DateTimeFormatOptions = {
+    hour: "numeric",
+    minute: "numeric",
+    hourCycle: "h23",
+  };
+
   if (todayStart <= date && date < tomorrowStart) {
-    return `Today ${date.toTimeString()}`;
+    return `Today ${date.toLocaleTimeString("en-US", options)}`;
   } else if (yesterdayStart <= date && date < todayStart) {
-    return `Yesterday ${date.toTimeString()}`;
+    return `Yesterday ${date.toLocaleTimeString("en-US", options)}`;
   } else {
-    return `${date.toDateString()} ${date.toTimeString()}`;
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString(
+      "en-US",
+      options
+    )}`;
   }
 }
