@@ -20,12 +20,12 @@ export function parseCreateDate(dateString: string): string {
   };
 
   if (todayStart <= date && date < tomorrowStart) {
-    return `Today ${date.toLocaleTimeString("en-US", options)}`;
+    return `Сегодня ${date.toLocaleTimeString("ru-RU", options)}`;
   } else if (yesterdayStart <= date && date < todayStart) {
-    return `Yesterday ${date.toLocaleTimeString("en-US", options)}`;
+    return `Вчера ${date.toLocaleTimeString("ru-RU", options)}`;
   } else {
     return `${date.toLocaleDateString()} ${date.toLocaleTimeString(
-      "en-US",
+      "ru-RU",
       options
     )}`;
   }
