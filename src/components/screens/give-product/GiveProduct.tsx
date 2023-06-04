@@ -40,7 +40,9 @@ export const GiveProductScreen = observer(
                   category_id: giveProductStore.productSelect,
                   description: giveProductStore.productDescription,
                   amount: giveProductStore.productAmount,
-                  time_to_take: giveProductStore.productDatetimeToTake,
+                  time_to_take: new Date(
+                    giveProductStore.productDatetimeToTake
+                  ).toString(),
                   location: giveProductStore.productAddress,
                   images: decodedImages,
                   status: "open",
