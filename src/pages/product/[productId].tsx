@@ -18,34 +18,21 @@ export default function Product({ product }: ProductProps) {
   );
 }
 
-export async function getStaticPaths() {
-  try {
-    const data = await loadProducts();
-    const paths = data.products?.map((product) => ({
-      params: { productId: product.id.toString() },
-    }));
-
-    return { paths, fallback: false };
-  } catch (e) {
-    console.error(e);
-    return { paths: [], fallback: false };
-  }
-}
-
-type GetStaticPropsProps = {
+type getServerSidePropsProps = {
   params: {
     productId: string;
   };
 };
 
-export async function getStaticProps({ params }: GetStaticPropsProps) {
+export async function getServerSideProps({ params }: getServerSidePropsProps) {
+  const productId = params.productId;
+
   try {
-    const product = await loadOneProduct(params.productId);
+    const product = await loadOneProduct(productId);
     return {
       props: {
         product,
       },
-      revalidate: 5,
     };
   } catch (e) {
     console.error(e);

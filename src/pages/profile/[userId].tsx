@@ -20,38 +20,26 @@ export default function Profile({ user, totalProducts }: ProfileProps) {
   );
 }
 
-export async function getStaticPaths() {
-  try {
-    const data = await loadUsers();
-    const paths = data.users?.map((user) => ({
-      params: { userId: user.id.toString() },
-    }));
-
-    return { paths, fallback: false };
-  } catch (e) {
-    console.error(e);
-    return { paths: [], fallback: false };
-  }
-}
-
-type GetStaticPropsProps = {
+type getServerSidePropsProps = {
   params: {
     userId: string;
   };
 };
 
-export async function getStaticProps({ params }: GetStaticPropsProps) {
+export async function getServerSideProps({ params }: getServerSidePropsProps) {
+  const userId = params.userId;
+
   let user: UserModel;
   try {
-    user = await loadOneUser(params.userId);
+    user = await loadOneUser(userId);
   } catch (e) {
     console.error(e);
-    return { notFound: false };
+    return { notFound: true };
   }
 
   let totalProducts: number | null;
   try {
-    totalProducts = await loadUserTotalProducts(params.userId);
+    totalProducts = await loadUserTotalProducts(userId);
   } catch (e) {
     console.error(e);
     totalProducts = null;
@@ -62,6 +50,5 @@ export async function getStaticProps({ params }: GetStaticPropsProps) {
       user,
       totalProducts,
     },
-    revalidate: 5,
   };
 }
