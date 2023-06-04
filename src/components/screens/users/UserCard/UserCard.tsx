@@ -13,7 +13,7 @@ export const UserCard = ({ user }: UserCardProps) => {
     <CardLink href={`/profile/${user.id}`}>
       <Card>
         <CardImage
-          src={user.avatar || "/icons/product_placeholder.svg"}
+          src={user.avatar || "/icons/avatar_placeholder.svg"}
           alt={user.surname || user.companyName}
           width={80}
           height={80}
