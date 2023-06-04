@@ -46,14 +46,15 @@ export async function updateUser({
   return response.data;
 }
 
-export async function updateUserPhoto(id: number, avatarPhoto: any) {
+export async function updateUserPhoto(id: number, avatarPhoto: string) {
   const formData = new FormData();
   formData.append("id", id.toString());
   formData.append("avatar", avatarPhoto);
+  console.log(avatarPhoto);
 
   const response = await axiosAuth.put(`api/user/avatar`, formData);
 
-  return UserAdapter.imageUrlTransform(response.data);
+  return response.data || "";
 }
 
 export async function deleteUserPhoto(userId: number): Promise<UserModel> {

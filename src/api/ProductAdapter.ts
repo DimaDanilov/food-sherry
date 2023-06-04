@@ -15,14 +15,6 @@ export interface ProductsProfileData {
 }
 
 export class ProductAdapter {
-  static imagesUrlTransform(images: Array<string>) {
-    return (
-      images?.map(
-        (imageUrl) =>
-          `${process.env.NEXT_PUBLIC_APP_API_URL}/food_images/${imageUrl}`
-      ) || ""
-    );
-  }
   static transform(productItem: any): ProductModel {
     return {
       id: productItem.id,
@@ -44,7 +36,7 @@ export class ProductAdapter {
       timeCreated: productItem.time_created,
       timeToTake: productItem.time_to_take,
       location: productItem.location,
-      imagesSrc: this.imagesUrlTransform(productItem.images),
+      imagesSrc: productItem.images,
       status: productItem.status,
     };
   }
@@ -64,7 +56,7 @@ export class ProductAdapter {
       },
       timeToTake: productItem.time_to_take,
       location: productItem.location,
-      imagesSrc: this.imagesUrlTransform(productItem.images),
+      imagesSrc: productItem.images,
     };
   }
   static transformShortArray(data: any): ProductsShortData {
@@ -84,7 +76,7 @@ export class ProductAdapter {
     return {
       id: product.id,
       title: product.title,
-      imagesSrc: this.imagesUrlTransform(product.images),
+      imagesSrc: product.images,
       status: product.status,
     };
   }

@@ -58,8 +58,23 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
       const file = event.target.files[0];
       if (file) {
         try {
-          const newImageUrl: string = await updateUserPhoto(user.id, file);
-          setAvatarUrl(newImageUrl);
+          var reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = async function () {
+            try {
+              const newImageUrl: string = await updateUserPhoto(
+                user.id,
+                reader.result?.toString() || ""
+              );
+              setAvatarUrl(newImageUrl);
+            } catch (error) {
+              alert("Error");
+              console.error("Error: ", error);
+            }
+          };
+          reader.onerror = function (error) {
+            console.error("Error: ", error);
+          };
         } catch (e: any) {
           alert(e.response.data.message);
           console.error(e);

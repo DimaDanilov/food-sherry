@@ -24,23 +24,43 @@ export const GiveProductScreen = observer(
 
     const onFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      try {
-        await postProduct({
-          title: giveProductStore.productTitle,
-          category_id: giveProductStore.productSelect,
-          description: giveProductStore.productDescription,
-          amount: giveProductStore.productAmount,
-          time_to_take: giveProductStore.productDatetimeToTake,
-          location: giveProductStore.productAddress,
-          images: giveProductStore.productImages,
-          status: "open",
-        });
-        giveProductStore.reset();
-        router.push("/save-product");
-      } catch (e: any) {
-        alert(e.response.data.message);
-        console.error(e);
-      }
+      let decodedImages: Array<string | ArrayBuffer | null> = [];
+      giveProductStore.productImages.forEach((imageFile) => {
+        var reader = new FileReader();
+        reader.readAsDataURL(imageFile);
+        reader.onload = async function () {
+          try {
+            decodedImages.push(reader.result);
+            if (
+              decodedImages.length === giveProductStore.productImages.length
+            ) {
+              try {
+                await postProduct({
+                  title: giveProductStore.productTitle,
+                  category_id: giveProductStore.productSelect,
+                  description: giveProductStore.productDescription,
+                  amount: giveProductStore.productAmount,
+                  time_to_take: giveProductStore.productDatetimeToTake,
+                  location: giveProductStore.productAddress,
+                  images: decodedImages,
+                  status: "open",
+                });
+                giveProductStore.reset();
+                router.push("/save-product");
+              } catch (e: any) {
+                alert(e.response.data.message);
+                console.error(e);
+              }
+            }
+          } catch (error) {
+            alert("Error");
+            console.error("Error: ", error);
+          }
+        };
+        reader.onerror = function (error) {
+          console.error("Error: ", error);
+        };
+      });
     };
 
     useEffect(() => {

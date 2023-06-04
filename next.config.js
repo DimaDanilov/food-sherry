@@ -5,7 +5,7 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    domains: ["*"],
+    domains: ["res.cloudinary.com", "localhost"],
     remotePatterns: [
       {
         protocol: "https",
