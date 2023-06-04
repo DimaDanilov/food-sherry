@@ -55,6 +55,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             icon={<HiOutlineClock />}
             iconScale={1.3}
             hideStringsExcept={1}
+            capitalize
           >
             {date}
           </IconWithText>

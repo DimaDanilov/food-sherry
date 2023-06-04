@@ -6,6 +6,7 @@ type IconWithText = {
   iconScale?: number;
   children: React.ReactNode;
   hideStringsExcept?: number;
+  capitalize?: boolean;
 };
 
 export const IconWithText = ({
@@ -13,11 +14,14 @@ export const IconWithText = ({
   iconScale,
   children,
   hideStringsExcept,
+  capitalize,
 }: IconWithText) => {
   return (
     <Container>
       <Icon icon={icon} iconScale={iconScale} />
-      <Text hideStringsExcept={hideStringsExcept}>{children}</Text>
+      <Text hideStringsExcept={hideStringsExcept} capitalize={capitalize}>
+        {children}
+      </Text>
     </Container>
   );
 };
@@ -31,6 +35,7 @@ const Container = styled.div`
 
 type TextProps = {
   hideStringsExcept?: number;
+  capitalize?: boolean;
 };
 
 const Text = styled.p<TextProps>`
@@ -41,4 +46,5 @@ const Text = styled.p<TextProps>`
     props.hideStringsExcept}; /* number of lines to show */
   line-clamp: ${(props) => props.hideStringsExcept};
   -webkit-box-orient: ${(props) => props.hideStringsExcept && "vertical"};
+  text-transform: ${(props) => props.capitalize && "capitalize"};
 `;
