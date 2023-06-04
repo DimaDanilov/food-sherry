@@ -74,8 +74,9 @@ export const GiveProductForm = observer(
 
     const handleDateTimeChange = useCallback(
       (event: React.ChangeEvent<HTMLInputElement>) => {
-        giveProductStore.updateProductDatetimeToTake(event.target.value);
-        console.log(event.target.value);
+        giveProductStore.updateProductDatetimeToTake(
+          new Date(event.target.value).toString()
+        );
       },
       [giveProductStore.updateProductDatetimeToTake]
     );
