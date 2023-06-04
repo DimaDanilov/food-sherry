@@ -151,12 +151,12 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
         <BlockWithTooltip>
           <IconWithText icon={<HiOutlineClock />} iconScale={1.3}>
             {productStatus !== "closed"
-              ? date
-                ? `Можно забрать: ${date}`
+              ? new Date(product.timeToTake).toString()
+                ? `Можно забрать: ${new Date(product.timeToTake).toString()}`
                 : "Outdated"
               : "Closed"}
           </IconWithText>
-          <Tooltip>{new Date(product.timeToTake).toLocaleString()}</Tooltip>
+          <Tooltip>{new Date(product.timeToTake).toString()}</Tooltip>
         </BlockWithTooltip>
 
         {product.location && isEditMode ? (
