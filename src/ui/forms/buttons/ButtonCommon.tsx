@@ -57,6 +57,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   padding: ${(props) => props.padding};
   border-radius: 10px;
   cursor: pointer;
+  overflow: hidden;
   &:hover {
     background-color: ${(props) => props.bgColorHover};
   }

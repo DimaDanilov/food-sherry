@@ -32,7 +32,7 @@ export const HomeScreen = () => {
           </Description>
           <ButtonCommon
             padding="20px"
-            width="120%"
+            width="110%"
             styleType="primary"
             onClick={handleClick}
           >
