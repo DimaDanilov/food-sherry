@@ -32,7 +32,7 @@ export const HomeScreen = () => {
           </Description>
           <ButtonCommon
             padding="20px"
-            width="100%"
+            width="120%"
             styleType="primary"
             onClick={handleClick}
           >
@@ -84,9 +84,9 @@ const FoodSharingInfoContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 54px;
+  font-size: 48px;
 `;
 
 const Description = styled.h2`
-  font-size: 24px;
+  font-size: 20px;
 `;
