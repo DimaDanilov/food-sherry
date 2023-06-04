@@ -151,8 +151,8 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
         <BlockWithTooltip>
           <IconWithText icon={<HiOutlineClock />} iconScale={1.3}>
             {productStatus !== "closed"
-              ? parseTakeDate(product.timeToTake)
-                ? `Можно забрать: ${parseTakeDate(product.timeToTake)}`
+              ? date
+                ? `Можно забрать: ${date}`
                 : "Outdated"
               : "Closed"}
           </IconWithText>
