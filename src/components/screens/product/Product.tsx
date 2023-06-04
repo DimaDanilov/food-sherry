@@ -41,6 +41,7 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
   const [description, setDescription] = useState<string>(product.description);
   const [amount, setAmount] = useState<string>(product.amount);
   const [location, setLocation] = useState<string>(product.location);
+  const [date, setDate] = useState<string>("");
 
   const onDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDescription(e.target.value);
@@ -71,6 +72,7 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
     setDescription(product.description);
     setAmount(product.amount);
     setLocation(product.location);
+    setDate(parseCreateDate(product.timeCreated));
   }, [product]);
 
   const onReservingChange = async (
@@ -107,9 +109,7 @@ export const ProductScreen = observer(({ product }: ProductScreenProps) => {
             )}
         </FlexTitleContainer>
 
-        <RegularText fontColor={COLORS.gray}>
-          Добавлено: {parseCreateDate(product.timeCreated)}
-        </RegularText>
+        <RegularText fontColor={COLORS.gray}>Добавлено: {date}</RegularText>
         <NavLink href={`/profile/${product.author.id}`} color="red">
           <IconWithText icon={<HiOutlineUser />} iconScale={1.3}>
             {product.author.name

@@ -12,7 +12,7 @@ export const ProfileProductCard = ({ product }: ProfileProductCardProps) => {
   return (
     <Card href={`/product/${product.id}`}>
       <CardImage
-        src={product.imagesSrc[0]}
+        src={product.imagesSrc[0] || "/icons/product_placeholder.svg"}
         alt={product.title}
         width={300}
         height={300}

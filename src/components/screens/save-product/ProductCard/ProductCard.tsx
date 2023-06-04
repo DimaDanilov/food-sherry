@@ -6,6 +6,7 @@ import { parseTakeDate } from "@/utils/parseTakeDate";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import {
   HiOutlineUser,
   HiOutlineClock,
@@ -18,9 +19,14 @@ type ProductCardProps = {
 };
 
 export const ProductCard = ({ product }: ProductCardProps) => {
+  const [date, setDate] = useState<string>("");
   const router = useRouter();
 
   const handleClick = () => router.push(`/product/${product.id}`);
+
+  useEffect(() => {
+    setDate(parseTakeDate(product.timeToTake) || "Outdated");
+  }, []);
 
   return (
     <Card>
@@ -50,7 +56,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             iconScale={1.3}
             hideStringsExcept={1}
           >
-            {parseTakeDate(product.timeToTake) || "Outdated"}
+            {date}
           </IconWithText>
           <IconWithText
             icon={<HiOutlineMapPin />}
