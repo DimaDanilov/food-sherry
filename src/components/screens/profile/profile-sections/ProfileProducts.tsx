@@ -126,6 +126,7 @@ const HeaderEl = styled.div<HeaderElProps>`
   text-align: center;
   transition: 0.3s;
   cursor: pointer;
+  overflow: hidden;
   &:hover {
     padding: ${(props) => (props.active ? "10px 5px" : "5px 5px 10px")};
     background-color: ${(props) =>
@@ -149,6 +150,7 @@ const ProductsBlock = styled.div`
 const ProductsContainer = styled.div`
   display: grid;
   gap: 30px;
+  overflow: hidden;
   grid-template-columns: repeat(4, 1fr);
   @media (max-width: ${SIZES.laptop}) {
     grid-template-columns: repeat(3, 1fr);
