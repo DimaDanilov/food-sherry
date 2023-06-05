@@ -6,6 +6,7 @@ type ButtonCommonProps = {
   width?: string;
   margin?: string;
   padding?: string;
+  disabled?: boolean;
 
   styleType: "primary" | "secondary";
 
@@ -19,6 +20,7 @@ export const ButtonCommon = ({
   padding,
   styleType,
   children,
+  disabled,
   ...props
 }: ButtonCommonProps) => {
   return (
@@ -32,6 +34,7 @@ export const ButtonCommon = ({
       }
       color={styleType === "primary" ? COLORS.white : COLORS.mainColor}
       {...props}
+      disabled={disabled}
     >
       {children}
     </StyledButton>

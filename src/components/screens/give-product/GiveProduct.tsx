@@ -35,6 +35,7 @@ export const GiveProductScreen = observer(
               decodedImages.length === giveProductStore.productImages.length
             ) {
               try {
+                giveProductStore.updateIsProductsLoading(true);
                 await postProduct({
                   title: giveProductStore.productTitle,
                   category_id: giveProductStore.productSelect,

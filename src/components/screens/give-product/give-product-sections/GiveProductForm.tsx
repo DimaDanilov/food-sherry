@@ -145,6 +145,7 @@ export const GiveProductForm = observer(
           padding="10px"
           styleType="primary"
           value="Submit"
+          disabled={giveProductStore.isProductsLoading}
         >
           Создать объявление
         </ButtonCommon>

@@ -9,6 +9,7 @@ class GiveProductStore {
   productAddress: string = "";
   productDatetimeToTake: string = "";
   productImages: Array<File> = [];
+  isProductsLoading: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -35,6 +36,9 @@ class GiveProductStore {
   updateProductImages(images: Array<File>) {
     this.productImages = images;
   }
+  updateIsProductsLoading(status: boolean) {
+    this.isProductsLoading = status;
+  }
   reset() {
     this.updateProductSelect("0");
     this.updateProductTitle("");
@@ -43,6 +47,7 @@ class GiveProductStore {
     this.updateProductAddress("");
     this.updateProductDatetimeToTake("");
     this.updateProductImages([]);
+    this.updateIsProductsLoading(false);
   }
 }
 
