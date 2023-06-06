@@ -92,6 +92,7 @@ export const SaveProductScreen = ({
           searchOnChange={onSearchChange}
           icon={<HiOutlineMagnifyingGlass color={COLORS.gray} />}
           iconScale={1.3}
+          placeholder="Поиск продуктов"
         />
       </form>
       <FilterSortContainer>
