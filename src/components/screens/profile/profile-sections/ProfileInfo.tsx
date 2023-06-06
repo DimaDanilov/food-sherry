@@ -142,7 +142,7 @@ export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
                 id="addAvatar"
                 value=""
                 name="addAvatar"
-                accept="image/png, image/gif, image/jpeg"
+                accept="image/jpeg"
                 onChange={onPhotoUpdate}
               />
               <EditPhotoBtn htmlFor="addAvatar">
