@@ -10,7 +10,7 @@ type UserCardProps = {
 
 export const UserCard = ({ user }: UserCardProps) => {
   return (
-    <CardLink href={`/profile/${user.id}`}>
+    <CardLink href={`/profile/${user.id}?page=1`}>
       <Card>
         <CardImage
           src={user.avatar || "/icons/avatar_placeholder.svg"}

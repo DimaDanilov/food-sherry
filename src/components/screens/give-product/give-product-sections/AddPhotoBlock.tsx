@@ -87,7 +87,7 @@ export const AddPhotoBlock = observer(() => {
         id="addImage"
         value=""
         name="addImage"
-        accept="image/png, image/gif, image/jpeg"
+        accept="image/jpeg"
         multiple
         disabled={giveProductStore.productImages.length >= MAX_PHOTO_COUNT}
         onChange={handleAddPhotos}
