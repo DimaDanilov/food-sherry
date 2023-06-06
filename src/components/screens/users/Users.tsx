@@ -54,6 +54,7 @@ export const UsersScreen = ({ usersData, page, search }: UsersScreenProps) => {
           searchOnChange={onSearchChange}
           icon={<HiOutlineMagnifyingGlass color={COLORS.gray} />}
           iconScale={1.3}
+          placeholder="Поиск пользователей"
         />
       </form>
       <CardsContainer>
