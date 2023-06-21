@@ -10,261 +10,266 @@ import { InputUpdateData } from "@/ui/forms/inputs/InputUpdateData";
 import Image from "next/image";
 import { InputUpdateMask } from "@/ui/forms/inputs/InputUpdateMask";
 import { auth } from "@/api/AuthApi";
+import { observer } from "mobx-react";
 
 type ProfileInfoProps = {
   user: UserModel;
   totalProducts: number;
 };
 
-export const ProfileInfo = ({ user, totalProducts }: ProfileInfoProps) => {
-  const authStore = useAuthStore();
-  const [isEditMode, setIsEditMode] = useState<boolean>(false);
-  const [phone, setPhone] = useState<string>(user.phone);
-  const [avatarUrl, setAvatarUrl] = useState<string>(user.avatar);
-  const [email, setEmail] = useState<string>(user.email);
-  const [name, setName] = useState<string>(user.name);
-  const [surname, setSurname] = useState<string>(user.surname);
-  const [companyName, setCompanyName] = useState<string>(user.companyName);
+export const ProfileInfo = observer(
+  ({ user, totalProducts }: ProfileInfoProps) => {
+    const authStore = useAuthStore();
+    const [isEditMode, setIsEditMode] = useState<boolean>(false);
+    const [phone, setPhone] = useState<string>(user.phone);
+    const [avatarUrl, setAvatarUrl] = useState<string>(user.avatar);
+    const [email, setEmail] = useState<string>(user.email);
+    const [name, setName] = useState<string>(user.name);
+    const [surname, setSurname] = useState<string>(user.surname);
+    const [companyName, setCompanyName] = useState<string>(user.companyName);
 
-  const onFormSubmit =
-    () => async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      try {
-        if (isEditMode) {
-          await updateUser({
-            userId: user.id,
-            name,
-            surname,
-            companyName,
-            phone,
-            email,
-          });
+    const onFormSubmit =
+      () => async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        try {
+          if (isEditMode) {
+            await updateUser({
+              userId: user.id,
+              name,
+              surname,
+              companyName,
+              phone,
+              email,
+            });
+            try {
+              const user: UserModel = await auth();
+              authStore.setUser(user);
+            } catch (e) {
+              authStore.setUser({} as UserModel);
+            }
+          }
+          setIsEditMode(!isEditMode);
+        } catch (e: any) {
+          alert(e.response.data.message);
+          console.error(e);
+        }
+      };
+
+    const onPhotoUpdate = async (
+      event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+      if (event.target.files) {
+        const file = event.target.files[0];
+        if (file) {
           try {
-            const user: UserModel = await auth();
-            authStore.setUser(user);
-          } catch (e) {
-            authStore.setUser({} as UserModel);
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = async function () {
+              try {
+                const newImageUrl: string = await updateUserPhoto(
+                  user.id,
+                  reader.result?.toString() || ""
+                );
+                setAvatarUrl(newImageUrl);
+              } catch (error) {
+                alert("Error");
+                console.error("Error: ", error);
+              }
+            };
+            reader.onerror = function (error) {
+              console.error("Error: ", error);
+            };
+          } catch (e: any) {
+            alert(e.response.data.message);
+            console.error(e);
           }
         }
-        setIsEditMode(!isEditMode);
+      }
+    };
+
+    const onPhotoDelete = async () => {
+      try {
+        await deleteUserPhoto(user.id);
+        setAvatarUrl("");
       } catch (e: any) {
         alert(e.response.data.message);
         console.error(e);
       }
     };
 
-  const onPhotoUpdate = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      const file = event.target.files[0];
-      if (file) {
-        try {
-          var reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onload = async function () {
-            try {
-              const newImageUrl: string = await updateUserPhoto(
-                user.id,
-                reader.result?.toString() || ""
-              );
-              setAvatarUrl(newImageUrl);
-            } catch (error) {
-              alert("Error");
-              console.error("Error: ", error);
-            }
-          };
-          reader.onerror = function (error) {
-            console.error("Error: ", error);
-          };
-        } catch (e: any) {
-          alert(e.response.data.message);
-          console.error(e);
-        }
+    const onPhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const shortPhone = e.target.value.replace(/\D/g, "");
+      if (shortPhone.length < 11) {
+        e.currentTarget.setCustomValidity("Enter full phone number.");
+      } else {
+        e.currentTarget.setCustomValidity("");
       }
-    }
-  };
+      setPhone(e.target.value);
+    };
+    const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setEmail(e.target.value);
+    };
+    const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setName(e.target.value);
+    };
+    const onSurnameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSurname(e.target.value);
+    };
+    const onCompanyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setCompanyName(e.target.value);
+    };
 
-  const onPhotoDelete = async () => {
-    try {
-      await deleteUserPhoto(user.id);
-      setAvatarUrl("");
-    } catch (e: any) {
-      alert(e.response.data.message);
-      console.error(e);
-    }
-  };
+    useEffect(() => {
+      setIsEditMode(false);
+      setPhone(user.phone);
+      setEmail(user.email);
+      setName(user.name);
+      setSurname(user.surname);
+      setCompanyName(user.companyName);
+      setAvatarUrl(user.avatar);
+    }, [user]);
 
-  const onPhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const shortPhone = e.target.value.replace(/\D/g, "");
-    if (shortPhone.length < 11) {
-      e.currentTarget.setCustomValidity("Enter full phone number.");
-    } else {
-      e.currentTarget.setCustomValidity("");
-    }
-    setPhone(e.target.value);
-  };
-  const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-  const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
-  const onSurnameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSurname(e.target.value);
-  };
-  const onCompanyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCompanyName(e.target.value);
-  };
-
-  useEffect(() => {
-    setIsEditMode(false);
-    setPhone(user.phone);
-    setEmail(user.email);
-    setName(user.name);
-    setSurname(user.surname);
-    setCompanyName(user.companyName);
-    setAvatarUrl(user.avatar);
-  }, [user]);
-
-  return (
-    <div>
-      <form onSubmit={onFormSubmit()}>
-        <ProfileBriefData>
-          {/* Avatar Image */}
-          {user.id === authStore.user.id ? (
-            <ImageContainerForButtons>
-              {avatarUrl && (
-                <DeletePhotoBtn onClick={onPhotoDelete}>
-                  <HiOutlineXCircle color={COLORS.mainHoverDark} size={30} />
-                </DeletePhotoBtn>
-              )}
-              <FileInput
-                type="file"
-                id="addAvatar"
-                value=""
-                name="addAvatar"
-                accept="image/jpeg"
-                onChange={onPhotoUpdate}
-              />
-              <EditPhotoBtn htmlFor="addAvatar">
-                {avatarUrl ? (
-                  <AvatarImageContainer>
-                    <AvatarImage
-                      width={400}
-                      height={400}
-                      alt=""
-                      src={avatarUrl}
-                    />
-                  </AvatarImageContainer>
-                ) : (
-                  <AvatarImagePlaceholder color={COLORS.mainColor} />
+    return (
+      <div>
+        <form onSubmit={onFormSubmit()}>
+          <ProfileBriefData>
+            {/* Avatar Image */}
+            {user.id === authStore.user.id ? (
+              <ImageContainerForButtons>
+                {avatarUrl && (
+                  <DeletePhotoBtn onClick={onPhotoDelete}>
+                    <HiOutlineXCircle color={COLORS.mainHoverDark} size={30} />
+                  </DeletePhotoBtn>
                 )}
-              </EditPhotoBtn>
-            </ImageContainerForButtons>
-          ) : avatarUrl ? (
-            <AvatarImageContainer>
-              <AvatarImage width={400} height={400} alt="" src={avatarUrl} />
-            </AvatarImageContainer>
-          ) : (
-            <AvatarImagePlaceholder color={COLORS.mainColor} />
-          )}
+                <FileInput
+                  type="file"
+                  id="addAvatar"
+                  value=""
+                  name="addAvatar"
+                  accept="image/jpeg"
+                  onChange={onPhotoUpdate}
+                />
+                <EditPhotoBtn htmlFor="addAvatar">
+                  {avatarUrl ? (
+                    <AvatarImageContainer>
+                      <AvatarImage
+                        width={400}
+                        height={400}
+                        alt=""
+                        src={avatarUrl}
+                      />
+                    </AvatarImageContainer>
+                  ) : (
+                    <AvatarImagePlaceholder color={COLORS.mainColor} />
+                  )}
+                </EditPhotoBtn>
+              </ImageContainerForButtons>
+            ) : avatarUrl ? (
+              <AvatarImageContainer>
+                <AvatarImage width={400} height={400} alt="" src={avatarUrl} />
+              </AvatarImageContainer>
+            ) : (
+              <AvatarImagePlaceholder color={COLORS.mainColor} />
+            )}
 
-          {(user.name || user.surname) && isEditMode ? (
-            <>
+            {(user.name || user.surname) && isEditMode ? (
+              <>
+                <InputUpdateData
+                  autoFocus={true}
+                  type="text"
+                  name="name"
+                  value={name}
+                  onChange={onNameChange}
+                  required
+                />
+                <InputUpdateData
+                  type="text"
+                  name="surname"
+                  value={surname}
+                  onChange={onSurnameChange}
+                  required
+                />
+              </>
+            ) : (
+              <>
+                <Title>{name}</Title>
+                <Title>{surname}</Title>
+              </>
+            )}
+
+            {user.companyName && isEditMode ? (
               <InputUpdateData
                 autoFocus={true}
                 type="text"
-                name="name"
-                value={name}
-                onChange={onNameChange}
-                required
+                name="companyName"
+                value={companyName}
+                onChange={onCompanyNameChange}
               />
-              <InputUpdateData
-                type="text"
-                name="surname"
-                value={surname}
-                onChange={onSurnameChange}
-                required
-              />
-            </>
-          ) : (
-            <>
-              <Title>{name}</Title>
-              <Title>{surname}</Title>
-            </>
-          )}
+            ) : (
+              <Title>{companyName}</Title>
+            )}
+          </ProfileBriefData>
 
-          {user.companyName && isEditMode ? (
-            <InputUpdateData
-              autoFocus={true}
-              type="text"
-              name="companyName"
-              value={companyName}
-              onChange={onCompanyNameChange}
-            />
-          ) : (
-            <Title>{companyName}</Title>
-          )}
-        </ProfileBriefData>
-
-        <InfoDetails>
-          <h5>Телефон:</h5>
-          {isEditMode ? (
-            <InputUpdateMask
-              mask="+7 (999) 999-99-99"
-              name="phone"
-              value={phone}
-              onChange={onPhoneChange}
-            />
-          ) : (
-            <span>{phone}</span>
-          )}
-        </InfoDetails>
-
-        <InfoDetails>
-          <h5>Почта:</h5>
-          {isEditMode ? (
-            <InputUpdateData
-              type="email"
-              name="email"
-              value={email}
-              onChange={onEmailChange}
-              required
-            />
-          ) : (
-            <span>{email}</span>
-          )}
-        </InfoDetails>
-
-        {user.timeCreated && (
-          <>
-            <InfoDetails>
-              <h5>Помогает с:</h5>
-              <span>{new Date(user.timeCreated).toLocaleDateString()}</span>
-            </InfoDetails>
-          </>
-        )}
-
-        {totalProducts !== null && (
           <InfoDetails>
-            <h5>Создал объявлений:</h5>
-            <p>{totalProducts}</p>
+            <h5>Телефон:</h5>
+            {isEditMode ? (
+              <InputUpdateMask
+                mask="+7 (999) 999-99-99"
+                name="phone"
+                value={phone}
+                onChange={onPhoneChange}
+              />
+            ) : (
+              <span>{phone}</span>
+            )}
           </InfoDetails>
-        )}
 
-        {user.id === authStore.user.id && (
-          <ButtonCommon
-            type="submit"
-            width="100%"
-            styleType="primary"
-            padding="8px 0"
-          >
-            {isEditMode ? "Сохранить редактирование" : "Редактировать"}
-          </ButtonCommon>
-        )}
-      </form>
-    </div>
-  );
-};
+          <InfoDetails>
+            <h5>Почта:</h5>
+            {isEditMode ? (
+              <InputUpdateData
+                type="email"
+                name="email"
+                value={email}
+                onChange={onEmailChange}
+                required
+              />
+            ) : (
+              <span>{email}</span>
+            )}
+          </InfoDetails>
+
+          {user.timeCreated && (
+            <>
+              <InfoDetails>
+                <h5>Помогает с:</h5>
+                <span>{new Date(user.timeCreated).toLocaleDateString()}</span>
+              </InfoDetails>
+            </>
+          )}
+
+          {totalProducts !== null && (
+            <InfoDetails>
+              <h5>Создал объявлений:</h5>
+              <p>{totalProducts}</p>
+            </InfoDetails>
+          )}
+
+          {user.id === authStore.user.id && (
+            <ButtonCommon
+              type="submit"
+              width="100%"
+              styleType="primary"
+              padding="8px 0"
+            >
+              {isEditMode ? "Сохранить редактирование" : "Редактировать"}
+            </ButtonCommon>
+          )}
+        </form>
+      </div>
+    );
+  }
+);
 
 const ProfileBriefData = styled.div`
   margin: 0 auto 20px;
